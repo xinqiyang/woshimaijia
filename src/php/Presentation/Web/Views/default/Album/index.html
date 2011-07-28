@@ -1,0 +1,17 @@
+<div class="amain">
+<volist name="album" id="vo">
+<div class="ablock"><a 
+	href="__APP__/album/albumshow/id/{$vo.id}"> <img class="album"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/l_{$vo.filename}" title="{$vo.title}"></a>
+<div style="width: 100%;" class="ll"><a
+	href="__APP__/album/albumshow/id/{$vo.id}">{$vo.title}</a></div>
+
+</div>
+
+</volist>
+<div class="clear" ></div>
+</div>
+<div class="aside">
+<include file="Component:actionlink" />
+</div>
+<div class="extra"></div>

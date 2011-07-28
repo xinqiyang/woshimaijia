@@ -1,0 +1,3 @@
+LICENSE
+
+this is license file for yxqcodes.

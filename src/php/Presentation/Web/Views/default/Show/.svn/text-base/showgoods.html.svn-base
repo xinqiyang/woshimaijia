@@ -1,0 +1,129 @@
+
+<div class="amain">
+
+<div class="goodshowblock">
+<div class="displayauto clearfix">
+<div class="subject clearfix">
+<div class="mainpic"><a href="__APP__/show/showgoods/id/{$vo.gid}"
+	title=""><img src="{$vo.url}/{$vo.model}/spic/l_{$vo.filename}"
+	title="{$vo.title}" alt="{$vo.title}"></a><br>
+</div>
+<div style="display:block;float:right;width:268px;padding-bottom:10px;">
+<div style="display:block;padding-top:10px;float:left;">
+<div class="info"><span> <span class="pl">东西来源</span>: <a
+	href="{$vo.fromurl}">点击访问</a></span><br>
+<span><span class="pl">东西名称</span>: {$vo.title}</span><br>
+<br>
+
+<div class="obmo">
+<span class="pl">谁晒的呢:</span><a class="pl-5" href="__APP__/people/space/id/{$vo.uid}">{$vo.cnname}</a><br>
+<br>
+<!-- 
+<span class="pl">东西品牌:</span> <a href="">{$vo.brand_id}</a><br>
+ -->
+<span class="pl">喜欢指数:</span> <span id="likenum">{$vo.likenum}</span> <br>
+<span class="pl">想买指数:</span> <span id="wantnum">{$vo.wantnum} </span><br>
+<if condition="$vo.showtype eq 2">
+<span class="pl">拥有指数:</span> <span id="ownernum">{$vo.ownernum} </span><br>
+</if>
+
+<span class="pl">东西标签:</span> <a class="pl-5" href="">{$vo.tags|getTags}</a><br><br>
+ <a class="gotobutton" href="{$vo.fromurl}" target="_blank">去购买地看看</a>
+</div>
+</div>
+</div>
+<div style="display:block;padding-top:10px;float:left;">
+<div class="interest_action">
+<span id="result"></span>
+<div class="rating_wrap clearbox">
+
+<input class="btn-action" type="button" onclick="usaction('likenum','{$vo.gid}')" value="我喜欢"><br>
+<input class="btn-action" type="button" onclick="usaction('wantnum','{$vo.gid}')" value="我想买"><br>
+<if condition="$vo.showtype eq 2">
+<input class="btn-action" type="button" onclick="usaction('ownernum','{$vo.gid}')" value="已拥有"><br>
+</if>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</div>
+</div>
+<if condition="($vo.showtype eq 2) and ($vo.imageids neq '')">
+<h2 class="blod">{$vo.title}的大图,点击查看</h2>
+<div id="gallery" style="margin-top:8px;">
+<ul >
+<volist name="imageidss" id="mvo" key="k">
+<li>
+<a href="{$mvo.url}/{$mvo.model}/mpic/{$mvo.filename}"  title="{$vo.title} 图{$k}" target="_blank">
+<img src="{$mvo.url}/{$mvo.model}/spic/{$mvo.filename}"
+	title="{$vo.title}" alt="{$vo.title}" />
+</a>
+</li>
+</volist>
+</ul>
+</div>
+<div class="clear"></div>
+</if>
+<div style="display:block;padding-top:3px;float:left;">
+<p class="pcss">{$vo.desc|nl2br} </p>
+</div>
+<div class="clear"></div>
+
+<div class="loverlist">
+
+<h2 class="bold">喜欢{$vo.title|msubstr=0,30}的大家 ...(<a href="">全部</a>)</h2>
+<div id="likenumlist" style="float:left;">
+<volist name="uam['likenum']" id="lvo">
+<a href="__APP__/people/space/id/{$lvo.id}" ><img
+		src="{$lvo.url}/{$lvo.model}/spic/m_{$lvo.filename}" title="{$lvo.cnname}"
+		alt="{$lvo.cnname}">
+</a>
+</volist>
+</div>
+
+<div class="clear"></div>
+<h2 class="bold">想买{$vo.title|msubstr=0,30}的大家 ...(<a href="">全部</a>)</h2>
+<div id="wantnumlist" style="float:left;">
+<volist name="uam['wantnum']" id="lvo">
+<a href="__APP__/people/space/id/{$lvo.id}" ><img
+		src="{$lvo.url}/{$lvo.model}/spic/m_{$lvo.filename}" title="{$lvo.cnname}"
+		alt="{$lvo.cnname}">
+</a>
+</volist>
+</div>
+<div class="clear"></div>
+<if condition="$vo.showtype eq 2">
+<h2 class="bold">已拥有{$vo.title|msubstr=0,30}的大家 ...(<a href="">全部</a>)</h2>
+<div id="ownernumlist" style="float:left;">
+<volist name="uam['ownernum']" id="lvo">
+<a href="__APP__/people/space/id/{$lvo.id}" ><img
+		src="{$lvo.url}/{$lvo.model}/spic/m_{$lvo.filename}" title="{$lvo.cnname}"
+		alt="{$lvo.cnname}">
+</a>
+</volist>
+</div>
+<div class="clear"></div>
+</if>
+</div>
+
+<div class="goodsdesc">
+<include file='component:comments' />
+<br />
+<a class="gotobutton" href="{$vo.fromurl}" target="_blank" style="float:right; margin-right:30px;">去购买地看看</a>
+</div>
+
+
+</div>
+<div class="aside"><include file="Component:actionlink" /><include file="Component:post" /> <include
+	file="Component:adblock" /> </div>
+<div class="extra"></div>
+
+

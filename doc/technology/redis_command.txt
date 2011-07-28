@@ -1,0 +1,714 @@
+Redis Command
+
+$redis = new Redis();
+
+$redis->connect('127.0.0.1', 6379);
+$redis->connect('127.0.0.1'); // port 6379 by default
+$redis->connect('127.0.0.1', 6379, 2.5); // 2.5 sec timeout.
+$redis->connect('/tmp/redis.sock'); // unix domain socket.
+
+$redis->pconnect('127.0.0.1', 6379);
+$redis->pconnect('127.0.0.1'); // port 6379 by default - same connection like before.
+$redis->pconnect('127.0.0.1', 6379, 2.5); // 2.5 sec timeout and would be another connection than the two before.
+$redis->pconnect('127.0.0.1', 6379, 2.5, 'x'); // x is sent as persistent_id and would be another connection the the three before.
+$redis->pconnect('/tmp/redis.sock'); // unix domain socket - would be another connection than the four before.
+
+
+
+$redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);   // don't serialize data
+$redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP);    // use built-in serialize/unserialize
+$redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY);   // use igBinary serialize/unserialize
+
+$redis->setOption(Redis::OPT_PREFIX, 'myAppName:'); // use custom prefix on all keys
+
+
+$redis->getOption(Redis::OPT_SERIALIZER);   // return Redis::SERIALIZER_NONE, Redis::SERIALIZER_PHP, or Redis::SERIALIZER_IGBINARY.
+
+
+$redis->get('key');
+
+$redis->set('key', 'value');
+
+$redis->setex('key', 3600, 'value'); // sets key → value, with 1h TTL.
+
+$redis->setnx('key', 'value'); /* return TRUE */
+$redis->setnx('key', 'value'); /* return FALSE */
+
+$redis->set('key1', 'val1');
+$redis->set('key2', 'val2');
+$redis->set('key3', 'val3');
+$redis->set('key4', 'val4');
+
+$redis->delete('key1', 'key2'); /* return 2 */
+$redis->delete(array('key3', 'key4')); /* return 2 */
+
+
+$ret = $redis->multi()
+    ->set('key1', 'val1')
+    ->get('key1')
+    ->set('key2', 'val2')
+    ->get('key2')
+    ->exec();
+
+/*
+$ret == array(
+    0 => TRUE,
+    1 => 'val1',
+    2 => TRUE,
+    3 => 'val2');
+*/
+
+
+$redis->watch('x');
+/* long code here during the execution of which other clients could well modify `x` */
+$ret = $redis->multi()
+    ->incr('x')
+    ->exec();
+/*
+$ret = FALSE if x has been modified between the call to WATCH and the call to EXEC.
+*/
+
+
+function f($redis, $chan, $msg) {
+    switch($chan) {
+        case 'chan-1':
+            ...
+            break;
+
+        case 'chan-2':
+            ...
+            break;
+
+        case 'chan-2':
+            ...
+            break;
+    }
+}
+
+$redis->subscribe(array('chan-1', 'chan-2', 'chan-3'), 'f'); // subscribe to 3 chans
+
+$redis->publish('chan-1', 'hello, world!'); // send message.
+
+$redis->set('key', 'value');
+$redis->exists('key'); /*  TRUE */
+$redis->exists('NonExistingKey'); /* FALSE */
+
+
+$redis->incr('key1'); /* key1 didn't exists, set to 0 before the increment */
+                      /* and now has the value 1  */
+
+$redis->incr('key1'); /* 2 */
+$redis->incr('key1'); /* 3 */
+$redis->incr('key1'); /* 4 */
+$redis->incrBy('key1', 10); /* 14 */
+
+
+$redis->decr('key1'); /* key1 didn't exists, set to 0 before the increment */
+                      /* and now has the value -1  */
+
+$redis->decr('key1'); /* -2 */
+$redis->decr('key1'); /* -3 */
+$redis->decrBy('key1', 10); /* -13 */
+
+
+$redis->set('key1', 'value1');
+$redis->set('key2', 'value2');
+$redis->set('key3', 'value3');
+$redis->getMultiple(array('key1', 'key2', 'key3')); /* array('value1', 'value2', 'value3');
+$redis->getMultiple(array('key0', 'key1', 'key5')); /* array(`FALSE`, 'value2', `FALSE`);
+
+$redis->delete('key1');
+$redis->lPush('key1', 'C'); // returns 1
+$redis->lPush('key1', 'B'); // returns 2
+$redis->lPush('key1', 'A'); // returns 3
+/* key1 now points to the following list: [ 'A', 'B', 'C' ] */
+
+$redis->delete('key1');
+$redis->rPush('key1', 'A'); // returns 1
+$redis->rPush('key1', 'B'); // returns 2
+$redis->rPush('key1', 'C'); // returns 3
+/* key1 now points to the following list: [ 'A', 'B', 'C' ] */
+
+$redis->delete('key1');
+$redis->lPushx('key1', 'A'); // returns 0
+$redis->lPush('key1', 'A'); // returns 1
+$redis->lPushx('key1', 'B'); // returns 2
+$redis->lPushx('key1', 'C'); // returns 3
+/* key1 now points to the following list: [ 'A', 'B', 'C' ] */
+
+$redis->delete('key1');
+$redis->rPushx('key1', 'A'); // returns 0
+$redis->rPush('key1', 'A'); // returns 1
+$redis->rPushx('key1', 'B'); // returns 2
+$redis->rPushx('key1', 'C'); // returns 3
+/* key1 now points to the following list: [ 'A', 'B', 'C' ] */
+
+$redis->rPush('key1', 'A');
+$redis->rPush('key1', 'B');
+$redis->rPush('key1', 'C'); /* key1 => [ 'A', 'B', 'C' ] */
+$redis->lPop('key1'); /* key1 => [ 'B', 'C' ] */
+
+$redis->rPush('key1', 'A');
+$redis->rPush('key1', 'B');
+$redis->rPush('key1', 'C'); /* key1 => [ 'A', 'B', 'C' ] */
+$redis->rPop('key1'); /* key1 => [ 'A', 'B' ] */
+
+/* Non blocking feature */
+$redis->lPush('key1', 'A');
+$redis->delete('key2');
+
+$redis->blPop('key1', 'key2', 10); /* array('key1', 'A') */
+/* OR */
+$redis->blPop(array('key1', 'key2'), 10); /* array('key1', 'A') */
+
+$redis->brPop('key1', 'key2', 10); /* array('key1', 'A') */
+/* OR */
+$redis->brPop(array('key1', 'key2'), 10); /* array('key1', 'A') */
+
+/* Blocking feature */
+
+/* process 1 */
+$redis->delete('key1');
+$redis->blPop('key1', 10);
+/* blocking for 10 seconds */
+
+/* process 2 */
+$redis->lPush('key1', 'A');
+
+/* process 1 */
+/* array('key1', 'A') is returned*/
+
+
+
+$redis->rPush('key1', 'A');
+$redis->rPush('key1', 'B');
+$redis->rPush('key1', 'C'); /* key1 => [ 'A', 'B', 'C' ] */
+$redis->lSize('key1');/* 3 */
+$redis->rPop('key1'); 
+$redis->lSize('key1');/* 2 */
+
+$redis->rPush('key1', 'A');
+$redis->rPush('key1', 'B');
+$redis->rPush('key1', 'C'); /* key1 => [ 'A', 'B', 'C' ] */
+$redis->lGet('key1', 0); /* 'A' */
+$redis->lGet('key1', -1); /* 'C' */
+$redis->lGet('key1', 10); /* `FALSE` */
+
+
+$redis->rPush('key1', 'A');
+$redis->rPush('key1', 'B');
+$redis->rPush('key1', 'C'); /* key1 => [ 'A', 'B', 'C' ] */
+$redis->lGet('key1', 0); /* 'A' */
+$redis->lSet('key1', 0, 'X');
+$redis->lGet('key1', 0); /* 'X' */ 
+
+
+$redis->rPush('key1', 'A');
+$redis->rPush('key1', 'B');
+$redis->rPush('key1', 'C');
+$redis->lRange('key1', 0, -1); /* array('A', 'B', 'C') */
+
+$redis->rPush('key1', 'A');
+$redis->rPush('key1', 'B');
+$redis->rPush('key1', 'C');
+$redis->lRange('key1', 0, -1); /* array('A', 'B', 'C') */
+$redis->lTrim('key1', 0, 1);
+$redis->lRange('key1', 0, -1); /* array('A', 'B') */
+
+$redis->lPush('key1', 'A');
+$redis->lPush('key1', 'B');
+$redis->lPush('key1', 'C'); 
+$redis->lPush('key1', 'A'); 
+$redis->lPush('key1', 'A'); 
+
+$redis->lRange('key1', 0, -1); /* array('A', 'A', 'C', 'B', 'A') */
+$redis->lRem('key1', 'A', 2); /* 2 */
+$redis->lRange('key1', 0, -1); /* array('C', 'B', 'A') */
+
+$redis->delete('key1');
+$redis->lInsert('key1', Redis::AFTER, 'A', 'X'); /* 0 */
+
+$redis->lPush('key1', 'A');
+$redis->lPush('key1', 'B');
+$redis->lPush('key1', 'C');
+
+$redis->lInsert('key1', Redis::BEFORE, 'C', 'X'); /* 4 */
+$redis->lRange('key1', 0, -1); /* array('A', 'B', 'X', 'C') */
+
+$redis->lInsert('key1', Redis::AFTER, 'C', 'Y'); /* 5 */
+$redis->lRange('key1', 0, -1); /* array('A', 'B', 'X', 'C', 'Y') */
+
+$redis->lInsert('key1', Redis::AFTER, 'W', 'value'); /* -1 */
+
+
+$redis->sAdd('key1' , 'set1'); /* TRUE, 'key1' => {'set1'} */
+$redis->sAdd('key1' , 'set2'); /* TRUE, 'key1' => {'set1', 'set2'}*/
+$redis->sAdd('key1' , 'set2'); /* FALSE, 'key1' => {'set1', 'set2'}*/
+
+
+$redis->sAdd('key1' , 'set1'); 
+$redis->sAdd('key1' , 'set2'); 
+$redis->sAdd('key1' , 'set3'); /* 'key1' => {'set1', 'set2', 'set3'}*/
+$redis->sRem('key1', 'set2'); /* 'key1' => {'set1', 'set3'} */
+
+$redis->sAdd('key1' , 'set11'); 
+$redis->sAdd('key1' , 'set12'); 
+$redis->sAdd('key1' , 'set13'); /* 'key1' => {'set11', 'set12', 'set13'}*/
+$redis->sAdd('key2' , 'set21'); 
+$redis->sAdd('key2' , 'set22'); /* 'key2' => {'set21', 'set22'}*/
+$redis->sMove('key1', 'key2', 'set13'); /* 'key1' =>  {'set11', 'set12'} */
+                    /* 'key2' =>  {'set21', 'set22', 'set13'} */
+
+
+$redis->sAdd('key1' , 'set1'); 
+$redis->sAdd('key1' , 'set2'); 
+$redis->sAdd('key1' , 'set3'); /* 'key1' => {'set1', 'set2', 'set3'}*/
+
+$redis->sIsMember('key1', 'set1'); /* TRUE */
+$redis->sIsMember('key1', 'setX'); /* FALSE */
+
+$redis->sAdd('key1' , 'set1'); 
+$redis->sAdd('key1' , 'set2'); 
+$redis->sAdd('key1' , 'set3'); /* 'key1' => {'set1', 'set2', 'set3'}*/
+$redis->sCard('key1'); /* 3 */
+$redis->sCard('keyX'); /* 0 */
+
+
+$redis->sAdd('key1' , 'set1'); 
+$redis->sAdd('key1' , 'set2'); 
+$redis->sAdd('key1' , 'set3'); /* 'key1' => {'set3', 'set1', 'set2'}*/
+$redis->sPop('key1'); /* 'set1', 'key1' => {'set3', 'set2'} */
+$redis->sPop('key1'); /* 'set3', 'key1' => {'set2'} */
+
+$redis->sAdd('key1' , 'set1'); 
+$redis->sAdd('key1' , 'set2'); 
+$redis->sAdd('key1' , 'set3'); /* 'key1' => {'set3', 'set1', 'set2'}*/
+$redis->sRandMember('key1'); /* 'set1', 'key1' => {'set3', 'set1', 'set2'} */
+$redis->sRandMember('key1'); /* 'set3', 'key1' => {'set3', 'set1', 'set2'} */
+
+
+
+$redis->sAdd('key1', 'val1');
+$redis->sAdd('key1', 'val2');
+$redis->sAdd('key1', 'val3');
+$redis->sAdd('key1', 'val4');
+
+$redis->sAdd('key2', 'val3');
+$redis->sAdd('key2', 'val4');
+
+$redis->sAdd('key3', 'val3');
+$redis->sAdd('key3', 'val4');
+
+var_dump($redis->sInter('key1', 'key2', 'key3'));
+
+
+
+$redis->sAdd('key1', 'val1');
+$redis->sAdd('key1', 'val2');
+$redis->sAdd('key1', 'val3');
+$redis->sAdd('key1', 'val4');
+
+$redis->sAdd('key2', 'val3');
+$redis->sAdd('key2', 'val4');
+
+$redis->sAdd('key3', 'val3');
+$redis->sAdd('key3', 'val4');
+
+var_dump($redis->sInterStore('output', 'key1', 'key2', 'key3'));
+var_dump($redis->sMembers('output'));
+
+
+
+$redis->delete('s0', 's1', 's2');
+
+$redis->sAdd('s0', '1');
+$redis->sAdd('s0', '2');
+$redis->sAdd('s1', '3');
+$redis->sAdd('s1', '1');
+$redis->sAdd('s2', '3');
+$redis->sAdd('s2', '4');
+
+var_dump($redis->sUnion('s0', 's1', 's2'));
+
+
+$redis->delete('s0', 's1', 's2');
+
+$redis->sAdd('s0', '1');
+$redis->sAdd('s0', '2');
+$redis->sAdd('s1', '3');
+$redis->sAdd('s1', '1');
+$redis->sAdd('s2', '3');
+$redis->sAdd('s2', '4');
+
+var_dump($redis->sUnionStore('dst', 's0', 's1', 's2'));
+var_dump($redis->sMembers('dst'));
+
+
+$redis->delete('s0', 's1', 's2');
+
+$redis->sAdd('s0', '1');
+$redis->sAdd('s0', '2');
+$redis->sAdd('s0', '3');
+$redis->sAdd('s0', '4');
+
+$redis->sAdd('s1', '1');
+$redis->sAdd('s2', '3');
+
+var_dump($redis->sDiff('s0', 's1', 's2'));
+
+
+$redis->delete('s0', 's1', 's2');
+
+$redis->sAdd('s0', '1');
+$redis->sAdd('s0', '2');
+$redis->sAdd('s0', '3');
+$redis->sAdd('s0', '4');
+
+$redis->sAdd('s1', '1');
+$redis->sAdd('s2', '3');
+
+var_dump($redis->sDiffStore('dst', 's0', 's1', 's2'));
+var_dump($redis->sMembers('dst'));
+
+
+
+$redis->delete('s');
+$redis->sAdd('s', 'a');
+$redis->sAdd('s', 'b');
+$redis->sAdd('s', 'a');
+$redis->sAdd('s', 'c');
+var_dump($redis->sMembers('s'));
+
+
+$redis->set('x', '42');
+$exValue = $redis->getSet('x', 'lol');  // return '42', replaces x by 'lol'
+$newValue = $redis->get('x')'       // return 'lol'
+
+$key = $redis->randomKey();
+$surprise = $redis->get($key);  // who knows what's in there.
+
+$redis->select(0);  // switch to DB 0
+$redis->set('x', '42'); // write 42 to x
+$redis->move('x', 1);   // move to DB 1
+$redis->select(1);  // switch to DB 1
+$redis->get('x');   // will return 42
+
+
+$redis->set('x', '42');
+$redis->rename('x', 'y');
+$redis->get('y');   // → 42
+$redis->get('x');   // → `FALSE`
+
+
+$redis->set('x', '42');
+$redis->setTimeout('x', 3); // x will disappear in 3 seconds.
+sleep(5);               // wait 5 seconds
+$redis->get('x');       // will return `FALSE`, as 'x' has expired.
+
+
+$redis->set('x', '42');
+$now = time(NULL); // current timestamp
+$redis->expireAt('x', $now + 3);    // x will disappear in 3 seconds.
+sleep(5);               // wait 5 seconds
+$redis->get('x');       // will return `FALSE`, as 'x' has expired.
+
+//search keys from redis,this is time waste actions
+$allKeys = $redis->keys('*');   // all keys will match this.
+$keyWithUserPrefix = $redis->keys('user*');
+
+//return the number of keys in the selected database
+$count = $redis->dbSize();
+echo "Redis has $count keys\n";
+
+$redis->auth('foobared');
+
+$redis->bgrewriteaof();
+
+$redis->slaveof('10.0.1.7', 6379);
+/* ... */
+$redis->slaveof();
+
+
+$redis->object("encoding", "l"); // → ziplist
+$redis->object("refcount", "l"); // → 1
+$redis->object("idletime", "l"); // → 400 (in seconds, with a precision of 10 seconds).
+
+
+$redis->save();
+
+$redis->bgSave();
+
+$redis->lastSave();
+
+$redis->type('key');
+
+$redis->set('key', 'value1');
+$redis->append('key', 'value2'); /* 12 */
+$redis->get('key'); /* 'value1value2' */
+
+
+$redis->set('key', 'string value');
+$redis->getRange('key', 0, 5); /* 'string' */
+$redis->getRange('key', -5, -1); /* 'value' */
+
+$redis->set('key', 'Hello world');
+$redis->setRange('key', 6, "redis"); /* returns 11 */
+$redis->get('key'); /* "Hello redis" */
+
+
+$redis->set('key', 'value');
+$redis->strlen('key'); /* 5 */
+
+
+$redis->set('key', "\x7f"); // this is 0111 1111
+$redis->getBit('key', 0); /* 0 */
+$redis->getBit('key', 1); /* 1 */
+
+
+
+$redis->set('key', "*");    // ord("*") = 42 = 0x2f = "0010 1010"
+$redis->setBit('key', 5, 1); /* returns 0 */
+$redis->setBit('key', 7, 1); /* returns 0 */
+$redis->get('key'); /* chr(0x2f) = "/" = b("0010 1111") */
+
+$redis->flushDB();
+
+$redis->flushAll();
+
+$redis->delete('s');
+$redis->sadd('s', 5);
+$redis->sadd('s', 4);
+$redis->sadd('s', 2);
+$redis->sadd('s', 1);
+$redis->sadd('s', 3);
+
+var_dump($redis->sort('s')); // 1,2,3,4,5
+var_dump($redis->sort('s', array('sort' => 'desc'))); // 5,4,3,2,1
+var_dump($redis->sort('s', array('sort' => 'desc', 'store' => 'out'))); // (int)5
+
+
+$redis->info();
+
+$redis->ttl('key');
+
+$redis->persist('key');
+
+$redis->mset(array('key0' => 'value0', 'key1' => 'value1'));
+var_dump($redis->get('key0'));
+var_dump($redis->get('key1'));
+
+
+$redis->delete('x', 'y');
+
+$redis->lPush('x', 'abc');
+$redis->lPush('x', 'def');
+$redis->lPush('y', '123');
+$redis->lPush('y', '456');
+
+// move the last of x to the front of y.
+var_dump($redis->rpoplpush('x', 'y'));
+var_dump($redis->lRange('x', 0, -1));
+var_dump($redis->lRange('y', 0, -1));
+
+
+
+$redis->zAdd('key', 1, 'val1');
+$redis->zAdd('key', 0, 'val0');
+$redis->zAdd('key', 5, 'val5');
+$redis->zRange('key', 0, -1); // array(val0, val1, val5)
+
+$redis->zAdd('key1', 0, 'val0');
+$redis->zAdd('key1', 2, 'val2');
+$redis->zAdd('key1', 10, 'val10');
+$redis->zRange('key1', 0, -1); /* array('val0', 'val2', 'val10') */
+
+// with scores
+$redis->zRange('key1', 0, -1, true); /* array('val0' => 0, 'val2' => 2, 'val10' => 10) */
+
+
+$redis->zAdd('key', 0, 'val0');
+$redis->zAdd('key', 2, 'val2');
+$redis->zAdd('key', 10, 'val10');
+$redis->zDelete('key', 'val2');
+$redis->zRange('key', 0, -1); /* array('val0', 'val10') */
+
+
+$redis->zAdd('key', 0, 'val0');
+$redis->zAdd('key', 2, 'val2');
+$redis->zAdd('key', 10, 'val10');
+$redis->zRevRange('key', 0, -1); /* array('val10', 'val2', 'val0') */
+
+// with scores
+$redis->zRevRange('key', 0, -1, true); /* array('val10' => 10, 'val2' => 2, 'val0' => 0) */
+
+
+$redis->zAdd('key', 0, 'val0');
+$redis->zAdd('key', 2, 'val2');
+$redis->zAdd('key', 10, 'val10');
+$redis->zRangeByScore('key', 0, 3); /* array('val0', 'val2') */
+$redis->zRangeByScore('key', 0, 3, array('withscores' => TRUE); /* array('val0' => 0, 'val2' => 2) */
+$redis->zRangeByScore('key', 0, 3, array('limit' => array(1, 1)); /* array('val2' => 2) */
+$redis->zRangeByScore('key', 0, 3, array('limit' => array(1, 1)); /* array('val2') */
+$redis->zRangeByScore('key', 0, 3, array('withscores' => TRUE, 'limit' => array(1, 1)); /* array('val2' => 2) */
+
+
+$redis->zAdd('key', 0, 'val0');
+$redis->zAdd('key', 2, 'val2');
+$redis->zAdd('key', 10, 'val10');
+$redis->zCount('key', 0, 3); /* 2, corresponding to array('val0', 'val2') */
+
+
+
+$redis->zAdd('key', 0, 'val0');
+$redis->zAdd('key', 2, 'val2');
+$redis->zAdd('key', 10, 'val10');
+$redis->zRemRangeByScore('key', 0, 3); /* 2 */
+
+
+$redis->zAdd('key', 1, 'one');
+$redis->zAdd('key', 2, 'two');
+$redis->zAdd('key', 3, 'three');
+$redis->zRemRangeByRank('key', 0, 1); /* 2 */
+$redis->zRange('key', 0, -1, array('withscores' => TRUE)); /* array('three' => 3) */
+
+
+$redis->zAdd('key', 0, 'val0');
+$redis->zAdd('key', 2, 'val2');
+$redis->zAdd('key', 10, 'val10');
+$redis->zSize('key'); /* 3 */
+
+
+$redis->zAdd('key', 2.5, 'val2');
+$redis->zScore('key', 'val2'); /* 2.5 */
+
+
+$redis->delete('z');
+$redis->zAdd('key', 1, 'one');
+$redis->zAdd('key', 2, 'two');
+$redis->zRank('key', 'one'); /* 0 */
+$redis->zRank('key', 'two'); /* 1 */
+$redis->zRevRank('key', 'one'); /* 1 */
+$redis->zRevRank('key', 'two'); /* 0 */
+
+
+$redis->delete('key');
+$redis->zIncrBy('key', 2.5, 'member1'); /* key or member1 didn't exist, so member1's score is to 0 before the increment */
+                      /* and now has the value 2.5  */
+$redis->zIncrBy('key', 1, 'member1'); /* 3.5 */
+
+
+$redis->delete('k1');
+$redis->delete('k2');
+$redis->delete('k3');
+$redis->delete('ko1');
+$redis->delete('ko2');
+$redis->delete('ko3');
+
+$redis->zAdd('k1', 0, 'val0');
+$redis->zAdd('k1', 1, 'val1');
+
+$redis->zAdd('k2', 2, 'val2');
+$redis->zAdd('k2', 3, 'val3');
+
+$redis->zUnion('ko1', array('k1', 'k2')); /* 4, 'ko1' => array('val0', 'val1', 'val2', 'val3') */
+
+/* Weighted zUnion */
+$redis->zUnion('ko2', array('k1', 'k2'), array(1, 1)); /* 4, 'ko1' => array('val0', 'val1', 'val2', 'val3') */
+$redis->zUnion('ko3', array('k1', 'k2'), array(5, 1)); /* 4, 'ko1' => array('val0', 'val2', 'val3', 'val1') */
+
+
+$redis->delete('k1');
+$redis->delete('k2');
+$redis->delete('k3');
+
+$redis->delete('ko1');
+$redis->delete('ko2');
+$redis->delete('ko3');
+$redis->delete('ko4');
+
+$redis->zAdd('k1', 0, 'val0');
+$redis->zAdd('k1', 1, 'val1');
+$redis->zAdd('k1', 3, 'val3');
+
+$redis->zAdd('k2', 2, 'val1');
+$redis->zAdd('k2', 3, 'val3');
+
+$redis->zInter('ko1', array('k1', 'k2'));               /* 2, 'ko1' => array('val1', 'val3') */
+$redis->zInter('ko2', array('k1', 'k2'), array(1, 1));  /* 2, 'ko2' => array('val1', 'val3') */
+
+/* Weighted zInter */
+$redis->zInter('ko3', array('k1', 'k2'), array(1, 5), 'min'); /* 2, 'ko3' => array('val1', 'val3') */
+$redis->zInter('ko4', array('k1', 'k2'), array(1, 5), 'max'); /* 2, 'ko4' => array('val3', 'val1') */
+
+/* 使用hash来保存一个对象,现在还没有同时获取多个hash的方法需要自己封装了 */
+$redis->delete('h')
+$redis->hSet('h', 'key1', 'hello'); /* 1, 'key1' => 'hello' in the hash at "h" */
+$redis->hGet('h', 'key1'); /* returns "hello" */
+
+$redis->hSet('h', 'key1', 'plop'); /* 0, value was replaced. */
+$redis->hGet('h', 'key1'); /* returns "plop" */
+
+
+$redis->delete('h')
+$redis->hSetNx('h', 'key1', 'hello'); /* TRUE, 'key1' => 'hello' in the hash at "h" */
+$redis->hSetNx('h', 'key1', 'world'); /* FALSE, 'key1' => 'hello' in the hash at "h". No change since the field wasn't replaced. */
+
+
+$redis->delete('h')
+$redis->hSet('h', 'key1', 'hello');
+$redis->hSet('h', 'key2', 'plop');
+$redis->hLen('h'); /* returns 2 */
+
+
+$redis->delete('h');
+$redis->hSet('h', 'a', 'x');
+$redis->hSet('h', 'b', 'y');
+$redis->hSet('h', 'c', 'z');
+$redis->hSet('h', 'd', 't');
+var_dump($redis->hKeys('h'));
+
+
+$redis->delete('h');
+$redis->hSet('h', 'a', 'x');
+$redis->hSet('h', 'b', 'y');
+$redis->hSet('h', 'c', 'z');
+$redis->hSet('h', 'd', 't');
+var_dump($redis->hVals('h'));
+
+$redis->delete('h');
+$redis->hSet('h', 'a', 'x');
+$redis->hSet('h', 'b', 'y');
+$redis->hSet('h', 'c', 'z');
+$redis->hSet('h', 'd', 't');
+var_dump($redis->hGetAll('h'));
+
+
+$redis->hSet('h', 'a', 'x');
+$redis->hExists('h', 'a'); /*  TRUE */
+$redis->hExists('h', 'NonExistingKey'); /* FALSE */
+
+
+$redis->delete('h');
+$redis->hIncrBy('h', 'x', 2); /* returns 2: h[x] = 2 now. */
+$redis->hIncrBy('h', 'x', 1); /* h[x] ← 2 + 1. Returns 3 */
+
+
+$redis->delete('user:1');
+$redis->hMset('user:1', array('name' => 'Joe', 'salary' => 2000));
+$redis->hIncrBy('user:1', 'salary', 100); // Joe earns 100 more now.
+
+$redis->delete('h');
+$redis->hSet('h', 'field1', 'value1');
+$redis->hSet('h', 'field2', 'value2');
+$redis->hmGet('h', array('field1', 'field2')); /* returns array('field1' => 'value1', 'field2' => 'value2') */
+
+
+
+
+
+
+
+
+
+
+

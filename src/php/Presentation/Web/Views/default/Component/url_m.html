@@ -1,0 +1,14 @@
+<div class="mblock"><a class="goods_photo"
+	href="{:U('gogo/showurl',array('id'=>$vo['id']))}"> <img class="artist_s"
+	alt="{$vo.title}" src="{:getImage($vo['image_id'],'m_')}" title="{$vo.title}"></a>
+<div style="width: 100%;" class="ll"><a
+	href="{:U('gogo/showurl',array('id'=>$vo['id']))}">{$vo.title}</a></div>
+<div class="pl">
+({$vo.gonum}人逛过,
+<if condition="($vo.category_id eq 1) or ($vo.category_id eq 3) ">
+{$vo.buynum}买过
+<else />
+{$vo.goodnum}推荐
+</if>)
+</div>
+</div>

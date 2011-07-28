@@ -1,0 +1,6 @@
+<div class="dblock"><a class="goods_photo"
+	href="{:U('people/space',array('id'=>$vo['id']))}"> <img class="artist_s"
+	alt="{$vo.cnname|msubstr=0,6}" src="{:getImage($vo['image_id'])}" title="{$vo.cnname|msubstr=0,6}"></a>
+<div style="width: 100%;" class="ll"><a
+	href="{:U('people/space',array('id'=>$vo['id']))}">{$vo.cnname|msubstr=0,6}</a></div>
+<div class="pl">(逛了{$vo.gogonum}家)</div>

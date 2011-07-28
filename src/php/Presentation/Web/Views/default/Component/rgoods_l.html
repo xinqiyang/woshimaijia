@@ -1,0 +1,32 @@
+<if condition="$vo['category_id'] eq 3">
+<div class="buyblock" style="margin-top:10px;">
+<h2 style="float:left;">{$vo.title} 今日推荐 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2> 
+<div class="clear"></div>
+<div>
+<table>
+<tbody>
+	<tr>
+		<td><a class="goods_photo"
+	href="{:U('show/showgoods',array('id'=>$goods['id']))}"> <img class="user-image"
+	alt="{$goods.title}" src="{:getImage($goods['image_id'])}" title="{$goods.title}"></a></td>
+		<td>
+		<div class="pl">
+		热门指数: {$goods.likenum}人逛过 <br />
+		购买指数: {$goods.wantnum}人买过<br />
+		喜欢指数: {$goods.ownernum}人推荐<br /><br />
+		<a class="gotobutton" onclick="clickaction('{$vo.id}','http://{$vo.domain}')" href="http://{$vo.domain}" target="_blank"  title="去{$goods.title}">去{$vo.title}逛逛</a>
+		
+		</div>
+			
+		</td>
+	</tr>
+</tbody>
+</table>
+</div>
+<p style="text-align:left;">
+{$goods.desc}	
+</p>
+
+</div>
+<div class="clear"></div>
+</if>

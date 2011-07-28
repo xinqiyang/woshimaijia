@@ -1,0 +1,16 @@
+<div class="amain">
+<volist name="friends" id="vo">
+<dl class="oblock">
+	<dt><a href="__URL__/write/id/{$vo.id}" class="nbg"><img
+		src="{$vo.url}/{$vo.model}/spic/m_{$vo.filename}" class="m_sub_img"
+		alt="{$vo.cnname}"></a></dt>
+	<dd><a href="__URL__/write/id/{$vo.id}">{$vo.cnname|msubstr=0,6}</a>
+	</dd>
+</dl>
+</volist>
+<div class="clear" ></div> 
+</div>
+<div class="aside">
+<p>>> <a class="ulinkcss" href="__URL__/index">回到我的收件箱</a></p>
+</div>
+<div class="extra"></div>

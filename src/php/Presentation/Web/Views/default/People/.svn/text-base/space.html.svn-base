@@ -1,0 +1,215 @@
+<div class="amain" style="position: relative; min-height: 1299px;">
+
+
+<div id="userprofile">
+<div class="pic"><a href="__URL__/space/id/{$user.id}">
+<img src="{$user.image_id|getImage=###,'m_'}" alt="{$user.enname}">
+</a></div>
+<div class="uinfo">
+<h1>{$user.cnname}
+<div id="edit_signature" style="display: inline;"
+	class="j a_edit_signature edtext pl"><span id="microblog"
+	style="display: inline; margin-left:5px;">{$user.microblog}</span> 
+</div>
+</h1>
+
+<ul class="uul">
+	<li><a href="__APP__/say/index/uid/{$user.id}">我说</a></li>
+	<li><a href="__APP__/album/index/uid/{$user.id}">我的相册</a></li>
+	<li><a href="__APP__/say/comment/uid/{$user.id}">我的点评</a></li>
+	<li><a href="__APP__/search/taglist/uid/{$user.id}">我的标签</a></li>
+	<li><a href="__APP__/city/location/uid/{$user.id}">所在地</a></li>
+	<li><a href="__URL__/mygoods/uid/{$user.id}">我晒的东西</a></li>
+	<li><a href="__URL__/mybrand/uid/{$user.id}">我支持的品牌</a></li>
+	<li><a href="__URL__/mygroup/uid/{$user.id}">我的侃侃组</a></li>
+</ul>
+
+</div>
+</div>
+<div class="clear"></div>
+
+
+<div class="sort" id="shop">
+<h2>{$user.cnname}逛的地方 &nbsp;
+·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp; <span
+	class="pl">( <a class="csslink" href="__URL__/gomore/what/url/do/go/uid/{$user.id}">122个逛过</a>
+·&nbsp; <a class="linkcss" href="__URL__/gomore/what/url/do/good/uid/{$user.id}">8个推荐</a>
+·&nbsp; <a class="linkcss" href="__URL__/gomore/what/url/do/buy/uid/{$user.id}">8个买过</a>
+ )</span></h2>
+<div class="obline">
+<volist name="gobuydata[0]" id="vo">
+<div class="mblock"><a class="goods_photo"
+	href="__APP__/gogo/showurl/id/{$vo.id}"> <img class="artist_s"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/m_{$vo.filename}" title="{$vo.title}"></a>
+<div style="width: 100%;" class="ll"><a
+	href="__APP__/gogo/showurl/id/{$vo.id}">{$vo.title}</a></div>
+<div class="pl">({$vo.gonum}人逛过,{$vo.goodnum}推荐)</div>
+</div>
+
+</volist>
+<div class="clear"></div>
+</div>
+</div>
+<div class="sort" id="book">
+<h2>{$user.cnname}晒的东西 &nbsp;
+·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp; <span
+	class="pl">( <a class="linkcss" href="__URL__/gomore/what/goods/do/like/uid/{$user.id}">6个喜欢</a>
+·&nbsp; <a class="linkcss" href="__URL__/gomore/what/goods/do/want/uid/{$user.id}">10个想买</a>
+·&nbsp; <a class="linkcss" href="__URL__/gomore/what/goods/do/owner/uid/{$user.id}">3个拥有</a> )</span> </h2>
+<div class="obline">
+<div class="substatus">喜欢</div>
+<ul>
+   <volist name="likegoods" id="vo">
+	<li class="liline"><a class="goods_photo"
+	href="__APP__/show/showgoods/id/{$vo.gid}"> <img class="artist_s"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/{$vo.filename}" title="{$vo.title}"></a></li>
+	</volist>
+</ul>
+<div class="clear"></div>
+</div>
+<div class="obline">
+<div class="substatus">想买</div>
+<ul>
+   <volist name="wantgoods" id="vo">
+	<li class="liline"><a class="goods_photo"
+	href="__APP__/show/showgoods/id/{$vo.gid}"> <img class="artist_s"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/{$vo.filename}" title="{$vo.title}"></a></li>
+	</volist>
+</ul>
+<div class="clear"></div>
+</div>
+
+<div class="obline">
+<div class="substatus">拥有</div>
+<ul>
+   <volist name="ownergoods" id="vo">
+	<li class="liline"><a class="goods_photo"
+	href="__APP__/show/showgoods/id/{$vo.gid}"> <img class="artist_s"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/{$vo.filename}" title="{$vo.title}"></a></li>
+	</volist>
+</ul>
+<div class="clear"></div>
+</div>
+
+</div>
+
+<div class="sort" id="note">
+<div class="sort" id="group"><h2>{$user.cnname}参加的侃侃组 · · · · · ·<span class="pl">(<a  class="linkcss" href="__URL__/gomore/what/group/uid/{$user.id}">更多</a>)</span></h2>
+<volist name="mygroups" id="vo">
+<dl class="oblock">
+	<dt><a href="__APP__/group/showgroup/id/{$vo.id}" class="nbg"><img
+		src="{$vo.url}/{$vo.model}/spic/m_{$vo.filename}" class="m_sub_img"
+		alt="{$vo.title}"></a></dt>
+	<dd><a href="__APP__/people/space/id/{$vo.id}">{$vo.title}</a><br>
+	<span class="pl">({$vo.membercount} 人在侃)</span></dd>
+</dl>
+</volist>  
+      
+<div class="clear"></div>
+</div>
+<h2>{$user.cnname}的话题 · · · · · ·<span class="pl">(<a class="linkcss" href="__URL__/gomore/what/topic/uid/{$user.id}">更多</a>)</span></h2>
+<div id="grouptopic">
+<table width="100%">
+	<tbody>
+		<tr>
+			<td>话题</td>
+			<td>侃侃组</td>
+			<td>作者</td>
+			<td align="right" nowrap="nowrap">    回复</td>
+			<td align="right">最后回复</td>
+		</tr>
+<volist name="topiclist" id="vo">
+		<tr class="pl">
+			<td><a title="{$vo.title}" href="__APP__/group/showtopic/id/{$vo.tid}">{$vo.title}</a></td>
+			<td><a href="__APP__/group/showgroup/id/{$vo.gid}">{$vo.groupname}</a></td>
+			<td>{$vo.cnname}</td>
+			<td align="right">{$vo.postcount}</td>
+			<td align="right" nowrap="nowrap">{$vo.lastreplytime|date="m-d g:i",###}</td>
+		</tr>
+</volist>
+	</tbody>
+</table>
+</div>
+</div>
+
+<div class="sort" id="movie">
+<h2>{$user.cnname}支持的品牌 · · · · · ·<span class="pl">(<a class="linkcss" href="__URL__/gomore/what/brand/uid/{$user.id}">更多</a>)</span></h2>
+<div class="obline">
+<volist name="brand" id="vo">
+<div class="mblock"><a class="goods_photo"
+	href="__APP__/show/showbrand/id/{$vo.bid}"> <img class="artist_s"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/{$vo.filename}" height="50" width="70" title="{$vo.title}"></a>
+<div style="width: 100%;" class="ll"><a
+	href="__APP__/show/showbrand/id/{$vo.bid}">{$vo.title}</a></div>
+<div class="pl">({$vo.supportnum}人支持,{$vo.buynum}买过)</div>
+</div>
+
+</volist>
+<div class="clear"></div>
+</div>
+</div>
+
+
+
+</div>
+
+<div class="aside" style="position: relative; min-height: 5px;">
+<div id="profile" style="padding-bottom: 20px;">
+<table class="infobox" width="100%">
+	<tbody>
+		<tr>
+			<td class="tablelt"></td>
+			<td class="tablect"></td>
+			<td class="tablert"></td>
+		</tr>
+		<tr>
+			<td class="tablelc"></td>
+			<td class="tablecc">
+			<img class="user-image" src="{$user.image_id|getImage=###,'l_'}" alt="{$user.enname}" align="left">
+			 <span class="pl">城市: </span><a
+				href="__APP__/city/city/id/{$user.locationid|default='0'}">{$user.city|default="火星"}</a><br>
+			<div class="pl">id: {$user.enname} <br>
+			{$user.createtime|date='Y-m-d',###}加入<br>
+			
+			{$relfriend} <br />
+			 
+			<br />
+			</div>
+			<br class="clear">
+			<div
+				style="height: 0; border-bottom: 1px solid #f5e9db; margin: 5px;">
+			</div>
+			<span class="pl">BLOG地址:</span> <a href="{$user.blogurl}"
+				target="_blank">{$user.blogurl}</a><br>
+			
+			<div style="margin-top: 5px">
+			{$user.usertxt|nl2br}
+			</div>
+			</td>
+			<td class="tablerc"></td>
+		</tr>
+		<tr>
+			<td class="tablelb"></td>
+			<td class="tablecb"></td>
+			<td class="tablerb"></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<div class="clear"></div>
+<include file="Component:note" />
+<include file="Component:actionlink" />
+
+<include file="Component:myfriends" />
+<div class="sort" id="board">
+
+<include file="Component:mysay" />
+</div>
+
+<div class="clear"></div>
+
+
+
+</div>
+
+<div class="extra"></div>

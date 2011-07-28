@@ -1,0 +1,17 @@
+   </div>
+  </div>
+  <div id="footer">
+ 
+	<div class="fr">
+		<a class="opt" href="http://blog.woshimaijia.com/" target="_blank">官方博客</a>  <a class="opt" href="__APP__/about/show/w/services">联系官方客服</a><a class="opt" href="#top">返回顶部</a>
+	</div>
+	<div class="gray-link">
+		<a href="__APP__/about/show/w/aboutus">关于我是买家</a>|<a href="__APP__/about/show/w/joinus">加入团队</a>|<a href="__APP__/about/show/w/contactus">联系我们</a>|<a href="__APP__/about/show/w/agreement">使用协议</a>|<a href="__APP__/about/show/w/help">看看帮助</a>|<a href="__APP__/group/showgroup/id/1">提提意见</a>|<a href="#" onclick="javascript:window.external.AddFavorite('__APP__','我是买家首页','我是买家首页');" rel="sidebar">加入收藏</a>|<a id="report" style="color:#c0c0c0" href="#">举报不良信息</a>
+	</div>
+	<div style="float:right" class="gray-link">Copyright © woshimaijia.com 2010 All rights reserved.<a target="_blank" href="http://www.miibeian.gov.cn" >浙ICP备09035551号</a></div>
+
+  </div>
+</div>
+
+</body>
+</html>

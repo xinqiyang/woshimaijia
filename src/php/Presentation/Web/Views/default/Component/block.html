@@ -1,0 +1,9 @@
+<h2>{$title}· · · · · ·<span class="pl">(<a href="{$action}">更多</a>)</span></h2>
+<volist id="vo" name="blockdata">
+<div class="dblock">
+<a class="goods_photo" href="__APP__/{$blockaction}/{$vo.url}" target="_blank">
+<img height="100" width="100" class="artist_s" alt="{$vo.title}" src="__ROOT__/images/{$imgurl}/{$vo.img}"></a>
+<div style="width: 100%;" class="ll"><a href="__APP__/{$action}/{$vo.url}">{$vo.title}</a>
+<div class="pl">({$vo.num}人{$type})</div>
+</div></div>
+</volist>

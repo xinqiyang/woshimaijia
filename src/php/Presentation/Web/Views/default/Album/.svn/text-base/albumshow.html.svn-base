@@ -1,0 +1,13 @@
+<div class="amain">
+	
+		<div class="pl photitle">
+	    &nbsp;&gt;<a class="linkcss" href="__URL__/album/id/{.id}">修改相册描述</a>
+	    &nbsp;&gt;<a href="__URL__/uploadmyimg/id/{.id}">添加照片</a>
+	    &nbsp;&gt;<a href="__URL__/index">返回我的相册首页</a>
+	    </div>
+	
+</div>
+<div class="aside">
+
+</div>
+<div class="extra"></div>

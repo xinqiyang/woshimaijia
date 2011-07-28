@@ -1,0 +1,75 @@
+<div class="amain">
+<div class="leftsapce" style="margin-top: 30px;">
+
+
+<form id="form1" action="__URL__/deal" method="post"
+	enctype="multipart/form-data">
+<table style="clear: both; width: 100%">
+	<tbody>
+
+		<tr>
+			<td>品牌</td>
+			<td><input size="40" name="title" value="{$vo.title}"
+				type="text" datatype="require" require="true"  msg="品牌名称必须填写" />中文名称</td>
+		</tr>
+		<tr>
+			<td>字母</td>
+			<td><input size="40" name="enname" value="{$vo.enname}"
+				type="text" datatype="require" require="true"  msg="品牌英文名称必须填写" />英文的字母组合</td>
+		</tr>
+		<tr>
+			<td>简介</td>
+			<td><textarea id="desc" rows="8" cols="70" name="desc" datatype="require" require="true"  msg="品牌简介得写点" >{$vo.desc}</textarea></td>
+		</tr>
+		<tr>
+			<td>网址</td>
+			<td><input size="40" name="siteurl" value="{$vo.siteurl}"
+				type="text" datatype="url" require="true" msg="品牌官方网站完整网址http://www.xxx.com"  />品牌持有公司的官方网站</td>
+		</tr>
+
+
+		<tr>
+			<td>标签</td>
+			<td><input size="40" name="tags" value="{$vo.tags}" type="text"  datatype="require" require="true" msg="标签必须填写" />请用 空格或者逗号隔开 5个以内
+			</td>
+		</tr>
+		<tr>
+			<td>LOGO</td>
+			<td><input size="40" name="image_id" type="file" />上传品牌LOGO</td>
+		</tr>
+<tr>
+		<td></td><td><empty name="vo['image_id']"><font color="red">还没有截图请上传</font><else /><img src="{$vo.image_id|getImage}" /><br /><br /></empty></td>
+		</tr>
+
+		<tr>
+			<td><input type="hidden" name="actm" value="brand" /> <input
+				type="hidden" name="id" value="{$vo.id}" /></td>
+			<td><input type="submit" name="submit" value="我提交啦"
+				class="btn-submit"></td>
+		</tr>
+	</tbody>
+</table>
+
+
+
+</form>
+ <script>
+	$('#form1').checkForm();
+	</script>
+</div>
+</div>
+<div class="aside">
+
+<br /><br />
+
+<h2>提交品牌    操作过程</h2>
+<p>
+<b>一 输入我喜欢的品牌信息</b><br /><br />
+
+二 上传品牌的图片<br /><br />
+
+三 完成分享,查看发布  或者  继续分享网站
+</p>
+<include file="component:addthings" />
+</div>
+<div class="extra"></div>

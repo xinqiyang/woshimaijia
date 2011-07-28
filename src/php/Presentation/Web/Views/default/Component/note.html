@@ -1,0 +1,37 @@
+<notempty name="uinfo['id']"> 
+<h2>我说.....</h2>
+<div id="commentdo" class="commentblock">
+<form id="sayform" name="sayform" method="post" action="{:U('account/deal')}">
+    <div class="item">
+        <textarea name="content" rows="1"></textarea>
+    </div>
+    <div>
+     <input type="hidden" name="actm" value="say" />
+      <input type="hidden" name="ajax" value="1" />
+     <input class="btn-submit" type="button" onclick="dopost()" value="发 表"><span id="sayresult" ></span>
+    </div>
+</form>
+</div>
+<script type="text/javascript">
+function dopost()
+{
+
+	$("#sayresult").hide();
+	$.ajax({
+		   type: "POST",
+		   url: '{:U('account/deal')}',
+		   data: $("#sayform").serialize(),
+		   success: 
+		   function(msg){
+			 var obj = eval( "(" + msg + ")" );
+			 $("#sayresult").html(obj.info);
+			 $("#sayresult").slideDown("slow",function(){
+				   //alert(obj.info);
+				 //alert( "Data Saved: " + msg );
+			 });
+			 document.forms['sayform'].reset();
+		   }
+		});
+}
+</script>
+</notempty>

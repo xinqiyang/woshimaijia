@@ -1,0 +1,78 @@
+<div class="amain">
+<div class="topic-content clearfix">
+        <div class="user-face">
+            <a href="{:U('people/space',array('id'=>$topic['user_id']))}"><img class="pil" src="{$topic.url}/{$topic.model}/spic/m_{$topic.filename}"></a>
+        </div>
+        <div class="topic-doc">
+            <h3>
+                <span class="color-green">{$topic.createtime|date="y-m-d H:m:s",###}</span>
+                <span class="pl20">来自: <a href="{:U('people/space',array('id'=>$topic['user_id']))}">{$topic.cnname}</a>({$topic.microblog})</span>
+            </h3>
+            <p class="pcss">{$topic.content|nl2br}</p>
+
+    <div class="topic-opt clearfix">
+  	<if condition="$topic.user_id eq $uinfo['id']"> <span class="fleft">&gt;&nbsp;<a
+	 href="{:U('group/topic',array("id"=>$topic.id))}">修改</a></span></if> 
+	
+	<if condition="$isa eq true">
+	<if condition="$topic.islock neq 0">
+	<span class="fleft">&gt;&nbsp;<a
+	href="{:U('group/manage',array('model'=>'topic','type'=>'block','id'=>$topic['id'],'gid'=>$topic['group_id']))}" rel="manage"
+	title="禁止回应" class="">禁止回应</a></span> <else />
+	<span class="fleft">&gt;&nbsp;<a
+	href="{:U('group/manage',array('model'=>'topic','type'=>'noblock','id'=>$topic['id'],'gid'=>$topic['group_id']))}" rel="manage"
+	title="开启回应" class="">开启回应</a></span> </if>
+	
+	<span	class="fleft">&gt;&nbsp;<a rel="manage"
+	href="{:U('group/manage',array('model'=>'topic','type'=>'del','id'=>$topic['id'],'gid'=>$topic['group_id']))}"
+	class="" title="删除发言">删除</a></span> 
+	<if condition="$topic.status neq 4">
+	<span class="fleft">&gt;&nbsp;<a rel="manage"
+	href="{:U('group/manage',array('model'=>'topic','type'=>'top','id'=>$topic['id'],'gid'=>$topic['group_id']))}">置顶</a></span>
+	<else />
+	<span class="fleft">&gt;&nbsp;<a rel="manage"
+	href="{:U('group/manage',array('model'=>'topic','type'=>'notop','id'=>$topic['id'],'gid'=>$topic['group_id']))}">取消置顶</a></span>
+	</if>
+	</if> 
+	</div> 
+
+        </div>
+    </div>
+    <ul class="topic-reply">
+        
+        
+<volist name="contents" id="vo">
+<li class="clearfix">
+    <div class="user-face">
+        <a href="{:U('people/space',array('id'=>$vo['uid']))}"><img class="pil" src="{$vo.url}/{$vo.model}/spic/m_{$vo.filename}"></a>
+    </div>
+    <div class="reply-doc">
+        <div class="bg-img-green">
+            <h4>{$vo.createtime|date="y-m-d H:m:s",###}
+                <a href="{:U('people/space',array('id'=>$vo['uid']))}">{$vo.cnname}</a> {$vo.microblog}
+            </h4>
+        </div>
+        <p class="pcss">{$vo.content|nl2br}</p>
+        <if condition="$isadmin || $vo.user_id eq $tuid">
+        <div class="topic_banned">
+            <span class="commentfright">
+                <a rel="nofollow" href="__APP__/group/manage/model/post/id/{$topic.id}/cid/{$vo.id}" class="commentfright" title="删除">&gt;删除</a>
+            </span>
+        </div>
+        </if>
+       
+    </div>
+</li>
+
+ </volist>    
+
+
+    </ul>
+    <if condition="$topic.islock eq 0"> 
+    <include file="Component:grouppost" />
+    </if>
+</div>
+<div class="aside">
+<include file="Component:actionlink" />
+</div>
+<div class="extra"></div>

@@ -1,0 +1,47 @@
+<div class="amain">
+<div class="xbar clearfix">
+<div><a href="__URL__/index/type/notice" class="abtn" >提醒</a> <a href="__URL__/index/type/send" class="abtn">发件箱</a> <a href="__URL__/index" class="abtn">收件箱</a></div>
+</div>
+
+<table class="olt" style="clear: both">
+	<tbody>
+		<tr>
+			<td class="pl" style="width: 112px;"><span class="doumail_from">来自</span></td>
+			<td width="20"></td>
+			<td class="pl">话题</td>
+			<td class="pl" style="width: 110px;">时间</td>
+			<td class="pl" align="center" style="width: 40px;">选择</td>
+		</tr>
+		<volist name="mail" id="vo">
+		<tr>
+			<td class="pl">
+			<div class="wsmj_from"><a
+				href="__APP__/people/space/id/{$vo.uid}">{$vo.cnname}</a></div>
+			</td>
+			<td></td>
+			<td><if condition="$vo.status eq 1"><img src="__ROOT__/Resource/images/mail/newmail.gif" alt="新" title="新" />&nbsp;</if><a href="__URL__/mail/id/{$vo.id}" >{$vo.title}</a></td>
+			<td class="pl">{$vo.createtime|date='Y-m-d H:m',###}</td>
+			<td align="center"><input name="mc_{$vo.id}" type="checkbox"
+				value="0"></td>
+		</tr>
+		</volist>
+		<tr>
+			<td align="right" colspan="5"><input name="b" type="button" class="btn-submit"
+				value="全选" onclick=
+	CheckAll(true);;
+> &nbsp; <input name="c" class="btn-submit"
+				type="button" value="全清" onclick=
+	CheckAll(false);;
+>&nbsp;<input class="btn-submit"
+				name="mc_delete" type="submit" value="删除豆邮"></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<div class="aside">
+<p>>> <a class="ulinkcss" href="__URL__/selectto">发新消息</a></p>
+<br />
+</div>
+
+<div class="extra"></div>

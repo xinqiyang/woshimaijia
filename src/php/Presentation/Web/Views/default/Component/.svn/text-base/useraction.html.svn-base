@@ -1,0 +1,15 @@
+<h2>操作菜单</h2>
+<p>>> <a class="ulinkcss" href="__APP__/people/myurl/uid/{$uinfo.id}">我常逛的地方</a></p>
+
+<p>>> <a class="ulinkcss" href="__APP__/people/mygoods/uid/{$uinfo.id}">我晒的商品</a></p>
+<p>>> <a class="ulinkcss" href="__APP__/people/mybrand/uid/{$uinfo.id}">我支持的品牌</a></p>
+<p>>> <a class="ulinkcss" href="__APP__/people/mygroup/uid/{$uinfo.id}">我的侃侃组</a></p>
+<p>>> <a class="ulinkcss" href="__APP__/city/location/uid/{$uinfo.id}">我的所在地</a></p>
+<p>>> <a class="ulinkcss" href="__APP__/say/index/uid/{$uinfo.id}">我说 && 点评</a></p>
+<br />
+
+<p>>> <a class="ulinkcss" href="__URL__/uploadicon">上传头像</a></p>
+<p>>> <a class="ulinkcss" href="__URL__/setting">编辑个人信息</a></p>
+<p>>> <a class="ulinkcss" href="__URL__/changepass">修改密码</a></p>
+
+<br />

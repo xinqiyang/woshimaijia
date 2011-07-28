@@ -1,0 +1,41 @@
+<div class="amain">
+<form name="form1" id="form1" method="post" action="__URL__/send">
+<table align="center">
+	<tbody>
+		<tr>
+			<td class="pl2" align="center" width="75" valign="top">寄给:</td>
+			<td class="pl2" valign="top"><a
+				href="__APP__/people/space/id/{$user.id}"><img
+				src="{$user|returnImagePath}" align="right"
+				alt="{$user.cnname}"></a>{$user.cnname}<br>
+			<br>
+			<br>
+			<input name="touid" type="hidden" value="{.id}"></td>
+		</tr>
+		<tr>
+			<td class="pl2" align="center">标题:</td>
+			<td><input id="mt" name="title" type="text"
+				style="width: 450px" value="" datatype="require" require="true"  msg="标题必须填写"></td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">内容:
+			</td>
+			<td><textarea name="content" rows="20" style="width: 450px" datatype="require" require="true"  msg="内容必须填写"></textarea></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input name="m_submit" type="submit" value="写好了发送.." class="btn-submit"></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+
+ <script>
+	$('#form1').checkForm();
+	</script>
+</div>
+<div class="aside">
+<p>>> <a class="ulinkcss" href="__URL__/index">回到我的收件箱</a></p><br />
+<p>>> <a class="ulinkcss" href="__URL__/selectto">选择其他收件人</a></p>
+</div>
+<div class="extra"></div>

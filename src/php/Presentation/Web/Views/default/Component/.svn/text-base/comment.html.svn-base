@@ -1,0 +1,15 @@
+
+<h2>大家刚刚发表的 · · · · · <span class="pl">(<a href="/labels/">更多</a>)</span>  </h2>
+<div style="float:left;width:100%;margin-bottom:3em">
+<volist name="comments" id="vo">
+<ul class="rblockul">
+    <li class="mbtl"><a href="__APP__/"><img src="__ROOT__/Resource/images/user/{$vo.icon}" alt="CrazyRubbit" title="CrazyRubbit"></a></li>
+        <li class="mbtrmini"><a href="__APP__/user/space/{$vo.id}">{$vo.title}</a> <span class="pl">评论了 <a href="{$vo.id}" onclick="moreurl(this,{from:'mb-305258774'})">我还记得</a></span><br>
+        <div class="indentrec">
+           <p>{$vo.txt}</p>
+        </div>
+        </li>
+</ul>
+</volist>
+
+</div>

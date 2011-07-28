@@ -1,0 +1,14 @@
+Arch Rules of the buddy
+
+All of the rules of the buddy are here.
+
+prototy
+1.less files and less code
+2.agile deal process
+3.
+
+form rules
+1.must post/get the params
+
+
+

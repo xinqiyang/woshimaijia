@@ -1,0 +1,99 @@
+<div class="amain">
+
+<div class="goodshowblock">
+<div class="displayauto clearfix">
+<div class="subject clearfix">
+<div class="mainbrand">
+
+<div class="buyblock">
+<h2 style="float:left;">{$vo.title}的品牌故事 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2> 
+<div class="clear"></div>
+<p><a href="{:U('show/showbrand',array('id'=>$vo['id']))}"
+	title=""><img src="{:getImage($vo['image_id'])}"
+	title="{$vo.title}" alt="{$vo.title}"></a><br /><br />
+	<p style="text-align:left;">
+	{$vo.desc|nl2br|msubstr=###,0,154}...
+	</p>
+</p>
+</div>
+
+</div>
+<div style="display:block;float:right;width:268px;padding-bottom:10px;">
+<div style="display:block;padding-top:10px;float:left;">
+<div class="info">
+<span> <span class="pl">官方网站</span>: <a
+	href="{$vo.siteurl}" onclick="clickaction('{$vo.id}','{$vo.siteurl|getHost}')" target="_blank">点击访问</a></span><br>
+<span><span class="pl">品牌名称</span>: {$vo.title}</span><br>
+<br>
+
+<div class="obmo">
+<span class="pl">谁晒的呢:</span>{$vo.user_id|getUser}</a><br>
+<br>
+
+<span class="pl">支持指数:</span> <span id="supportnum">{$vo.supportnum}</span> <br>
+<span class="pl">购买指数:</span> <span id="buynum">{$vo.buynum}</span><br>
+
+
+<span class="pl">东西标签:</span> <a class="pl-5" href="">{$vo.tags|getTags}</a>
+</div>
+</div>
+</div>
+
+<div class="interest_action">
+<span id="result"></span>
+<div class="rating_wrap clearbox">
+
+<input class="btn-action" type="button" onclick="usaction('supportnum','{$vo.id}')" value="我支持" title="喜欢{$vo.title}的东西支持下"><br>
+<input class="btn-action" type="button" onclick="usaction('buynum','{$vo.id}')" value="我买过" title="买过{$vo.title}的东西标记下"><br>
+<br><br>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+
+</div>
+</div>
+<div >
+<p style="text-align:left;">
+	{$vo.desc|nl2br}
+	</p>
+</div>
+
+<div class="loverlist">
+
+<h2 class="bold">支持{$vo.title}品牌的大家 ...(<a href="">全部</a>)</h2>
+<div id="supportnumlist" class="mt5">
+<volist name="uam['supportnum']" id="lvo">
+<include file='Component:userline' />
+</volist>
+</div>
+<div class="clear"></div>
+
+<h2 class="bold">购买过{$vo.title} 品牌的东西的大家 ...(<a href="">全部</a>)</h2>
+<div id="buynumlist" class="mt5">
+<volist name="uam['buynum']" id="lvo">
+<include file='Component:userline' />
+</volist>
+</div>
+<div class="clear"></div>
+
+</div>
+
+<div class="goodsdesc">
+<include file='Component:comments' /></div>
+
+
+</div>
+<div class="aside">
+
+<include file="Component:actionlink" /> 
+<include file="Component:showprofile" />
+<include file="Component:post" />
+<include file="Component:adblock" /></div>
+<div class="extra"></div>
+
+

@@ -1,0 +1,25 @@
+<div class="amain">
+	<div class="leftspace">
+	
+<form id="form1" action="" method="post">
+    我的注册Email地址:<br/>
+    <input type="text" value="" maxlength="60" size="34" name="email" datatype="email" require="true"  msg="邮箱必须填写,或者输入不正确" tabindex="1" style="margin-top:5px;"/><br/>
+    
+    <br/>
+    <input type="submit" value="发送邮件" class="btn-submit" name="user_login" tabindex="4"  />
+   
+
+</form>
+ <script>
+	$('#form1').checkForm();
+	</script>
+    </div>
+	
+</div>
+<div class="aside">
+	<h2>我想起密码了</h2>
+	<p>>> <a class="txts" href="__APP__/login">赶紧去登录...</a></p>
+	<br />
+	
+</div>
+<div class="extra"></div>

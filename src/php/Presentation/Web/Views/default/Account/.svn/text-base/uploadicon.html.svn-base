@@ -1,0 +1,19 @@
+<div class="amain">
+<div class="wl-200">
+ <a href="__APP__/" title="到主页看看"><img id="userico" name="userico" src="{$uinfo.image_id|getImage=###,'l_',true}" style="margin:10px 30px 30px 30px;" /></a>
+</div>
+<div style="wl-300">
+	说明：上传头像请小于1M，格式为 jpg,gif,png 格式的图片，请勿上传反动、色情图片，以免帐户被删除 <br />
+	<br />
+	<form method="post" action="__URL__/cuticon" enctype="multipart/form-data">
+		<input type="file" name="newico"  /><br />上传头像
+		<br />
+		<input type="submit" name="submit" value="好了，上传" class="btn-submit" />
+	</form>
+</div>
+</div>
+
+
+<div class="aside"><include file="Component:useraction" /></div>
+
+<div class="extra"></div>

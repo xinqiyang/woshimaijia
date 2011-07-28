@@ -1,0 +1,24 @@
+<div class="amain">
+	<div class="leftspace">
+		<table width="100%%"><tbody><tr><td valign="top" width="75">
+    <a class="nbg" href="__APP__/people/space/id/{$vo.uid}">
+    <img src="{$vo.uid|getUserImg}" style="padding:5px;" alt="{$vo.cnname}"></a>
+        </td>
+     <td valign="top">
+    <span class="pl2">来自: </span><span class="pl2">
+    <a href="__APP__/people/space/id/{$vo.uid}">{$vo.cnname}</a>
+            </span><br><span class="pl2">时间: {$vo.createtime|date='Y-m-d H:m',###}</span><br><br>
+      <div class="ul"><span class="pl2">话题: </span><span class="m">{$vo.title}</span></div>
+      <p>
+     {$vo.content|nl2br}
+     </p>
+    <div class="ul"><br></div>
+    <input type="button"  name="m_reply" onclick="window.open('http://localhost__URL__/write/id/{$vo.uid}')" class="btn-submit" value="回复消息">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="m_delete" class="btn-submit" value="删除消息"></p>
+    </td></tr></tbody></table>
+	</div>
+</div>
+<div class="aside">
+
+<p>>> <a class="ulinkcss" href="__URL__/index">返回我的收件箱</a></p>
+</div>
+<div class="extra"></div>

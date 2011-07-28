@@ -1,0 +1,3 @@
+<layout name="Public:head" />
+<layout name="$content" />
+<layout name="Public:foot" />

@@ -1,0 +1,27 @@
+<div id="grouptopic">
+<table width="100%">
+	<tbody>
+		<tr>
+			<td>话题</td>
+			<td>侃侃组</td>
+			<td>作者</td>
+			<td align="right" nowrap="nowrap">    回复</td>
+			<td align="right">最后回复</td>
+		</tr>
+<volist name="list" id="vo">
+		<tr class="pl">
+			<td>
+			<if condition="$vo.status eq 4">
+			<span class="pl">
+            <img alt="[置顶]" src="Resource/images/group/stick.gif"></span>
+            </if>
+            <a title="{$vo.title}" href="{:U('group/showtopic',array('id'=>$vo['id']))}">{$vo.title}</a></td>
+			<td><a href="{:U('group/showgroup',array('id'=>$vo['groupid']))}">{$vo.groupname}</a></td>
+			<td><a href="{:U('people/space',array('id'=>$vo['userid']))}" >{$vo.cnname}</a></td>
+			<td align="right">{$vo.postcount}</td>
+			<td align="right" nowrap="nowrap">{$vo.lastreplytime|date="m-d g:i",###}</td>
+		</tr>
+</volist>
+	</tbody>
+</table>
+</div>

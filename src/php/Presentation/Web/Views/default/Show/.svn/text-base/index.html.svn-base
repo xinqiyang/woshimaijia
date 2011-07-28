@@ -1,0 +1,33 @@
+<div class="amain">
+<h2>大家刚刚晒的购物单· · · · · ·<span class="pl">(<a href="__URL__/gomore/">更多</a>)</span></h2>
+<volist name="goods" id="vo">
+<div class="gblock"><a class="goods_photo"
+	href="__APP__/show/showgoods/id/{$vo.gid}"> <img class="artist_s"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/{$vo.filename}" title="{$vo.title}"></a>
+<div style="width: 100%;" class="ll"><a
+	href="__APP__/show/showgoods/id/{$vo.gid}">{$vo.title|msubstr=0,24}</a></div>
+<div class="pl">({$vo.likenum}人喜欢,{$vo.wantnum}想买,{$vo.ownernum}已买)</div>
+</div>
+
+</volist>
+<div class="clear"></div>
+
+<h2>大家支持的品牌· · · · · ·<span class="pl">(<a href="__URL__/gomore/">更多</a>)</span></h2>
+<volist name="brand" id="vo">
+<div class="mblock"><a class="goods_photo"
+	href="__APP__/show/showbrand/id/{$vo.bid}"> <img class="artist_s"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/{$vo.filename}" height="50" width="70" title="{$vo.title}"></a>
+<div style="width: 100%;" class="ll"><a
+	href="__APP__/show/showbrand/id/{$vo.bid}">{$vo.title}</a></div>
+<div class="pl">({$vo.supportnum}人支持,{$vo.buynum}买过)</div>
+</div>
+
+</volist>
+<div class="clear"></div>
+
+</div>
+<div class="aside">
+<include file="Component:actionlink" />
+<include file="Component:adblock" />
+</div>
+<div class="extra"></div>

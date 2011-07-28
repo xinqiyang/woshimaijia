@@ -1,0 +1,90 @@
+<div class="amain">
+<div class="leftsapce" style="margin-top: 30px;">
+
+<form id="form1" action="__URL__/deal" method="post"
+	enctype="multipart/form-data">
+<table style="clear: both; width: 100%">
+	<tbody>
+		<tr>
+			<td>显示类型</td>
+			<td>{$vo.showtype|getShowType}</td>
+		</tr>
+		<tr>
+			<td>到哪儿买</td>
+			<td><input size="70"  name="fromurl" value="{$vo.fromurl}"
+				type="text" datatype="url" require="true"  msg="网址必须填写" /> <br />
+				<span style="color:red;">网站买的填网站地址,网店买的填店铺地址,必须带http:// </span></td>
+		</tr>
+		<tr>
+			<td>东西名称</td>
+			<td><input size="70" name="title" value="{$vo.title}"
+				type="text" datatype="require" require="true"  msg="东西名称必须填写" /></td>
+		</tr>
+		<tr>
+			<td>关键字</td>
+			<td><input size="40" name="tags" value="{$vo.tags}" type="text" datatype="require" require="true"  msg="关键字必须填写" /> 关键字,空格或者逗号隔开,1-5个最好
+			</td>
+		</tr>
+
+		<tr>
+			<td>东西介绍</td>
+			<td><textarea id="desc" rows="8" cols="70" name="desc" datatype="require" require="true"  msg="东西的介绍得稍微写点了" >{$vo.desc}</textarea></td>
+		</tr>
+		
+		<tr>
+			<td>东西价格</td>
+			<td><input size="40" name="price" value="{$vo.price}" type="text" datatype="currency" require="true"  msg="价格要填,填写数字 10  或者 30.5 即可"  />不含运费的价格
+			</td>
+		</tr>
+		<tr>
+			<td>相关城市</td>
+		    <td ><input name="perNative" type="button" class="addrSelet" id="perNative" />
+		    <input name="locationid" type="hidden" id="locationid"  />
+		    如果发布晒单,则可以不选城市
+		    </td>
+		</tr>
+		<tr>
+			<td>东西的照片</td>
+			<td><input size="40" name="image_id" type="file" />上传东西的主图</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><empty name="vo['image_id']"><font color="red">还没有截图请上传</font><else /><img
+				src="{$vo.image_id|getImage}" /><br />
+			<br />
+			</empty></td>
+		</tr>
+
+		<tr>
+			<td><input type="hidden" name="actm" value="goods" /> <input
+				type="hidden" name="id" value="{$vo.id}" /></td>
+			<td><input type="submit" name="submit" value="我提交啦"
+				class="btn-submit"></td>
+		</tr>
+	</tbody>
+</table>
+
+
+
+</form>
+ <script>
+	$('#form1').checkForm();
+	</script>
+</div>
+</div>
+<div class="aside">
+<br /><br />
+
+<h2>晒晒好东西  操作过程</h2>
+<p>
+<b>一 发布我的购物单,填写表单</b><br /><br />
+
+二 上传东西主图并截图<br /><br />
+
+三 上传东西其他图片<br /><br />
+
+四  完成分享,查看发布  或者  继续分享网站
+</p>
+
+</div>
+<div class="extra"></div>

@@ -1,0 +1,51 @@
+<div class="amain">
+<div class="leftspace">
+	<form action="__URL__/signin" method="post" id="userreg" name="userreg">
+    <span class="m">我的Email地址:</span><br/>
+    <input type="text" value="" maxlength="60" size="34" name="email" id="email" require="true" datatype="email|ajax" url="__URL__/checkemail" msg="{%signcheckemail}" />
+    <span class="attn hint" id="e_hint">请输入Email地址</span>
+    <br/>
+    <div id="e_correct">
+    <span class="pl">用此邮箱接收确认邮件才能完成注册。</span>
+    </div>
+    <br/>
+    
+    <span class="m">我的密码:</span><br/>
+    <input type="password" value="" maxlength="20" size="16" name="password" id="password" require="true" value="" datatype="limit" min="5" max="12" msg="{%signcheckpass}"/>
+    <span class="attn hint" id="p_hint">请输入密码</span>
+    <br/>
+    <span class="pl">最少5个字符，请记住自己的密码。</span>
+    <br/><br/>
+    
+    <span class="m">我的常用名:</span><br/>
+    <input type="text" value="" maxlength="15"  size="16" name="enname" id="enname" require="true" datatype="userName|limit" min="4" max="20" msg="用户名只能由数字字母组成,长度为4-20个字符" />
+    <span class="attn hint" id="n_hint">输入常用名,<font color="red">字母数字组成</font></span>
+    <br/>
+    <span class="pl">方便大家联系</span>
+    <br/>
+    
+    <label>
+    <input type="checkbox" name="agreement" id="agreement" require="true" datatype="require" msg="请勾选" checked="checked"/>
+    我已经认真阅读并同意我是卖家的《<a target="_blank" href="__APP__/about/agreement">使用协议</a>》。
+    </label>
+    <br/>
+    
+    <br/><input type="submit" value="完成注册" class="btn-submit" id="button"/>
+    </form>
+    <script>
+	$('#userreg').checkForm();
+	</script>
+    </div>
+</div>
+
+<div class="aside">
+	<h2>我是买家注册说明</h2>
+	<div class="pl">
+    <p>我是买家是一个开源项目,  <a href="http://code.google.com/p/woshimaijia/" target="_blank">我是买家开源项目</a></p>
+    <p>我是买家  买家体验分享社区!大家一起逛逛,发现好东西;晒晒,分享我的体验;侃侃,找到最好的!</p>
+    <br/>
+    <p>> <a class="txts" href="__APP__/login">我注册了去登录</a></p>
+    </div>
+</div>
+
+<div class="extra"></div>

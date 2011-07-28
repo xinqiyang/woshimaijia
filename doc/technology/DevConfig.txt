@@ -1,0 +1,15 @@
+DEV ENV Config
+
+1.set domain
+127.0.0.1 web.dev.woshimaijia.com
+127.0.0.1 mis.dev.woshimaijia.com
+127.0.0.1 api.dev.woshimaijia.com
+127.0.0.1 wap.dev.woshimaijia.com
+127.0.0.1 res.dev.woshimaijia.com
+127.0.0.1 img.dev.woshimaijia.com
+
+
+
+
+
+

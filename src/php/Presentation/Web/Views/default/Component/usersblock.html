@@ -1,0 +1,9 @@
+<volist name="users" id="vo">
+<dl class="oblock">
+	<dt><a href="__APP__/people/space/id/{$vo.id}" class="nbg"><img
+		src="{$vo.url}/{$vo.model}/spic/m_{$vo.filename}" class="m_sub_img"
+		alt="{$vo.cnname}"></a></dt>
+	<dd><a href="__APP__/people/space/id/{$vo.id}">{$vo.cnname|msubstr=0,6}</a><br>
+	<span class="pl">({$vo.city|default='火星'})</span></dd>
+</dl>
+</volist>

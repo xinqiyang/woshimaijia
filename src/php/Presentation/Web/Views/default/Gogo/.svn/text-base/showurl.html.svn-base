@@ -1,0 +1,126 @@
+
+<div class="amain">
+
+<div class="goodshowblock">
+<div class="displayauto clearfix">
+<div class="subject clearfix">
+<div class="mainpic"><a href="http://{$vo.domain}" target="_blank"
+	title="{$vo.title},点击访问"><img src="{$vo.url}/{$vo.model}/spic/l_{$vo.filename}"
+	title="{$vo.title}" alt="{$vo.title}"></a><br>
+</div>
+<div style="display:block;float:right;width:268px;padding-bottom:10px;">
+<div style="display:block;padding-top:10px;float:left;">
+<div class="info"><span> <span class="pl">去逛逛去</span>: <a
+	href="http://{$vo.domain}" target="_blank">{$vo.title}</a></span><br>
+
+<br>
+
+<div class="obmo">
+<span class="pl">谁的分享:</span><a class="pl-5"  href="__APP__/people/space/id/{$vo.user_id}">{$vo.cnname}</a><br>
+<br>
+<span class="pl">逛逛指数:</span> <span id="gonum">{$vo.gonum}</span><br>
+
+<span class="pl">推荐指数:</span> <span id="goodnum">{$vo.goodnum}</span> <br>
+<if condition="($vo.category_id eq 1) OR ($vo.category_id eq 3)">
+<span class="pl">买买指数:</span> <span id="buynum">{$vo.buynum}</span><br>
+</if>
+<br>
+
+<span class="pl">相关标签:</span> <a class="pl-5" href="">{$vo.tags|getTags}</a><br><br>
+
+<a class="gotobutton"	href="http://{$vo.domain}" target="_blank" title="去{$vo.title}">去{$vo.title}</a>
+</div>
+</div>
+
+<div class="interest_action">
+<span id="result"></span>
+<div class="rating_wrap clearbox">
+<input class="btn-action" type="button" onclick="usaction('gonum','{$vo.id}')" value="我逛过" title="我逛过了,标记一下吧"><br>
+
+<input class="btn-action" type="button" onclick="usaction('goodnum','{$vo.id}')" value="我推荐" title="推荐{$vo.title}吧!"><br>
+<if condition="($vo.category_id eq 1) OR ($vo.category_id eq 3)">
+<br>
+<input class="btn-action" type="button" onclick="usaction('buynum','{$vo.id}')" value="我买过" title="我买过了,标记一下了"><br>
+<br />
+
+</if>
+ </div>
+</div>
+</div>
+<div style="display:block;padding-top:10px;float:left;">
+<p >{$vo.desc|nl2br|msubstr=###,0,154}...... <br /></p>
+</div>
+</div>
+
+
+
+</div>
+
+
+</div>
+</div>
+
+<div class="loverlist">
+<h2 class="bold">逛过{$vo.title}的大家 ...(<a href="__URL__/gomore/type/gonum" class="linkcss">全部</a>)</h2>
+
+<div id="gonumlist" style="float:left;">
+<volist name="uam['gonum']" id="lvo">
+<a href="__APP__/people/space/id/{$lvo.id}" ><img
+		src="{$lvo.url}/{$lvo.model}/spic/m_{$lvo.filename}" title="{$lvo.cnname}"
+		alt="{$lvo.cnname}">
+</a>
+</volist>
+</div>
+<div class="clear"></div>
+
+<h2 class="bold">推荐{$vo.title}的大家 ...(<a href="__URL__/gomore/type/tjnum" class="linkcss">全部</a>)</h2>
+<div id="goodnumlist" style="float:left;">
+<volist name="uam['goodnum']" id="lvo">
+<a href="__APP__/people/space/id/{$lvo.id}" ><img
+		src="{$lvo.url}/{$lvo.model}/spic/m_{$lvo.filename}" title="{$lvo.cnname}"
+		alt="{$lvo.cnname}">
+</a>
+</volist>
+</div>
+
+<div class="clear"></div>
+<if condition="($vo.category_id eq 1) OR ($vo.category_id eq 3)">
+<h2 class="bold">在{$vo.title}买过东西的大家 ...(<a href="" class="linkcss">全部</a>)</h2>
+<div id="buynumlist" style="float:left;">
+<volist name="uam['buynum']" id="lvo">
+<a href="__APP__/people/space/id/{$lvo.id}" ><img
+		src="{$lvo.url}/{$lvo.model}/spic/m_{$lvo.filename}" title="{$lvo.cnname}"
+		alt="{$lvo.cnname}">
+</a>
+</volist>
+</div>
+<div class="clear"></div>
+</if>
+</div>
+
+<div class="goodsdesc"><include file='component:comments' /></div>
+
+<div style="margin-top: 1em">
+
+
+<h2>推荐{$vo.title}的人还逛了· · · · · · </h2>
+<volist name="otherurls" id="vo">
+<div class="mblock"><a class="goods_photo"
+	href="__APP__/gogo/showurl/id/{$vo.id}"> <img class="artist_s"
+	alt="{$vo.title}" src="{$vo.url}/{$vo.model}/spic/m_{$vo.filename}" title="{$vo.title}"></a>
+<div style="width: 100%;" class="ll"><a
+	href="__APP__/gogo/showurl/id/{$vo.id}">{$vo.title}</a></div>
+<div class="pl">({$vo.gonum}人逛过,{$vo.goodnum}推荐)</div>
+</div>
+
+</volist>
+<div class="clear"></div>
+</div>
+</div>
+<div class="aside"><include file="Component:actionlink" /> 
+ <include file="Component:post" /> 
+ <include file="Component:adblock" /> 
+ </div>
+<div class="extra"></div>
+
+

@@ -1,0 +1,13 @@
+<ul class="rblockul">
+    <li class="mbtl">
+    <a href="{:U('people/space',array('id'=>$vo['uid']))}"> <img class="artist_s"
+	alt="{$vo.cnname|msubstr=0,6}" src="{:getImage($vo['image_id'],'m_')}" title="{$vo.cnname|msubstr=0,6}" />
+    </a>
+    </li>
+        <li class="mbtrmini"><a href="{:U('people/space',array('id'=>$vo['uid']))}">{$vo.cnname}</a> 
+        <span class="pl">对 <a href="{:U($module.'/show'.$model,array('id'=>$vo['gid']))}" onclick="">{$vo.title}</a></span>说<br>
+        <div class="indentrec">
+           <p style="word-break : break-all; word-wrap: break-word;">{$vo.content|msubstr=0,70|htmlspecialchars|nl2br}</p>
+        </div>
+        </li>
+</ul>

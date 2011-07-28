@@ -1,0 +1,47 @@
+<div class="amain">
+<div class="leftspace" style="margin-top: 30px;">
+<form id="form1" action="__URL__/deal" method="post">
+<table style="clear: both; width: 100%">
+	<tbody>
+
+		<tr>
+			<td>相册名称</td>
+			<td><input size="40" name="title" value="{$vo.title}"
+				type="text" datatype="require" require="true" msg="请输入相册名称" /></td>
+		</tr>
+
+		<tr>
+			<th style="width: 12em;">关键字</th>
+			<td><input name="tags" value="{$vo.tags}" size="40" type="text" /></td>
+		</tr>
+		<tr>
+			<td>描述</td>
+			<td><textarea id="desc" rows="8" cols="70" name="desc">{$vo.desc}</textarea></td>
+		</tr>
+
+		<tr>
+			<td>访问权限</td>
+			<td>{$vo.status|albumState}</td>
+		</tr>
+
+
+
+		<tr>
+			<td><input type="hidden" name="actm" value="album" /> <input
+				type="hidden" name="id" value="{$vo.id}" /></td>
+			<td><input type="submit" name="submit" value="我提交啦"
+				class="btn-submit"></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<script>
+	$('#form1').checkForm();
+</script></div>
+</div>
+<div class="aside"><br />
+<br />
+新建我的相册 <br />
+<br />
+上传我的图片</div>
+<div class="extra"></div>

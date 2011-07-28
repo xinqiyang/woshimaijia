@@ -1,0 +1,31 @@
+<empty name="uinfo['id']"> 
+	<a href="__APP__/signin/" class="ulinkcss">&gt; 加入我是买家</a><br><br>
+<a href="__APP__/login/" class="ulinkcss">&gt; 登陆我是买家</a><br><br>
+<else />
+<div class="cat-col5">
+<a href="__APP__/gogo/url/" class="linkcss" title="大家去过的好的网站,网店 分享出来吧">&gt; 分享好地方</a><br><br>
+<a href="__APP__/show/goods/" class="linkcss" title="想推荐大家一起买,晒晒我买的">&gt; 晒晒好东西</a><br><br>
+<a href="__APP__/show/brand/" class="linkcss" title="我喜欢 的品牌我推荐,赶快行动!">&gt; 提交酷品牌</a><br><br>
+
+<br>
+
+<if condition="(strtolower(ACTION_NAME) eq 'showgroup')">
+<a href="__APP__/group/group/" class="ulinkcss">&gt; 新建侃侃组</a><br><br>
+<a href="__APP__/group/topic/group_id/{$gg.id}" class="ulinkcss">&gt; 我要发言</a><br><br>
+<a href="__APP__/group/join/group_id/{$gg.id}" class="ulinkcss">&gt; 加入{$vo.groupname}</a><br><br><br>
+<a href="__APP__/group/quite/group_id/{$gg.id}" class="ulinkcss">&gt; 退出本组</a><br><br>
+
+
+</if>
+
+</div>
+<div class="clear"></div>
+</empty>
+
+<if condition="(strtolower(ACTION_NAME) eq 'showtopic') OR (strtolower(ACTION_NAME) eq 'topic')">
+<a href="__APP__/Group/showgroup/id/{$topic.group_id}" class="ulinkcss">&gt; 返回 {$topic.group_id|getGroupname}</a><br><br>
+</if>
+
+<if condition="(strtolower(MODULE_NAME) eq 'album') ">
+<a href="__APP__/album/album/" class="linkcss">&gt; 新建相册</a><br><br>
+</if>
