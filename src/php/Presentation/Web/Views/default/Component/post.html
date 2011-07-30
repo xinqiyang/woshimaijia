@@ -3,7 +3,7 @@
 <h2>说说......</h2>
 <form name="comment_form" id="comment_form" method="post" action="{:U('account/deal')}">
 <input type="hidden" name="objectid" value="{.id}" />
-<input type="hidden" name="model" value="<php>echo substr(ACTION_NAME,4,strlen(ACTION_NAME));</php>" />
+<input type="hidden" name="model" value="" />
 <input type="hidden" name="actm" value="comment" />
     <input type="hidden" name="ajax" value="1" />
 <textarea id="ccontent" name="content" rows="8" cols="65"></textarea><br>

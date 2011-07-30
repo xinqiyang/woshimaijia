@@ -2,6 +2,26 @@
 
 class TestAction extends Action {
 	
+	
+	public function testiplocation()
+	{
+		header("Content-type: text/html; charset=utf-8"); 
+		debug_start('ip');
+		$ip = Iplocation::instance();
+		$arr = array('123.120.1.160','124.130.2.160','223.120.1.160','66.228.59.210');
+		foreach ($arr as $val)
+		{
+			$r = $ip->getlocation($val);
+			var_dump($r);
+		}
+		//var_dump(mb_convert_encoding($r['country'], 'UTF8','GBK'));
+		//var_dump(mb_convert_encoding($r['area'], 'UTF8','GBK'));
+		debug_end('ip');
+		die;
+			
+	}
+	
+	
 	public function testaddparam()
 	{
 		
@@ -33,11 +53,11 @@ class TestAction extends Action {
 		
 		// select a collection (analogous to a relational database's table)
 		$collection = $db->foo;
-		var_dump($db,$collection);
+		//var_dump($db,$collection);
 		// add a record
 		$obj = array( "title" => "Calvin and Hobbes", "author" => "Bill Watterson" );
 		$r = $collection->insert($obj);
-		var_dump($r);
+		//var_dump($r);
 		// add another record, with a different "shape"
 		$obj = array( "title" => "XKCD", "online" => true );
 		$collection->insert($obj);

@@ -11,7 +11,10 @@ define('ACTION_PATH',dirname(dirname(__FILE__)).'/Actions');
 define('TEMP_PATH',dirname(dirname(__FILE__)).'/Temp');
 define('VIEW_PATH',dirname(dirname(__FILE__)).'/Views');
 
-define('BUDDY_PATH',dirname(dirname(dirname(dirname(__FILE__)))).'/Buddy');
+//buddy path
+define('BUDDY_PATH','/home/xinqiyang/wwwroot/buddy');
+//define('BUDDY_PATH',dirname(dirname(dirname(dirname(__FILE__)))).'/Buddy');
+
 //this is dev mode ,if you use the product mode then change the dev to product
 define('CONF_PATH',dirname(dirname(dirname(dirname(__FILE__)))).'/Config/dev');
 //load framework

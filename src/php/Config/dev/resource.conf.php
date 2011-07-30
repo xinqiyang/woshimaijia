@@ -9,18 +9,20 @@
 // | Author: xinqiyang <xinqiyang@gmail.com>
 // +----------------------------------------------------------------------
 return array(
-   
-    //redis master
-    'redis_00'=>array(
-    	'host'=>'127.0.0.1',
-    	'port'=>6379,
-    	'slaves'=>array(
-	    	array(
+   'redis'=>array(
+	    //redis master
+	    'redis'=>array(
 	    	'host'=>'127.0.0.1',
-	    	'port'=>6380,
+	    	'port'=>6379,
+	    	'slaves'=>array(
+		    	array(
+		    	'host'=>'127.0.0.1',
+		    	'port'=>6380,
+		    	),
 	    	),
-    	),
+	    ),
     ),
+    //no use
     //MetaData config
     'object_common_attribute'=>array('title','image','url','text'),
     'object_type'=>array(
@@ -67,9 +69,9 @@ return array(
     ),
     
     
-    
+    'mysql'=>array(
     //db configuration
-    'mysql_00'=>array(
+    'mysql'=>array(
 	    'dbms' => 'mysql',
 	    'username' => 'root',
 	    'password' => '123456',
@@ -99,38 +101,7 @@ return array(
 	            'hostport' => '3306'),
 	    	)
     	),
-    	
-    //db statistics configuration
-    'mysql_01'=>array(
-	    'dbms' => 'mysql',
-	    'username' => 'root',
-	    'password' => '123456',
-	    'hostname' => '127.0.0.1',
-	    'hostport' => '3306',
-	    'database' => 'buddy_stat',
-	    'db_prefix' => 'bd_',
-	    'fields_cache'=>TRUE, //if set false then no flush table info
-	    'fields_cache_path'=>'/home/xinqiyang/wwwlogs/',//  
-		'use_slaves'=>TRUE, //use slaves  true/false
-	    'slaves' => array(
-	        array('username' => 'root',
-	            'password' => '123456',
-	            'hostname' => '127.0.0.1',
-	            'hostport' => '3306'),
-	        array('username' => 'root',
-	            'password' => '123456',
-	            'hostname' => '127.0.0.1',
-	            'hostport' => '3306'),
-	        array('username' => 'root',
-	            'password' => '123456',
-	            'hostname' => '127.0.0.1',
-	            'hostport' => '3306'),
-	        array('username' => 'root',
-	            'password' => '123456',
-	            'hostname' => '127.0.0.1',
-	            'hostport' => '3306'),
-	    	)
-    ),
+   
     
     
     'wsmj'=>array(
@@ -163,26 +134,15 @@ return array(
 	            'hostport' => '3306'),
 	    	)
     ),
+    ),
+    //QUEUE
+    'queue'=>array(
+    	//set the main queue
+    	'queue'=>array('host'=>'127.0.0.1','port'=>'55555'),
+    ),
     
-    //set the main queue
-    'queue_00'=>array('host'=>'127.0.0.1','port'=>'55555'),
-    	
     //LOG SAVE PATH
     'logpath'=>'/home/xinqiyang/wwwlogs/logs/dev.woshimaijia.com/',
-    
-    //reservce proxy nginx server to deal the request
-    'APIURL'=>'http://api.dev.woshimaijia.com',
-    //wap Url
-    'WAPURL'=>'http://wap.dev.woshimaijia.com',
-    //resource url config,this is use the single site 
-    'RESURL'=>'http://res.dev.woshimaijia.com',
-    //IMAGE GET SERVER
-    'IMGURL'=>'http://img.dev.woshimaijia.com',
-    //MIS URL
-    'MISURL'=>'http://mis.dev.woshimaijia.com',
-    	
-    //UPLOAD SERVER	
-    'UPLOADSERVER' => 'http://img.dev.woshimaijia.com/upload/index',
     
     
     );

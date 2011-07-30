@@ -75,6 +75,16 @@ class AppBaseAction extends Action
 		//common post request method,deal login/unlogin example
 		$r = Validate::validates();
 		var_dump($r);
+		
+		$r['gogo'] = array();
+		$r['goods'] = array();
+		$r['newusers'] = array();
+		$r['brand'] = array();
+		$r['comments'] = array();
+		
+		
+		$this->page = array_merge($r,$this->page);
+		
 		if($this->isAjax())
 		{
 			$this->dataReturn($r);
@@ -162,11 +172,14 @@ class AppBaseAction extends Action
 	 * @param templatename $t
 	 * @param templateinfo $info
 	 */
-	protected function t($r)
+	protected function t($r='')
 	{
-		$t = ($r['info'] === 'Bad Request') ? 'Public/404' : '';
+		$t = (isset($r['info']) && $r['info'] === 'Bad Request') ? 'Public/404' : '';
 		//generate the data then display
-		$this->page['data'] = $r['data'];
+		if(isset($r['data']))
+		{
+			$this->page['data'] = $r['data'];
+		}
 		//all data to set the page array to display
 		$this->page['resurl'] = C('RESURL');
 		//assign the page array prepare to display
