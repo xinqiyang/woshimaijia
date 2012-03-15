@@ -1,0 +1,47 @@
+
+	<div id="friend-3">
+
+		<h2>
+			你可能喜欢去的小组 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;· <span class="pl">&nbsp;(
+				<a href="http://www.douban.com/people/scotoma/minisite">全部</a> ) </span>
+		</h2>
+
+		<dl class="obu">
+			<dt>
+			<a href="/index.php?m=people&amp;a=space&amp;id=27" class="nbg"><img
+				src="http://img.dev.woshimaijia.com/images/default/48/1.jpg"
+				class="m_sub_img" alt="用户125">
+			</a>
+		</dt>
+		<dd>
+			<a href="/index.php?m=people&amp;a=space&amp;id=27">用户125</a><br>
+			
+		</dd>
+		</dl>
+		<dl class="obu">
+			<dt>
+			<a href="/index.php?m=people&amp;a=space&amp;id=27" class="nbg"><img
+				src="http://img.dev.woshimaijia.com/images/default/48/1.jpg"
+				class="m_sub_img" alt="用户125">
+			</a>
+		</dt>
+		<dd>
+			<a href="/index.php?m=people&amp;a=space&amp;id=27">用户125</a><br>
+			
+		</dd>
+		</dl>
+		<dl class="obu">
+			<dt>
+			<a href="/index.php?m=people&amp;a=space&amp;id=27" class="nbg"><img
+				src="http://img.dev.woshimaijia.com/images/default/48/1.jpg"
+				class="m_sub_img" alt="用户125">
+			</a>
+		</dt>
+		<dd>
+			<a href="/index.php?m=people&amp;a=space&amp;id=27">用户125</a><br>
+			
+		</dd>
+		</dl>
+		<br clear="all">
+
+	</div>

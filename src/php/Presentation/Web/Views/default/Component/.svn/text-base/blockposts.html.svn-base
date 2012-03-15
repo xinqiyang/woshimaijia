@@ -1,0 +1,28 @@
+<notempty name="page['data']['post']">
+<div id="postlist">
+	<ul class="mbt">
+		<volist name="page['data']['post']" id="vo">
+		<li class="mbtl"><include file="Component:blockavataruser" /></li>
+		<li class="mbtr"><include file="Component:blocklinkuser" /> <span
+			class="pl">说：</span>
+			<div class="postimg">
+			<if condition="!empty($vo['object_id']) && !empty($vo['imageids']) ">
+				<a href="{:U('product/product',array('id'=>$vo['object_id']))}" ><img src="{$vo.imageids|getNewImage=###,'l'}" /></a>
+			</if>
+			</div>
+			<div class="quote">
+				<span class="inq">{$vo.content|nl2br}</span> <br />
+				<span><a href="{:U('post/post',array('id'=>$vo['id']))}">{$vo.source}</a>&nbsp;</span> <span>{$vo.reply}回应
+				</span> <span style="margin-left: 10px;">{$vo.usercopy}转发
+				</span> <span style="margin-left: 10px;">{$vo.id|msubstr=###,0,10|aliasTime}</span><br />
+			</div>
+			
+			</li>
+		</volist>
+		<div class="clear"></div>
+		<div class="paginator">{$page['data']['count']|page=###,$page['data']['size']}</div>
+	</ul>
+</div>
+</notempty>
+
+

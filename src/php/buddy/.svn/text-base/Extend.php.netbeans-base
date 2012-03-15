@@ -1,0 +1,89 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+
+//--------------NEED REMOVE------------------------------------
+/**
+ * set default status
+ */
+function getstatus()
+{
+	return '0';
+}
+
+function getBrandNum($id)
+{
+	return BrandLogic::getLikeNum($id);
+}
+
+function getProductNum($id)
+{
+	return ProductLogic::getLikeNum($id);
+}
+//--------------NEED REMOVE------------------------------------
+
+//------------------------NEED REMOVE---------------------------------------------
+
+/**
+ * get Image from ImageService
+ * @param string $image_id
+ * @param string $icon
+ * @param bool $thumb
+ */
+function getImage($image_id,$icon='',$thumb=true)
+{
+	return ImageService::getImages($image_id,$icon,$thumb);
+}
+
+/*
+ * 获取新的个人头像信息
+ */
+function getNewImage($image_id,$icon='a')
+{
+	return ImageService::getNewImages($image_id,$icon);
+}
+
+/**
+ * 获取用户信息的
+ * @param bigint $id
+ * @throws Exception
+ */
+function getUser($id='')
+{
+	return empty($id) ? '' : AccountService::funcUser($id);
+}
+
+
+function getUserScreenname($id)
+{
+	if(!empty($id)){
+		$user = AccountLogic::getAccount($id);
+		return !empty($user) ? $user['screenname'] : '';
+	}
+	return '';
+}
+
+function getCity($enname)
+{
+	return DistrictLogic::getCity($enname);
+}
+
+function getGroupUsers($id)
+{
+	return GroupLogic::getGroupUsers($id);
+}
+
+function getTopicPostCount($id)
+{
+	return TopicLogic::getTopicPostCount($id);
+}
+//------------------------NEED REMOVE---------------------------------------------
+

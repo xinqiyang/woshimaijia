@@ -1,0 +1,8 @@
+<h2>操作菜单</h2>
+
+
+<p>>> <a class="ulinkcss" href="{:U('account/uploadicon')}">上传头像</a></p>
+<p>>> <a class="ulinkcss" href="{:U('account/setting')}">编辑个人信息</a></p>
+<p>>> <a class="ulinkcss" href="{:U('account/changepassword')}">修改密码</a></p>
+
+<br />

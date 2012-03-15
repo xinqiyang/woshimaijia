@@ -1,0 +1,29 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class ServicesLogic extends BaseService
+{
+	
+	public static function addSerivces($account,$password,$groupid)
+	{
+		$array = array();
+		$array['id']=objid();
+		$array['account']=$account;
+		$array['password']=$password;
+		$array['status']=0;
+		$array['groupid']=$groupid;
+		if(self::add('services', $array))
+		{
+			return true;
+		}
+		return false;
+	}
+}

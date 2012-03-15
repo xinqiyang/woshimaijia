@@ -1,0 +1,23 @@
+<notempty name="page['user']['id']"> 
+<div class="txd">
+<h2>说说......</h2>
+<form name="formsay" id="formsay" method="post" action="{:U('post/deal')}">
+<input type="hidden" name="form" value="tweet" id="form"/>
+<textarea id="ccontent" name="content" rows="5" cols="65" require="true" datatype="ajax"  url="{:U('check/checkSpam')}"  msg="发布内容不能为空"></textarea><br>
+
+<div>
+<input type="submit"  value="发 表" class="btn-submit">
+<volist name="page.data.pubactiontags" id="vo">
+<span>
+	<a href="javascript:void(0)" class="actiontags" onclick="addtag('{$vo.tag}')">{$vo.tag}</a>
+</span>
+</volist>
+</div>
+</form>
+<script>
+	$('#formsay').checkForm();
+	</script>
+</div>
+<div class="clear"></div>
+
+</notempty>

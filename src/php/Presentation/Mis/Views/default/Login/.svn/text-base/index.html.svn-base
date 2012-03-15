@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{&site.title}管理中心</title>
+<script type="text/javascript" src="{$page.resurl}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{$page.resurl}/js/validity.js"></script>
+<link rel="stylesheet" href="{$page.resurl}/images/misimages/login.css" type="text/css" />
+</head>
+<body>
+<div class="main">
+  <div class="login">
+    <form id="form1" action="{:U('post/deal')}" method="post" >
+      <div class="inputbox">
+        <dl>
+          <dt>帐　　号：</dt>
+          <dd>
+            <input type="text" name="account" id="account" size="20" onfocus="this.style.borderColor='#239fe3'" onblur="this.style.borderColor='#dcdcdc'" require="true" datatype="require" msg="帐号不能为空" />
+          </dd>
+        </dl>
+        <dl>
+          <dt>密　　码：</dt>
+          <dd>
+            <input type="password" name="password" id="password" size="20" onfocus="this.style.borderColor='#239fe3'" onblur="this.style.borderColor='#dcdcdc'" require="true" datatype="require" msg="密码不能为空"/>
+          </dd>
+        </dl>
+		
+		
+		
+        <dl>
+          <dt>&nbsp;</dt>
+          <dd>
+            <input name="submit" type="submit" value="" class="input" /> 
+		
+          </dd>
+        </dl>
+      </div>
+      <div class="butbox">
+        <dl>
+          <dt></dt>
+          <dd>&nbsp;<input type="hidden" value='login' name='form' /></dd>
+        </dl>
+      </div>
+      <div style="clear:both"></div>
+      <script>	$('#form1').checkForm();</script>
+      </form>
+  </div>
+</div>
+<div class="copyright">Copyright &copy;2010 - 2011 {&site.title} Mis 系统</div>
+</body>
+</html>

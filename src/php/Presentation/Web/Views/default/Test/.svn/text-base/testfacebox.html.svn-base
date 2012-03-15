@@ -1,0 +1,21 @@
+<include file='Public:head' />
+<div class="amain">
+    <a href="#info" rel="facebox">text</a>
+    
+    <div id="info" style="display: none;">
+        
+        <p>
+            
+            我的测试<br />
+            我的测试的拉。。。哈哈
+        </p>
+    </div>
+</div>
+
+<div class="aside">
+
+</div>
+
+<div class="extra">           
+</div>
+<include file='Public:foot' />

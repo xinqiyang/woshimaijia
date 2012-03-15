@@ -1,0 +1,171 @@
+项目的TODO LIST
+
+20111025  yxq
+完成项目需求文档
+技术架构文档  开发环境配置  测试环境配置 线上环境配置   buddy框架架构设计   buddy的代码结构
+调试下在apache下的开发环境的情况
+在线上的vps上部署一下测试环境，使得大家可以在VPS上开发
+
+
+
+20111228
+修复后端推送的脚本的处理逻辑   done
+修复下逛逛页面的显示使用redis key的逻辑
+修复2个帐号直接的关注和被关注的逻辑 done 
+修复个人页面的展示的逻辑 done
+修复人和商品/品牌/站点直接的显示的逻辑 done
+修复发送内容的预先处理的逻辑,修复李光的获取商品信息的方法
+
+修复群组页面使用redis key的逻辑
+修复下地区显示及地区展示的设计
+修复下广场使用timeline的功能
+
+
+20111231
+修改下操作为post和ajax提交
+
+20120106
+修复下商品页面类似的商品，读取类似的cache 否则就读取默认的cache doing
+修复指数的显示问题，及点击后的指数添加问题 done
+完善reply的ajax提交问题 stop
+修复全部的显示问题，全部显示使用的是弹出页面并在弹出页面中进行分页处理 done
+修复购物车的问题
+
+
+20120110
+修复未登录的的bug done
+修复下发布商品中用户说的bug
+修复添加抓取淘宝链接后产品插入我们本地产品库的问题
+修复品牌和商品的管理关系
+修复回应和转发的过程
+修复@用户名的过程
+添加人人网/新浪的登录引导过程
+
+待修复的功能:
+修复发布信息框中能够插入图片
+搜索功能（群/内容）
+导入数据的脚本
+1）品牌导入及品牌的图片导入
+2）商品的导入
+3）用户导入
+
+
+20120116
+修复回复和群组信息
+修复QQ登录和人人登录信息
+修复推送的问题
+
+
+20120117
+修复登录后获取地址的问题
+配置服务器环境开发环境 
+修复显示的评论的问题及显示消息的内容 
+
+20120119
+修复下删除数据的移除key的问题,还是发队列吧，然后队列执行删除
+修复js的问题
+测试下采集的dom抓取的问题 done
+修复下发送中的 ajax的验证的问题 done
+修改postdeal 修复下关于品牌和商品直接的关联关系  品牌==>TAG  TAG==>TAG   商品管理==》TAG
+ 
+
+修复发布链接的问题，
+解决发布信息的bug
+
+20120124
+添加广告的读取信息
+
+20120203
+修复MIS方面的问题
+
+["goods_name"]=>
+  string(61) "冲4钻包邮 Air Jordan 皮袖羊毛夹克 446532-010 现货"
+  ["goods_url"]=>
+  string(46) "http://item.taobao.com/item.htm?id=14660776838"
+  ["goods_site"]=>
+  string(6) "taobao"
+  ["nick"]=>
+  string(12) "乔家古宅"
+  ["goods_price"]=>
+  string(7) "2049.00"
+  ["goods_brand"]=>
+  string(752) "1632501:124149586:货号:446532-010;1627207:28341:颜色分类:黑色;20000:42647:品牌:Nike Air Jordan;10537956:96618832:上市年份:2011年冬季;10537957:27393:上市月份:10月;10574189:3421626:市场价格:2899;1626553:3224766:运动服性别:男性;10649624:46874:是否现货:现货;3015290:19100504:款式细节:品牌LOGO;3015339:3229351:功能:抗紫外线;3015339:4194098:功能:保暖;3015339:4526599:功能:耐磨;3015339:7850140:功能:防风;3015339:13781557:功能:防虫;1626580:28314:运动服尺寸:S（成人）;1626580:28315:运动服尺寸:M（成人）;1626580:28316:运动服尺寸:L（成人）;1626580:28317:运动服尺寸:XL（成人）;1626580:28318:运动服尺寸:XXL（成人）;21541:45690:价格区间:1500元以上"
+  ["goods_pic"]=>
+  string(72) "http://img01.taobaocdn.com/bao/uploaded/i1/T1ogyLXaVcXXX0YYHX_084350.jpg"
+  ["goods_tags"]=>
+  string(15) "2899,446532-010"
+  ["item_img"]=>
+  object(SimpleXMLElement)#180 (2) {
+    ["@attributes"]=>
+    array(1) {
+      ["list"]=>
+      string(4) "true"
+    }
+    ["item_img"]=>
+    object(SimpleXMLElement)#182 (3) {
+      ["id"]=>
+      string(1) "0"
+      ["position"]=>
+      string(1) "0"
+      ["url"]=>
+      string(72) "http://img01.taobaocdn.com/bao/uploaded/i1/T1ogyLXaVcXXX0YYHX_084350.jpg"
+    }
+  }
+  ["prop_img"]=>
+  string(0) ""
+  ["goods_key"]=>
+  string(17) "taobao14660776838"
+  ["taoke_url"]=>
+  string(0) ""
+  ["shopclickurl"]=>
+  string(0) ""
+  ["seller_credit_score"]=>
+  string(0) ""
+  ["shop_name"]=>
+  string(15) "乔家大院儿"
+
+
+		<notempty name="page['data']['likeids']">
+		<h2 class="bold">
+			和 {$page.data.title} 差不多的 ...(<a href="{:U('total/index',array('type'=>'like','id'=>$page['data']['id']))}" class="linkcss cboxElement">全部</a>)
+		</h2>
+		<div id="likelist" class="mt5">
+			<volist name="page['data']['likeids']" id="vo">
+				<include file="Component:listusers" />
+			</volist>
+		</div>
+		<div class="clear"></div>
+		</notempty>
+		
+	<notempty name="page['data']['likeids']">
+		<h2 class="bold">
+			{$page.data.title} 下的热门商品 ...(<a href="">全部</a>)
+		</h2>
+		<div id="likelist" class="mt5">
+			<volist name="page['data']['likeids']" id="vo">
+				<include file="Component:listusers" />
+			</volist>
+		</div>
+		<div class="clear"></div>
+		</notempty>
+
+
+
+20120216
+添加jiathis的分享工具栏感觉还是挺不错的东西的
+
+
+20120219
+配置了下apache下的开发环境
+发现了MAC下无法上传头像的bug
+还有是无法按照httpsqs的bug
+还是scws无法按照成功的bug
+数据库还没有导过来
+消息功能的读取bug读后还是未读消息
+firefox下的大家说里面的关注和被关注无法显示出来
+
+功能修改，设置大家可能喜欢的产品和功能
+地区的功能需要更新，然后设置从手机中获取到的地区信息
+
+
+

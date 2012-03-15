@@ -1,0 +1,29 @@
+<include file="Public:head" />
+<div class="amain">
+	
+	<include file="Component:blockactions" />
+	<div class="clear"></div>
+	<h2>刚刚大家说：</h2>
+	<include file="Component:blockposts" />
+</div>
+
+
+<div class="aside">
+	<include file="Component:actionlink" />
+	
+	<include file="Component:blockhottags" />
+	<include file="Component:adblock" />
+	<notempty name="page['data']['newaccounts']">
+		<h2 class="bold">
+			新来的大家 ...(<a href="{:U('total/account')}">全部</a>)
+		</h2>
+		<div id="ownlist" class="mt5">
+		<volist name="page['data']['newaccounts']" id="vo">
+				<include file="Component:listoneusers" />
+		</volist>
+		</div>
+		<div class="clear"></div>
+	</notempty>
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

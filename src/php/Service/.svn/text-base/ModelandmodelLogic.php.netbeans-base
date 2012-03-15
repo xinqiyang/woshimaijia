@@ -1,0 +1,49 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class ModelandmodelLogic extends BaseService{
+
+	public static function addModelandmodel($modela_id,$modelb_id,$user_id,$type='',$status=0,$locationid='',$extension='')
+	{
+		$r = self::isExist($modela_id, $modelb_id, $user_id, $type);
+		if (!$r) {
+			$array = array();
+			$array['id']=objid();
+			$array['status']=$status;
+			$array['modela_id']=$modela_id;
+			$array['modelb_id']=$modelb_id;
+			$array['user_id']=$user_id;
+			$array['type']=$type;
+			$array['locationid']=$locationid;
+			$array['extension']=$extension;
+			if(self::add('modelandmodel', $array)){
+				return $array['id'];
+			}
+		}else{
+			$r['status'] = 0;
+			if(self::saveClean('modelandmodel', $r))
+			{
+				return $r['id'];
+			}
+		}
+		return false;
+	}
+	
+	public static function isExist($modela_id,$modelb_id,$user_id,$type)
+	{
+		return self::get('modelandmodel', '','*',"modela_id=$modela_id AND modelb_id=$modelb_id and uesr_id=$user_id and type=$type");
+	}
+	
+	public static function getsIds($where)
+	{
+		return self::gets('modelandmodel',$where);
+	}
+}

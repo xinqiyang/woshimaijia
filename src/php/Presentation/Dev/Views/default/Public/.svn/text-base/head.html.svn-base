@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Woshimaijia Developers</title>
+<link rel="shortcut icon"
+	href="{$page.resurl}/favicon.ico"
+	type="image/x-icon">
+<link type="text/css" rel="stylesheet" media="all"
+	href="{$page.resurl}/css/dev/index.css">
+<script type="text/javascript" src="{$page.resurl}/js/jquery.min.js"></script>
+</head>
+<body id="page-home" class="front not-logged-in no-sidebars">
+
+<div id="page">
+		
+
+		<div id="header-outer">
+			<div id="header">
+				<a href="{:U('')}" id="logo" title="Home">Woshimaijia	Developers</a>
+				<form action="{:U('search/search')}" accept-charset="UTF-8" method="post"
+					id="search-theme-form">
+					<input id="search-q" name="search_theme_form" maxlength="128"
+						size="15" value="Search" title="Enter search terms"
+						placeholder="Search" type="text"> <input
+						id="search-submit" name="op" value="Search" type="submit">
+					<input name="form_build_id"
+						id="form"
+						value="form" type="hidden">
+					<input name="form_id" id="edit-search-theme-form"
+						value="search_theme_form" type="hidden">
+
+				</form>
+				<ul class="sf-js-enabled" id="title-nav">
+					<li class="expanded"><a href="{:U('docs')}"
+						title="">Documentation</a>
+					
+					</li>
+					<li class="leaf"><a href="{&SITE.blog}"
+						title="">Blog</a>
+					</li>
+					<li class="leaf"><a href="{:U('download')}"
+						title="">Download</a>
+					</li>
+					<li class="leaf"><a href="{&SITE.url}/group/woshimaijia"
+						title="">Discussions</a>
+					</li>
+					
+					<li class="leaf last"><a
+						href="{&SITE.url}/login"
+						title="">Sign in</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="content-outer">
+		

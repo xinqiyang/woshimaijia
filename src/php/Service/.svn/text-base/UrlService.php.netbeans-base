@@ -1,0 +1,77 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class UrlService {
+
+    public static function actAddUrl($array) {
+        //var_dump($array);
+        $r = 0;
+        $code = Error::PARAM_ERROR;
+        if (!empty($array['title']) && !empty($array['desc']) && !empty($array['user_id']) && !empty($array['siteurl'])) {
+            extract($array);
+            $source = !empty($source) ? $source : '';
+            $openapi = !empty($openapi) ? $openapi : '';
+            if (preg_match('/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/', $siteurl) === 1) {
+                $r = UrlLogic::addUrl($title, $desc, $siteurl, 0, $user_id, $source, $openapi, '', '');
+                $code = Error::SUCCESS;
+            } else {
+                $code = Error::BUSY;
+            }
+        }
+
+        return array('code' => $code, 'data' => $r);
+    }
+
+    public static function actSaveUrlImage($array) {
+        $code = Error::PARAM_ERROR;
+        if (!empty($array['id']) && !empty($array['user_id']) && !empty($array['image_id'])) {
+            extract($array);
+            $r = UrlLogic::saveUrlImage($id, $user_id, $image_id);
+            if ($r) {
+                $code = Error::SUCCESS;
+                return array('code' => $code, 'id' => $r);
+            }
+        }
+        return array('code' => $code, 'id' => '');
+    }
+
+    public static function dataUrl($array) {
+        if (!empty($array['id'])) {
+            extract($array);
+            if (!empty($id)) {
+                $r = UrlLogic::get('Url', $array['id']);
+                if ($r) {
+                    logTrace('[urlid:%s]', $id);
+                    jump($r['siteurl']);
+                }
+            }
+        }
+        return false;
+    }
+
+    public static function actAddUrlPost($array) {
+        $code = Error::PARAM_ERROR;
+        $r = '';
+        if (!empty($array['user_id']) && !empty($array['content']) && !empty($array['object_id'])) {
+            extract($array);
+            $r = UrlLogic::addUrlPost($content, $user_id, $object_id);
+            if ($r) {
+                $r = $object_id;
+                $code = Error::SUCCESS;
+            } else {
+                $code = Error::BUSY;
+            }
+        }
+        return array('code' => $code, 'id' => $r);
+    }
+
+}

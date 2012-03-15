@@ -1,0 +1,1 @@
+<a href="{:U('people/space',array('enname'=>$page['data']['user'][$vo['account_id']]['account']))}">{$page['data']['user'][$vo['account_id']]['screenname']}</a>

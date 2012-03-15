@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{$page.head.title} 我是买家</title>
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="Sun, 6 Mar 2005 01:00:00 GMT" />
+        <meta name="keywords" content="{$page.head.tags}" />
+        <meta name="description" content="{$page.head.desc}" />
+        <script type="text/javascript" src="{$page.resurl}/js/jquery.min.js"></script>
+        <script type="text/javascript" src="{$page.resurl}/js/common.js"></script>
+        <script type="text/javascript" src="{$page.resurl}/js/validity.js"></script>
+        <script type="text/javascript" src="{$page.resurl}/js/facebox.js"></script>
+        <script type="text/javascript" src="{$page.resurl}/js/jquery.qtip.js"></script>
+        <link rel="shortcut icon" href="{$page.resurl}/favicon.ico"  type="image/x-icon" />
+        <link href="{$page.resurl}/css/wsmj.css" rel="stylesheet" type="text/css" />
+        <link href="{$page.resurl}/css/jquery.qtip.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+            var uid = "{$page.user.id}";
+            var screenname = "{$page.user.screenname}";
+            var userimage = "{$page.user.image_id|getNewImage=###,'m'}";
+
+            jQuery(document).ready(function($) {
+                $.facebox.settings.loadingImage = '{$page.resurl}/images/facebox/loading.gif';
+                $.facebox.settings.closeImage = '{$page.resurl}/images/facebox/closelabel.png';
+                $('a[rel*=facebox]').facebox();
+            })
+        </script>
+    </head>
+
+    <body>
+
+        <div class="top-nav">
+            <div class="bd">
+                <div class="top-nav-logo">
+                    <a href="/" title="我是买家"> 
+                        <img  src="{$page.resurl}/images/nav/logos.png" alt="我是买家-买家分享社区" />
+                       
+                    </a>
+                     </div>
+                <div class="top-nav-menu">
+                     <a href="<empty name="page.user.id">/<else />{:U('home/index')}</empty>">首页</a>
+                        <a href="{:U('love')}" >我喜欢</a>
+                        <a href="{:U('own')}" >我拥有</a>	
+                </div>
+               
+                <div class="top-nav-info"> 
+                      <form id="grobleform" name="ssform" method="get" action="{:U('search/dosearch')}">
+                        <span> <input
+                                    name="search_text" title="开始搜索" type="text" size="22"
+                                    maxlength="60" value="" id="good_search" autocomplete="off"
+                                    class="inputline"> <input type="submit" value="搜 搜"
+                                                          class="btn-search">
+                    <empty name="page.user.id">  <a href="{:U('signup')}"
+                                                     title="注册">注册</a> <a href="{:U('login')}" >登陆</a>
+                        <else /> <a href="{:U('people/space',array('enname'=>$page['user']['account']))}" >
+                            <img src="{$page.user.image_id|getNewImage=###,'m'}"  title="{$page.user.screenname}" alt="{$page.user.screenname}"  />
+                        </a>
+                        <a href="{:U('mail')}">消息</a> <a
+                            href="{:U('account/setting')}">设置</a> <a
+                            href="{:U('login/logout')}">退出</a> 
+                    </empty>
+                                    </span>
+                       
+                                        </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="wrapper">
+
+            
+
+                                        <div id="content">
+                                            <h1>{$page.head.title}</h1>
+
+                                            <div class="grid-16-8 clearfix">
+                                                <present name="_GET['code']">
+                                                    提示:已经更新成功{.code} <br />
+                                                </present>
+                                                <span id="result"></span>
+                                            </div>
+
+                                            <div class="grid-16-8 clearfix">

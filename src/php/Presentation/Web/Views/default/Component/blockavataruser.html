@@ -1,0 +1,10 @@
+<div onmouseout="usercheckfollow({$vo['account_id']})" onmouseout="this.getElementsByTagName('div')[0].style.display = 'none'">
+<a
+	href="{:U('people/space',array('enname'=>$page['data']['user'][$vo['account_id']]['account']))}">
+	<img
+	src="{$page['data']['user'][$vo['account_id']]['image_id']|getNewImage=###,'m'}"
+	title="{$page['data']['user'][$vo['account_id']]['screenname']}"> </a>
+	<div class="focus_{$vo['account_id']}" style="position:relative;text-align:center">
+		
+	</div>
+</div> 

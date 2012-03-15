@@ -1,0 +1,34 @@
+<include file='Public:head' />
+<div class="amain">
+	<include file="Component:post" />
+	<include file="Component:blockpostshome" />
+</div>
+
+<div class="aside">
+	<include file="Component:actionlink" />
+
+		<notempty name="page['data']['befollowids']">
+		<h2 class="bold">
+			关注我的大家 ...(<a href="{:U('total/index',array('id'=>$page['user']['id'],'type'=>'befollow'))}">全部</a>)
+		</h2>
+		<div id="ownlist" class="mt5">
+		<volist name="page['data']['befollowids']" id="vo">
+				<include file="Component:listusers" />
+			</volist>
+		</div>
+		<div class="clear"></div>
+		</notempty>
+		<notempty name="page['data']['followids']">
+		<h2 class="bold">
+			我关注的大家 ...(<a href="{:U('total/index',array('id'=>$page['user']['id'],'type'=>'follow'))}">全部</a>)
+		</h2>
+		<div id="ownlist" class="mt5">
+		<volist name="page['data']['followids']" id="vo">
+				<include file="Component:listusers" />
+			</volist>
+		</div>
+		<div class="clear"></div>
+		</notempty>
+</div>
+<div class="extra"></div>
+<include file='Public:foot' />

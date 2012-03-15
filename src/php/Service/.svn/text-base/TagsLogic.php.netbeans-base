@@ -1,0 +1,55 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class TagsLogic extends BaseService
+{
+	public static function addTag($tag)
+	{
+		$tag = trim($tag);
+		$id = self::isExist($tag);
+		if(!$id)
+		{
+			$array = array();
+			$array['id'] = objid();
+			$array['tag'] = $tag;
+			if(self::add('tags', $array))
+			{
+				return $array['id'];
+			}
+		}
+		return $id;
+	}
+	
+	public static function isExist($tag)
+	{
+		return self::queryField('tags', "tag='{$tag}'", 'id');
+	}
+	
+	
+	public static function objAndTag($tag,$id,$user_id)
+	{
+		$tagid =  self::isExist($tag);
+		if($tagid && $id)
+		{
+			ModelandmodelLogic::addModelandmodel($id, $tagid, $user_id,'tag');
+			return $tagid;
+		}
+		return false;
+	}
+	
+	public static function deltag($id)
+	{
+		$sql = "DELETE FROM __TABLE__ where id = $id";
+		return MMysql::instance('tags')->execute($sql);
+	}
+	
+	
+}

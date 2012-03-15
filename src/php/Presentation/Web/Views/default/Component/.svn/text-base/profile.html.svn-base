@@ -1,0 +1,41 @@
+<div id="profile" style="padding-bottom: 20px;">
+<table class="infobox" width="100%">
+	<tbody>
+		<tr>
+			<td class="tablelt"></td>
+			<td class="tablect"></td>
+			<td class="tablert"></td>
+		</tr>
+		<tr>
+			<td class="tablelc"></td>
+			<td class="tablecc">
+			<img class="user-image" src="{$page.data.account.image_id|getNewImage=###,'a'}" alt="{$page.data.account.account}" align="left">
+			 <span class="pl">城市: </span><a
+				href="{:U('location/location',array('location'=>$page['data']['account']['city']))}">{$page.data.account.city|default="火星"}</a><br>
+			<div class="pl">id: {$page.data.account.account} <br>
+			{$page.data.account.id|msubstr=###,0,10|date='Y-m-d',###}加入<br>
+			
+			{$relfriend} <br />
+			 
+			<br />
+			</div>
+			<br class="clear">
+			<div
+				style="height: 0; border-bottom: 1px solid #f5e9db; margin: 5px;">
+			</div>
+			
+			<div style="margin-top: 5px">
+			{$page.data.account.say|htmlspecialchars|nl2br}
+			</div>
+			</td>
+			<td class="tablerc"></td>
+		</tr>
+		<tr>
+			<td class="tablelb"></td>
+			<td class="tablecb"></td>
+			<td class="tablerb"></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<div class="clear"></div>

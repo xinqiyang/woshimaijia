@@ -1,0 +1,55 @@
+<include file="Public:head" />
+<div class="amain">
+	<div class="leftspace" style="margin-top: 30px;">
+		<form id="form1" action="{:U('post/deal')}" method="post"
+			enctype="multipart/form-data">
+			<table style="clear: both; width: 100%">
+				<tbody>
+					<tr>
+						<td>名称</td>
+						<td><input size="40" name="title" value="{$page.data.title}"
+							type="text" datatype="require" require="true" msg="名称" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td>描述</td>
+						<td><textarea id="desc" rows="8" cols="50" name="desc" datatype="require" msg="不能为空" require="true">{$page.data.desc}</textarea>
+						</td>
+					</tr>
+
+
+					<tr>
+						<td>域名</td>
+						<td><input size="40" name="siteurl"
+							value="{$page.data.siteurl}" type="text" datatype="require"
+							require="true" msg="域名" />
+						</td>
+					</tr>
+					<tr>
+						<td>API地址</td>
+						<td><input size="40" name="openapi" value="{$page.data.openapi}" type="text" datatype="url" require="false" msg="API地址" />
+						</td>
+					</tr>
+
+					<tr>
+						<td><input type="hidden" name="form" value="url" id="form" />
+						<input type="hidden" name="id" value="{$page.data.id}" id="id" />
+						</td>
+						<td><input type="submit" name="submit" value="我提交啦"
+							class="btn-submit">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<script>
+			$('#form1').checkForm();
+		</script>
+	</div>
+</div>
+<div class="aside">
+	<include file="Component:actionlink" />
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

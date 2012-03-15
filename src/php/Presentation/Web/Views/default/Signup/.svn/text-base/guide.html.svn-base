@@ -1,0 +1,43 @@
+<include file="Public:head" />
+<div class="amain">
+    <div class="leftspace">
+        <form id="form1" action="{:U('post/deal')}" method="post">
+            <table style="clear:both" width="100%" align="center" cellpadding="5">
+                <tbody>
+                    
+                    <tr>
+                        <td class="m" align="right">登录邮箱: </td>
+                        <td valign="top">
+                            <input type="text" value="" maxlength="60" size="34" name="email" id="email"  require="true" datatype="email|ajax" url="{:U('check/signUpCheckEmail')}"  msg="邮箱不能为空" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="m" align="right">登录密码: </td>
+                        <td valign="top">
+                          <input type="password" size="35" name="password" datatype="limit" min="5" max="15" require="true"  msg="密码最少5位,最多15位" />最少5位，最多15位的密码<br />
+		
+		<br />
+		<input type="password" size="35" name="repassword" datatype="repeat" to="password" require="true"  msg="二次密码输入一样" /><br />
+		
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td><input type="hidden" name="form" value="saveemail" /></td>
+                        <td><span class="bn-flat"><input class="btn-submit" name="pf_submit" type="submit" value="保存" tabindex="8"></span></td>
+                    </tr>
+
+                </tbody></table>
+
+        </form>
+        <script>
+            $('#form1').checkForm();
+        </script>
+    </div>
+</div>
+<div class="aside"><include file="Component:useraction" /></div>
+<div class="extra"></div>
+
+<include file="Public:foot" />

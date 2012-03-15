@@ -1,0 +1,49 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class ProductLogic extends BaseLogic {
+
+    public static function setProduct($title, $account_id, $image_id = 0, $brand_id = '', $url_id = '', $titleextend = '', $status = 0, $rebate = 0, $price = 0, $newprice = 0, $showtype = 0, $starttime = '', $endtime = '') {
+        $code = Error::PARAM_ERROR;
+        $data = '';
+        $array = array();
+        $array['id'] = objid();
+        $array['title'] = $title;
+        $array['titleextend'] = $titleextend;
+        $array['status'] = $status;
+        $array['account_id'] = $account_id;
+        $array['brand_id'] = $brand_id;
+        $array['price'] = $price;
+        $array['newprice'] = $newprice;
+        $array['showtype'] = $showtype;
+        $array['url_id'] = $url_id;
+        $array['starttime'] = $starttime;
+        $array['endtime'] = $endtime;
+        $array['rebate'] = $rebate;
+        $array['image_id'] = $image_id;
+        if (self::add('product', $array)) {
+            $code = Error::SUCCESS;
+            $data = $array['id'];            
+        }else{
+            $code = Error::BUSY;
+        }
+        return array('data'=>$data,'code'=>$code);
+    }
+    
+    public static function getByIds($ids) {
+        $where = !empty($ids) ? 'ID IN ' . $ids . ' AND status=0' : "id in ($ids) and status=0";
+        return self::gets('Product', $where);
+    }
+    
+    
+
+}

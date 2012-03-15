@@ -1,0 +1,7 @@
+<include file='../Public/head' />
+<h1>开发者指导</h1>
+<p>
+欢迎成为Buddy的开发者，buddy会让你感觉做事情很简单。
+</p>
+
+<include file='../Public/foot' />

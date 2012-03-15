@@ -1,0 +1,108 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+/**
+ * UrlLogic 
+ * 
+ * @author xinqiyang
+ *
+ */
+class UrlLogic extends BaseService
+{
+	public static function addUrl($title,$content,$url,$image,$user_id,$source='web',$openapi='',$category_id=0){
+		$uuid = self::isExistUrl($url);
+		if(empty($uuid)){
+			$array = array();
+			$array['id'] = objid();
+			$array['title'] = $title;
+			$array['image_id'] = $image;
+			$array['status'] = 0;
+			$domainid = DomainLogic::domainId($url, $user_id,$title);
+			$array['object_id'] = $domainid;
+			$array['user_id'] = $user_id;
+			$array['category_id'] = $category_id;
+			$array['openapi']  = $openapi;
+			$array['siteurl'] = $url;
+			
+			if(self::add('url', $array)){
+				$urlPost = PostLogic::addPost(objid(), $content, $array['id'], $user_id, $source,0,1);
+				if($urlPost){
+					return $array['id'];
+				}
+			}
+		}
+		return $uuid;
+	}
+	
+	public static function isExist($url)
+	{
+		$parseurl = parse_url($url);
+		if(!empty($parseurl['host']))
+		{
+			$urldomain = $parseurl['host'];
+			return self::queryField('url', "domain='$urldomain'", 'id');
+		}
+		
+	}
+	
+	
+	public static function saveUrlImage($id,$user_id,$image_id)
+	{
+		$account = self::get('Url', $id);
+		if(!empty($account['user_id']) && $account['user_id'] == $user_id)
+		{
+			$array = array('id'=>$id,'image_id'=>$image_id);
+			$r = self::saveClean('Url', $array);
+			if($r){
+				return $id;
+			}
+		}
+		return false;
+	}
+	
+	public static function getUrlByDomain($domain)
+	{
+		$r = self::get('url', '','*',"domain='{$domain}'");
+		return $r;
+	}
+	
+	public static function getComments($id)
+	{
+		$r = PostLogic::gets('post', "object_id=$id and status=0 ORDER BY istop DESC,id DESC");
+		
+		return $r;
+	}
+	
+	public static function addUrlPost($content,$user_id,$object_id)
+	{
+		$id = objid();
+		$source = 'web';
+		$r = PostLogic::addPost($id, $content, $object_id, $user_id, $source,0,0);
+		if($r){
+			return $object_id;
+		}
+		return false;
+	}
+	
+
+	public static function getsBlocks($ids='',$limit=8)
+	{
+		$ids = !empty($ids) ? 'ID IN '.$ids.' AND ' : '';
+		$where = $ids.' status = 0 ORDER BY ID DESC LIMIT '.$limit;
+		$array = self::gets('url', $where);
+		return $array;
+	}
+	
+	public static function isExistUrl($url)
+	{
+		return self::queryField('url', "siteurl='$url'", 'id');
+	}
+}

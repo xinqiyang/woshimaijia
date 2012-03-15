@@ -1,0 +1,48 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+/**
+ * Item Action 
+ * @author xinqiyang
+ *
+ */
+class ItemLogic extends BaseService
+{
+	/**
+	 * get object
+	 * @param int $id
+	 */
+	public static function  getObject($array)
+	{
+		extract($array);
+		$object = self::isObject($id);
+		$obj = self::get($object, $id);
+		$obj['object'] = $object;
+		//get comments
+		$comments = PostLogic::getByObject('comment',$id);
+		$obj['comments'] = mergeUserinfoToArray($comments);
+		
+		return $obj;
+	}
+	
+	
+	public static function isObject($id)
+	{
+		$r = self::get('object', $id);
+		if($r){
+			return $r['object'];
+		}
+		return false;
+	}
+	
+	
+
+}

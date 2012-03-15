@@ -1,0 +1,7 @@
+<dl class="oblock">
+	<dt><a href="{:U('group/group',array('enname'=>$vo['enname']))}" class="nbg"><img
+		src="{$vo.image_id|getNewImage=###,'m'}" class="m_sub_img"
+		alt="{$vo.title}"></a></dt>
+	<dd><a href="{:U('group/group',array('enname'=>$vo['enname']))}">{$vo.title}</a><br>
+	<span class="pl">({$vo.id|getGroupUsers} 人在侃)</span></dd>
+</dl>

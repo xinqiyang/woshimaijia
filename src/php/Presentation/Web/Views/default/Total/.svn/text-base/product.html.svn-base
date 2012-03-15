@@ -1,0 +1,21 @@
+<include file="Public:head" />
+<div class="amain">
+<volist name="page['data']['products']" id="vo">
+<include file="Component:blockproducts" />
+</volist>
+
+<div class="clear"></div>
+<div class="paginator">{$page['data']['count']|page=###,$page['data']['size']}</div>
+
+</div>
+
+<div class="aside">
+<include file="Component:actionlink" />
+<include file="Component:topicblock" />
+<include file="Component:userlikeblock" />
+
+</div>
+
+<div class="extra">           
+</div>
+<include file="Public:foot" />

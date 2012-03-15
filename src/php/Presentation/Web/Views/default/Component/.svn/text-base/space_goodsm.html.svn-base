@@ -1,0 +1,5 @@
+<li class="liline"><a class="goods_photo"
+	href="{:U('show/showgoods',array('id'=>$vo['gid']))}"> <img class="artist_s"
+	alt="{$vo.title}" src="{:getImage($vo['image_id'])}"
+	title="{$vo.title}"></a>
+</li>

@@ -1,0 +1,7 @@
+<notempty name="page['data']['accounts']">
+    <volist name="page['data']['accounts']" id="vo">
+        <a href="{:U('people/space',array('enname'=>$vo['account']))}">
+	<img src="{$vo['image_id']|getNewImage=###,'s'}" title="{$vo['screenname']}" />
+        </a>
+    </volist>
+</notempty>

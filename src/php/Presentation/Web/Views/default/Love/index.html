@@ -1,0 +1,33 @@
+<include file="Public:head" />
+<div class="amain">
+    <notempty name="page['data']['products']">
+        <h2>猜您会的商品&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;· <span class="pl">(<a href="{:U('total/product')}" class="totalobject">全部</a>)</span></h2>
+
+        <volist name="page['data']['products']" id="vo">
+            <include file="Component:blockproducts" />
+        </volist>
+        <div class="clear"></div>
+    </notempty>
+
+    <notempty name="page['data']['brands']">
+        <h2>猜您会喜欢的牌子&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;· <span class="pl">(<a href="{:U('total/brand')}" class="totalobject">全部</a>)</span></h2>
+        <volist name="page['data']['brands']" id="vo">
+            <include file="Component:blockbrands" />
+        </volist>
+        <div class="clear"></div>
+
+    </notempty>
+
+
+</div>
+
+<div class="aside">
+    <include file="Component:actionlink" />
+    <include file="Component:topicblock" />
+
+
+</div>
+
+<div class="extra">           
+</div>
+<include file="Public:foot" />

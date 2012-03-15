@@ -1,0 +1,58 @@
+<include file="Public:head" />
+<div class="amain">
+	<div class="leftspace" style="margin-top: 30px;">
+		<form id="form1" action="/input/deal" method="post"
+			enctype="multipart/form-data">
+			<table style="clear: both; width: 100%">
+				<tbody>
+					<tr>
+						<td>图片名</td>
+						<td><input size="40" name="filename"
+							value="{$page.data.filename}" type="text" datatype="require"
+							require="true" msg="图片名" /></td>
+					</tr>
+					<tr>
+						<td>图片描述</td>
+						<td><textarea id="desc" rows="8" cols="70" name="desc">{$page.data.desc}</textarea>
+						</td>
+					</tr>
+
+
+					<tr>
+						<td>远程地址</td>
+						<td><input size="40" name="remoteurl"
+							value="{$page.data.remoteurl}" type="text" datatype="require"
+							require="true" msg="远程地址" /></td>
+					</tr>
+					<tr>
+						<td>URL</td>
+						<td><input size="40" name="url" value="{$page.data.url}"
+							type="text" datatype="require" require="true" msg="URL" /></td>
+					</tr>
+					<tr>
+						<td>模块</td>
+						<td><input size="40" name="model" value="{$page.data.model}"
+							type="text" datatype="require" require="true" msg="模块" /></td>
+					</tr>
+
+
+					<tr>
+						<td><input type="hidden" name="form" value="xxxx" id="form" /><input
+							type="hidden" name="id" value="{$page.data.id}" id="id" />
+						</td>
+						<td><input type="submit" name="submit" value="提交"
+							class="btn-submit"></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<script>
+			$('#form1').checkForm();
+		</script>
+	</div>
+</div>
+<div class="aside">
+	<include file="Component:actionlink" />
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

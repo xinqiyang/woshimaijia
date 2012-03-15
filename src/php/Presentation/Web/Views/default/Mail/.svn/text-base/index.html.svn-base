@@ -1,0 +1,53 @@
+<include file="Public:head" />
+<div class="amain">
+
+
+	<table class="olt" style="clear: both">
+		<tbody>
+			<tr>
+				<td class="pl" style="width: 112px;"><span class="doumail_from">来自</span>
+				</td>
+				<td class="pl">TO：</td>
+				<td class="pl">话题</td>
+				<td class="pl" style="width: 110px;">时间</td>
+				<td class="pl" align="center" style="width: 40px;">选择</td>
+			</tr>
+			<volist name="page.data.list" id="vo">
+			<tr>
+				<td class="pl">
+					<div class="wsmj_from">
+						<a href="{:U('people/space',array('enname'=>$page['data']['user'][$vo['from_id']]['account']))}">{$page['data']['user'][$vo['from_id']]['screenname']}</a>
+					</div></td>
+				<td><a href="{:U('people/space',array('enname'=>$page['data']['user'][$vo['from_id']]['account']))}">{$page['data']['user'][$vo['to_id']]['screenname']}</a></td>
+				<td><if condition="$vo.status eq 2">
+					<img src="{$page.resurl}/images/pics/newmail.gif" alt="新"
+						title="新" />&nbsp;</if><a href="{:U('mail/mail',array('id'=>$vo['id']))}">{$vo.title}</a>
+				</td>
+				<td class="pl">{$vo.id|msubstr=###,0,10|date='Y-m-d H:m',###}</td>
+				<td align="center"><input name="mc_{$vo.id}" type="checkbox"
+					value="0">
+				</td>
+			</tr>
+			</volist>
+			<tr>
+				<td align="right" colspan="5"><input name="b" type="button"
+					class="btn-submit" value="全选" onclick=CheckAll(true);;>
+					&nbsp; <input name="c" class="btn-submit" type="button" value="全清"
+					onclick=CheckAll(false);;>&nbsp;<input class="btn-submit"
+					name="mc_delete" type="submit" value="删除豆邮">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="aside">
+	<p>
+		>> <a class="ulinkcss" href="{:U('mail/selectto')}">发新消息</a>
+	</p>
+	<br />
+</div>
+
+<div class="extra"></div>
+
+<include file="Public:foot" />

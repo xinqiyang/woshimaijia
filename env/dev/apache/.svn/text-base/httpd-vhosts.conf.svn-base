@@ -1,0 +1,131 @@
+#
+# Virtual Hosts
+#
+# If you want to maintain multiple domains/hostnames on your
+# machine you can setup VirtualHost containers for them. Most configurations
+# use only name-based virtual hosts so the server doesn't need to worry about
+# IP addresses. This is indicated by the asterisks in the directives below.
+#
+# Please see the documentation at 
+# <URL:http://httpd.apache.org/docs/2.2/vhosts/>
+# for further details before you try to setup virtual hosts.
+#
+# You may use the command line option '-S' to verify your virtual host
+# configuration.
+
+#
+# Use name-based virtual hosting.
+#
+NameVirtualHost *:80
+
+#
+# VirtualHost example:
+# Almost any Apache directive may go into a VirtualHost container.
+# The first VirtualHost section is used for all requests that do not
+# match a ServerName or ServerAlias in any <VirtualHost> block.
+#
+
+
+<VirtualHost *:80>
+    ServerAdmin admin@woshimaijia.com
+    DocumentRoot "/Wsmjdev/woshimaijia/src/php/Presentation/Web/Public"
+    ServerName web.dev.woshimaijia.com
+    ServerAlias web.dev.woshimaijia.com
+    ErrorLog "/Wsmjdev/Wwwlogs/web.dev.woshimaijia.com-error_log"
+    CustomLog "/Wsmjdev/Wwwlogs/web.dev.woshimaijia.com-access_log" common
+    <Directory "/Wsmjdev/woshimaijia/src/php/Presentation/Web/Public">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+</VirtualHost>
+
+
+<VirtualHost *:80>
+    ServerAdmin admin@woshimaijia.com
+    DocumentRoot "/Wsmjdev/woshimaijia/src/php/Presentation/Wap/Public"
+    ServerName wap.dev.woshimaijia.com
+    ServerAlias wap.dev.woshimaijia.com
+    ErrorLog "/Wsmjdev/Wwwlogs/wap.dev.woshimaijia.com-error_log"
+    CustomLog "/Wsmjdev/Wwwlogs/wap.dev.woshimaijia.com-access_log" common
+<Directory "/Wsmjdev/woshimaijia/src/php/Presentation/Wap/Public">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerAdmin admin@woshimaijia.com
+    DocumentRoot "/Wsmjdev/woshimaijia/src/php/Presentation/Mis/Public"
+    ServerName mis.dev.woshimaijia.com
+    ServerAlias mis.dev.woshimaijia.com
+    ErrorLog "/Wsmjdev/Wwwlogs/mis.dev.woshimaijia.com-error_log"
+    CustomLog "/Wsmjdev/Wwwlogs/mis.dev.woshimaijia.com-access_log" common
+<Directory "/Wsmjdev/woshimaijia/src/php/Presentation/Mis/Public">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerAdmin admin@woshimaijia.com
+    DocumentRoot "/Wsmjdev/woshimaijia/src/php/Presentation/Api/Public"
+    ServerName api.dev.woshimaijia.com
+    ServerAlias api.dev.woshimaijia.com
+    ErrorLog "/Wsmjdev/Wwwlogs/api.dev.woshimaijia.com-error_log"
+    CustomLog "/Wsmjdev/Wwwlogs/api.dev.woshimaijia.com-access_log" common
+<Directory "/Wsmjdev/woshimaijia/src/php/Presentation/Api/Public">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+</VirtualHost>
+
+
+<VirtualHost *:80>
+    ServerAdmin admin@woshimaijia.com
+    DocumentRoot "/Wsmjdev/woshimaijia/src/php/Presentation/Dev/Public"
+    ServerName dev.dev.woshimaijia.com
+    ServerAlias dev.dev.woshimaijia.com
+    ErrorLog "/Wsmjdev/Wwwlogs/dev.dev.woshimaijia.com-error_log"
+    CustomLog "/Wsmjdev/Wwwlogs/dev.dev.woshimaijia.com-access_log" common
+<Directory "/Wsmjdev/woshimaijia/src/php/Presentation/Dev/Public">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerAdmin admin@woshimaijia.com
+    DocumentRoot "/Wsmjdev/woshimaijia/src/php/Presentation/Resource"
+    ServerName res.dev.woshimaijia.com
+    ServerAlias res.dev.woshimaijia.com
+    ErrorLog "/Wsmjdev/Wwwlogs/res.dev.woshimaijia.com-error_log"
+    CustomLog "/Wsmjdev/Wwwlogs/res.dev.woshimaijia.com-access_log" common
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerAdmin admin@woshimaijia.com
+    DocumentRoot "/Wsmjdev/woshimaijia/src/php/Presentation/Tools/Public"
+    ServerName tools.dev.woshimaijia.com
+    ServerAlias tools.dev.woshimaijia.com
+    ErrorLog "/Wsmjdev/Wwwlogs/tools.dev.woshimaijia.com-error_log"
+    CustomLog "/Wsmjdev/Wwwlogs/tools.dev.woshimaijia.com-access_log" common
+</VirtualHost>
+
+ <VirtualHost *:80>
+    ServerAdmin admin@woshimaijia.com
+    DocumentRoot "/Wsmjdev/woshimaijia/src/php/Presentation/Images"
+    ServerName img.dev.woshimaijia.com
+    ServerAlias img.dev.woshimaijia.com
+    ErrorLog "/Wsmjdev/Wwwlogs/img.dev.woshimaijia.com-error_log"
+    CustomLog "/Wsmjdev/Wwwlogs/img.dev.woshimaijia.com-access_log" common
+</VirtualHost>

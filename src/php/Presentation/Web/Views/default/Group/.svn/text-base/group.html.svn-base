@@ -1,0 +1,43 @@
+<include file='Public:head' />
+<div class="amain">
+	<table class="infobox" width="100%">
+		<tbody>
+			<tr>
+				<td class="tablelt"></td>
+				<td class="tablect"></td>
+				<td class="tablert"></td>
+			</tr>
+			<tr>
+				<td class="tablelc"></td>
+				<td class="tablecc"><img align="left" valign="top"
+					class="pil groupicon" src="{$page.data.image_id|getNewImage}"
+					alt="{$page.data.title}">
+					<p>
+						创建于{$page.data.id|msubstr=###,0,10|date='Y-m-d H:m',###} &nbsp; &nbsp; 组长：<a
+							href="{:U('people/space',array('account'=>$page['data']['adminuser']['account']))}">{$page['data']['adminuser']['screenname']}</a><br>
+					</p> 
+					{$page.data.desc|htmlspecialchars|nl2br}
+					<p style="float: right; margin-right:10px;">
+					<notempty name="page['user']['id']"> <a href="{:U('input/topic',array('id'=>$page['data']['id']))}">发个新话题</a></notempty>
+					</p> 
+				</td>
+				<td class="tablerc"></td>
+			</tr>
+			<tr>
+				<td class="tablelb"></td>
+				<td class="tablecb"></td>
+				<td class="tablerb"></td>
+			</tr>
+		</tbody>
+	</table>
+	<include file="Component:grouptopic" />
+</div>
+<div class="aside">
+
+	<include file="Component:actionlink" />
+	<include file="Component:topicblock" />
+	<br />
+	
+</div>
+<div class="extra"></div>
+<include file='Public:foot' />

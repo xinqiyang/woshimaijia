@@ -1,0 +1,122 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+/**
+ * tag services
+ * add /get /destroy tags
+ * @author xinqiyang
+ *
+ */
+class TagsService extends BaseService {
+
+    /**
+     * add id or ids
+     * @param array $array
+     */
+    public static function addTags($array) {
+        $r = Error::PARAM_ERROR;
+        $tagid = '';
+        if (!empty($array['tag'])) {
+            extract($array);
+            $tagid = TagsLogic::addTag($tag);
+            if ($tagid) {
+                //标注tag的属性,建立tag的缓存
+
+                $r = Error::SUCCESS;
+            } else {
+                $r = Error::BUSY;
+            }
+        }
+        return array('code' => $r, 'data' => $tagid);
+    }
+
+    /**
+     * get tags by tagid or ids
+     * @param $tags
+     */
+    public static function getTagsByIds($array) {
+        if (!empty($array)) {
+            return self::gets('tags', 'id in ' . strin($array));
+        }
+        return array();
+    }
+
+    public static function getHotTags() {
+        //@TODO:这里需要读取后台数据
+        $array = array(13273980290596430, 13273980341244550, 13273980564072250);
+        $re = self::getTagsByIds($array);
+        return $re;
+    }
+
+    /**
+     * delete tags by array id or id
+     * @param $array mixed string/array
+     */
+    public static function tagDestory($array) {
+        return self::destory('tags', $array);
+    }
+
+    /**
+     * getwords from the content of
+     * type menu = defaultdic brand tags feeling
+     * @param unknown_type $content
+     */
+    public static function getWords($content, $type = 'tags') {
+        if (function_exists('scws_open')) {
+            $cws = scws_open();
+            scws_set_charset($cws, 'utf8');
+            //add dict to the new
+            $dictionary = C('dictionay');
+            if (in_array($type, array_keys($dictionary))) {
+                $path = $dictionary[$type];
+            } else {
+                $path = $dictionary['defaultdic'];
+            }
+            $rulepath = dirname($path) . DIRECTORY_SEPARATOR . 'rules.utf8.ini';
+            scws_set_dict($cws, $path, SCWS_XDICT_TXT);
+            scws_set_rule($cws, $rulepath);
+            scws_send_text($cws, $content);
+            $top = scws_get_tops($cws, 10);
+            $return = array();
+            if ($top) {
+                foreach ($top as $one) {
+                    if (mb_strlen($one['word']) >= 2) {
+                        $return[] = $one['word'];
+                    }
+                }
+                $return = array_unique($return);
+            }
+            return $return;
+        }
+        return array();
+    }
+
+    public static function dataTag($array) {
+        $r = array();
+        if (!empty($array['id'])) {
+            extract($array);
+            $r['title'] = "标签：" . self::queryField('tags', "id=$id", 'tag');
+            $p = isset($p) && $p >= 1 ? $p : 1;
+            $pageSize = 10;
+            $idList = self::redisGetKeyValues($id, KeysService::$ulist, KeysService::$keyTags, $p, $pageSize);
+            $ids = empty($idList) ? '' : (is_array($idList) && !empty($idList)) ? '(' . rtrim(implode($idList, ','), ',') . ')' : "($idList)";
+            //取得结果
+            $r['count'] = self::redisGetKeyValues('', KeysService::$size, KeysService::getKey(KeysService::$ulist, KeysService::$keyTags, $id));
+
+            $r['size'] = $pageSize;
+            $r['post'] = PostLogic::getPostByIds($ids);
+            $r['user'] = AccountLogic::getUsers($r['post'], 'user_id');
+        }
+        return $r;
+    }
+
+}

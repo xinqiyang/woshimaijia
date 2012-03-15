@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>菜单</title>
+<link href="{$page.resurl}/images/misimages/menu.css" rel="stylesheet"
+	type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<base target="mcMainFrame" />
+</head>
+<script language="javascript">
+        function $(objectId) {
+            return document.getElementById(objectId);
+        }
+
+        function showHide(objname) {
+            var obj = $(objname);
+            if (obj.style.display == "none") {
+                obj.style.display = "block";
+            } else {
+                obj.style.display = "none";
+            }
+
+            return false;
+        }
+
+        function refreshMainFrame(url) {
+        	if(url)
+        	{
+            	parent.mcMainFrame.document.location = url;
+        	}
+        }
+    </script>
+<base target="mcMainFrame">
+
+	<body>
+		<div class="menu">
+
+			<switch name="module"> <case value="account">
+			<dl>
+				<dt>
+					<a href="" onclick="return showHide('items0');" target="_self">
+						用户管理 </a>
+				</dt>
+				<dd id="items0" style="display: block;">
+					<ul>
+						<li><a href='{:U('account/user')}'>用户管理</a>
+						</li>
+						<li><a href='{:U('account/admin')}'>管理员管理</a>
+						</li>
+					</ul>
+				</dd>
+			</dl>
+			<script type="text/javascript">
+                    refreshMainFrame('/account/user');
+                </script> </case> <case value="resource">
+			<dl>
+				<dt>
+					<a href="" onclick="return showHide('items0');" target="_self">
+						资源管理 </a>
+				</dt>
+				<dd id="items0" style="display: block;">
+					<ul>
+
+						<li><a href='{:U('Resource/image')}'>图片管理</a>
+						</li>
+
+						<li><a href='{:U('Resource/webindex')}'>首页推荐管理</a>
+						</li>
+						<li><a href='{:U('Resource/loveindex')}'>我喜欢页管理</a>
+						</li>
+					</ul>
+				</dd>
+			</dl>
+			<script type="text/javascript">
+                    refreshMainFrame('/resource/index');
+                </script> </case> <case value="content">
+			<dl>
+				<dt>
+					<a href="" onclick="return showHide('items0');" target="_self">
+						内容管理 </a>
+				</dt>
+				<dd id="items0" style="display: block;">
+					<ul>
+						<li><a href='{:U('Content/product')}'>产品管理</a>
+						</li>
+						<li><a href='{:U('Content/brand')}'>品牌管理</a>
+						</li>
+						<li><a href='{:U('Content/url')}'>站点管理</a>
+						</li>
+						<li><a href='{:U('Content/mail')}'>私信管理</a>
+						</li>
+						<li><a href='{:U('Content/post')}' style="color:red;">内容管理</a></li>
+						<li><a href='{:U('Content/compaign')}'>活动管理</a>
+						</li>
+						<li><a href='{:U('Content/group')}'>群组管理</a>
+						</li>
+						<li><a href='{:U('Content/topic')}'>主题管理</a>
+						</li>
+						<li><a href='{:U('Content/report')}'>投诉管理</a>
+						</li>
+						<li><a href='{:U('Content/ad')}'>广告管理</a>
+						</li>
+						<li><a href='{:U('Content/category')}'>目录管理</a>
+						</li>
+						<li><a href='{:U('Content/district')}'>地区管理</a>
+						</li>
+						<li><a href='{:U('Content/tag')}'>标签管理</a>
+						</li>
+
+					</ul>
+				</dd>
+			</dl>
+			<script type="text/javascript">
+                    refreshMainFrame('/content/index');
+                </script> </case> 
+			<case value="monitor">
+			<dl>
+				<dt>
+					<a href="" onclick="return showHide('items0');" target="_self">
+						系统监控 </a>
+				</dt>
+				<dd id="items0" style="display: block;">
+					<ul>
+						<li><a href='{:U('Monitor/mysqlMonitor')}'>MySQL监控</a>
+						</li>
+						<li><a href='{:U('Monitor/redisMonitor')}'>Redis监控</a>
+						</li>
+						<li><a href='{:U('Monitor/queueMonitor')}'>队列监控</a>
+						</li>
+						<li><a href='{:U('Monitor/serverMonitor')}'>服务器监控</a>
+						</li>
+						<li><a href='{:U('Monitor/serviceMonitor')}'>实时服务监控</a>
+						</li>
+					</ul>
+				</dd>
+			</dl>
+			<script type="text/javascript">
+                    refreshMainFrame('/monitor/index');
+                </script> </case> <case value="system">
+			<dl>
+				<dt>
+					<a href="" onclick="return showHide('items0');" target="_self">
+						系统管理 </a>
+				</dt>
+				<dd id="items0" style="display: block;">
+					<ul>
+						<li><a href='{:U('System/cacheClear')}'> 缓存清理</a>
+						</li>
+						<li><a href='{:U('System/mysqlBackup')}'>MYSQL备份</a>
+						</li>
+						<li><a href='{:U('System/adminManage')}'> 管理员管理 </a>
+						</li>
+						<li><a href='{:U('System/permissionManage')}'>权限管理</a>
+						</li>
+						<li><a href='{:U('System/permissionManage')}'> 用户组管理 </a>
+						</li>
+						<li><a href='{:U('System/userGroupManage')}'> 咨询管理 </a>
+						</li>
+						<li><a href='{:U('System/systemSetting')}'> 系统配置 </a>
+						</li>
+					</ul>
+				</dd>
+			</dl>
+			<script type="text/javascript">
+                    refreshMainFrame('/system/index');
+            </script> </case> <default />
+			<dl>
+				<dt>
+					<a href="" onclick="return showHide('items0');" target="_self">
+						快捷链接 </a>
+				</dt>
+				<dd id="items0" style="display: block;">
+					<ul>
+						<li><a href='{:U('account/user')}'>用户管理</a>
+						</li>
+						<li><a href='{:U('Content/product')}'>产品管理</a>
+						</li>
+						<li><a href='{:U('Content/brand')}'>品牌管理</a>
+						</li>
+						<li><a href='{:U('Content/url')}'>站点管理</a>
+						</li>
+						<li><a href='{:U('Content/mail')}'>私信管理</a>
+						</li>
+						
+						<li><a href='{:U('Content/compaign')}'>活动管理</a>
+						</li>
+						<li><a href='{:U('Content/group')}'>群组管理</a>
+						</li>
+						<li><a href='{:U('Content/topic')}'>主题管理</a>
+						</li>
+						<li><a href='{:U('Content/post')}' style="color:red;">内容管理</a></li>
+						<li><a href='{:U('Content/report')}'>投诉管理</a>
+						</li>
+						<li><a href='{:U('Content/ad')}'>广告管理</a>
+						</li>
+						<li><a href='{:U('Content/category')}'>目录管理</a>
+						</li>
+						<li><a href='{:U('Content/district')}'>地区管理</a>
+						</li>
+						<li><a href='{:U('Content/tag')}'>标签管理</a>
+						</li>
+						<li><a href='{:U('account/admin')}'>管理员管理</a>
+						</li>
+						<li><a href='{:U('Monitor/mysqlMonitor')}'>MySQL监控</a>
+						</li>
+						<li><a href='{:U('Monitor/redisMonitor')}'>Redis监控</a>
+						</li>
+						<li><a href='{:U('Monitor/queueMonitor')}'>队列监控</a>
+						</li>
+						<li><a href='{:U('Monitor/serverMonitor')}'>服务器监控</a>
+						</li>
+						<li><a href='{:U('Monitor/serviceMonitor')}'>实时服务监控</a>
+						</li>
+					</ul>
+				</dd>
+			</dl>
+			<script type="text/javascript">
+                    refreshMainFrame('/index/main');
+            </script> 
+            </switch>
+		</div>
+	</body>
+</html>

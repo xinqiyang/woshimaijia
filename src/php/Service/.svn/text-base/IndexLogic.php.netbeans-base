@@ -1,0 +1,35 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+
+class IndexLogic extends BaseService
+{
+	public static function webPageIndex()
+	{
+		return ProductLogic::getProduct();
+	}
+	
+	//
+	public static function webPageHome()
+	{
+		//get user event from db
+		$returnArray = false;
+		$limit = 3;
+		$where = "id>0 and status='0' order by id desc limit 10";
+		$postData = PostLogic::gets('post', $where);
+		var_dump($postData);
+		if(is_array($postData)){
+			$postData = mergeUserinfoToArray($postData);
+		}
+		return $postData;
+		
+	}
+}

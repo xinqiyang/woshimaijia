@@ -1,0 +1,28 @@
+<include file="Public:head" />
+<div class="amain">
+ <script type="text/javascript">
+  function complete(json)
+  {
+	  self.location='/account/setting';
+  }
+</script>
+
+	<object width="580" height="500" align="middle" id="flash"
+		codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+		classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+		<param value="#ffffff" name="bgcolor">
+		<param value="transparent" name="wmode">
+		<param value="always" name="allowscriptaccess">
+		<param value="all" name="allownetworking">
+		<param value="{$page.resurl}/flash/avatar.swf" name="movie">
+		<param value="imagepath=&uploadURL=/upload/index?type=account&bigImageWidth=160&bigImageHeight=160&jsCallback=complete" name="flashvars">
+		<embed width="580" height="500" align="middle"
+			pluginspage="http://www.macromedia.com/go/getflashplayer"
+			type="application/x-shockwave-flash" name="footprintFlash"
+			src="{$page.resurl}/flash/avatar.swf" flashvars="imagepath=&uploadURL=/upload/index?type=account&bigImageWidth=160&bigImageHeight=160&jsCallback=complete" allownetworking="all"
+			allowscriptaccess="always" wmode="transparent" bgcolor="#ffffff">
+	</object>
+</div>
+<div class="aside"><include file="Component:useraction" /></div>
+<div class="extra"></div>
+<include file="Public:foot" />

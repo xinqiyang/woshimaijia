@@ -1,0 +1,11 @@
+<div class="dblock">
+	<a class="goods_photo"
+		href="{:U('group/group',array('enname'=>$vo['enname']))}"> <img
+		class="artist_s" alt="{$vo.title}"
+		src="{$vo.image_id|getNewImage=###,'l'}" title="{$vo.title}">
+	</a>
+	<div style="width: 100%;" class="ll">
+		<a href="{:U('group/group',array('enname'=>$vo['enname']))}">{$vo.title}</a>
+	</div>
+	<div class="pl">({$vo.id|getGroupUsers} 人在侃)</div>
+</div>

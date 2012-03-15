@@ -1,0 +1,20 @@
+<dl class="oblock">
+	<dt>
+		<div onmouseout="usercheckfollow({$vo})"
+			onmouseout="this.getElementsByTagName('div')[0].style.display = 'none'">
+			<a
+				href="{:U('people/space',array('enname'=>$page['data']['user'][$vo]['account']))}">
+				<img
+				src="{$page['data']['user'][$vo]['image_id']|getNewImage=###,'m'}"
+				title="{$page['data']['user'][$vo]['screenname']}"> </a>
+			<div class="focus_{$vo}"
+				style="position: relative; text-align: center"></div>
+		</div>
+	</dt>
+	<dd>
+		<a
+			href="{:U('people/space',array('enname'=>$page['data']['user'][$vo]['account']))}">{$page['data']['user'][$vo]['screenname']}</a>
+		<br />({$page['data']['user'][$vo]['city']|getCity})
+
+	</dd>
+</dl>

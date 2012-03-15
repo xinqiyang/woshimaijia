@@ -1,0 +1,111 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class BrandLogic extends  BaseService
+{
+	
+	public static function addBrand($title,$content,$user_id,$titleextend='',$url_id,$source='web',$image=0)
+	{
+		$bid = self::isExist($title);
+		if(empty($bid))
+		{
+			$brand = array();
+			$brand['id'] = objid();
+			$brand['title'] = $title;
+			$brand['titleextend'] = $titleextend;
+			$brand['status'] = 0;
+			$brand['image_id'] = $image;
+			$brand['user_id'] = $user_id;
+			$brand['url_id'] = $url_id;
+			if(self::add('brand', $brand)){	
+				$postResult = PostLogic::addPost(objid(), $content, $brand['id'], $user_id, $source,0,1);
+				if($postResult){
+					return $brand['id'];
+				}
+			}
+		}
+		return $bid;
+	}
+	
+	public static function isExist($title)
+	{
+		
+		return self::queryField('brand', "title='{$title}'", 'id');
+	}
+	
+
+	
+	public static function saveBrandImage($id,$user_id,$image_id)
+	{
+		$account = self::get('brand', $id);
+		if(!empty($account['user_id']) && $account['user_id'] == $user_id)
+		{
+			$array = array('id'=>$id,'image_id'=>$image_id);
+			$r = self::saveClean('brand', $array);
+			if($r){
+				return $account['titleextend'];
+			}
+		}
+		return false;
+	}
+	
+	public static function getBrandByEnname($enname)
+	{
+		$r =  self::get('brand', '','*',"titleextend='$enname' and status=0");
+		if($r)
+		{
+			$r['user'] = AccountLogic::getAccount($r['user_id']);
+		}
+		return $r;
+	}
+	
+	public static function addBrandPost($content,$user_id,$object_id,$source='web')
+	{
+		$id = objid();
+		$r = PostLogic::addPost($id, $content, $object_id, $user_id, $source);
+		if($r){
+			return $id;
+		}
+		return false;
+	}
+	
+	public static function getComments($id)
+	{
+		$r = PostLogic::gets('post', "object_id=$id and status=0 ORDER BY istop DESC,id DESC");
+		
+		return $r;
+	}
+	
+	public static function getsBrand($ids='')
+	{
+		$ids = !empty($ids) ? 'ID IN '.$ids.' AND ' : '';
+		$where = $ids.' status = 0 ORDER BY ID DESC LIMIT 18';
+		$recommand = self::gets('brand', $where);
+		return $recommand;
+	}
+	
+	public static function getTopComments($id)
+	{
+		$r = PostLogic::gets('post', "object_id=$id and status=0 and istop=1 ORDER BY id DESC");
+		return $r;
+	}
+	
+	public static function getLikeNum($id)
+	{
+		return self::redisGetKeyValues('',KeysService::$size,KeysService::getKey(KeysService::$ulist, KeysService::$keyLike,$id));
+	}
+	
+	public static function getMaxId()
+	{
+		return self::queryField('brand', 'status=0 ', 'max(id) as id');
+	}
+	
+}

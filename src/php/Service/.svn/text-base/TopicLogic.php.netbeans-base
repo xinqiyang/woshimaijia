@@ -1,0 +1,134 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class TopicLogic extends BaseService
+{
+	
+
+	public static function addTopic($title,$content,$user_id,$group_id,$source='web')
+	{
+		$topic = array();
+		$topic['id'] = objid();
+		$topic['title'] = $title;
+		$topic['group_id'] = $group_id;
+		$topic['user_id'] = $user_id;
+		$topic['istop'] = 0;
+		$topic['islock'] = 0;
+		$topic['lastreplytime'] = time();
+		$result = self::add('topic', $topic);
+		if($result)	{	
+			$postResult = PostLogic::addPost(objid(), $content, $topic['id'], $user_id, $source,1,1,0,0,'tcomment');
+			if($postResult){
+				return $topic['id'];
+			}
+		}
+		return false;
+	}
+	
+	
+	
+	
+	
+	public static function addTopicPost($content,$user_id,$object_id)
+	{
+		$id = objid();
+		$source = 'web';
+		$r = PostLogic::addPost($id, $content, $object_id, $user_id, $source,0,0,0,0,'tcoment');
+		if($r){
+			//将post的ID加入到列表中
+			$keySetReturn = self::redisSetKeyValues($object_id, KeysService::$ulist, KeysService::$keyTopic,$id);
+			if(!$keySetReturn){
+				logNotice("SET TOPIC POST KEY ERROR OBJECTID:%s POSTID：%s",$object_id,$id);
+			}
+			return $id;
+		}
+		return false;
+	}
+	
+		
+	/**
+	 * get topic
+	 * @param bigint $group_id
+	 * @param bigint $user_id
+	 * @param int $offset
+	 * @param int $num
+	 */
+	public static function getsTopic($group_id='',$user_id='',$offset=0,$num=40)
+	{
+		if($group_id)
+		{
+			$where ="group_id={$group_id} and status=0 order by id desc limit {$offset},{$num}";
+		}elseif($user_id){
+			$where = "user_id={$user_id} and status=0 order by id desc limit {$offset},{$num}";
+		}else{
+			$where = "status=0 order by id desc limit {$offset},{$num}";
+		}
+		return self::gets('topic', $array);
+	}
+	
+	/**
+	 * 获取小组的主题
+	 * @param string $groupids groupid
+	 * @param int $offset
+	 * @param int $num
+	 */
+	public static function getsMyJoinGroupTopics($groupids,$offset=0,$num=40)
+	{
+		$where = empty($groupids) ? "status=0 ORDER BY id desc" : "status=0 and group_id in ".$groupids."  ORDER BY id desc";
+		return self::getsByPage('topic', $where,$offset,$num);
+	}
+	
+	
+	public static function destoryTopic($array)
+	{
+		return self::destory('topic', $array);
+	}
+	
+	/**
+	 * set top topic
+	 * @param array $array id , istop (order by istop desc)
+	 */
+	public static function setTop($array)
+	{
+		$r = self::save('topic', $array);
+		if($r){
+			//@todo del cache then return
+		}
+		return $r;
+	}
+	
+	
+	public static function forbidTopic($array,$type=1)
+	{
+		return self::save('topic', array('islock'=>$type),'id in .'.strin($array));
+	}
+	
+	
+	public static function getTopicReplyNum($topic_id)
+	{
+		return 0;	
+	}
+	
+	
+	public static function wouldLikeTopic($userid)
+	{
+		//TODO:根据USERID来获取主题
+		$where = "status=0 ORDER BY id DESC LIMIT 5";
+		return self::gets('topic', $where);
+	}
+	
+	public static function getTopicPostCount($id)
+	{
+		$count = self::redisGetKeyValues($id, KeysService::$count,KeysService::$keyTopic);
+		return !empty($count) ? $count : 0;
+	}
+	
+}

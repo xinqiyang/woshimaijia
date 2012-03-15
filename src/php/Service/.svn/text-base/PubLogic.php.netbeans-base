@@ -1,0 +1,34 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class PubLogic extends BaseService
+{
+	
+	public static function webPageIndex($params)
+	{
+		
+	}
+	
+	public static function actSetMessage()
+	{
+		$key = "l:pub";
+		$where = "SELECT id,user_id FROM __TABLE__ WHERE object='say' group by user_id  ORDER BY ID DESC LIMIT 500";
+		$list = self::query('post',$where);
+		if(!empty($list))
+		{
+			return self::redisSetList($key, datasetToArray($list,'user_id'));
+		}
+		return false;
+	}
+	
+	
+	
+}

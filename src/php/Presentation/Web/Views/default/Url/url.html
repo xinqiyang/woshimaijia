@@ -1,0 +1,144 @@
+<include file="Public:head" />
+<div class="amain">
+
+	<div class="goodshowblock">
+		<div class="displayauto clearfix">
+			<div class="subject clearfix">
+				<div class="mainurl">
+					<a href="{$page.data.siteurl}" target="_blank"
+						title="{$page.data.title},点击访问"><img
+						src="{$page['data']['image_id']|getNewImage}"
+						title="{$page.data.title}" alt="{$page.data.title}">
+					</a><br>
+				</div>
+				<div
+					style="display: block; float: right; width: 268px; padding-bottom: 10px;">
+					<div style="display: block; padding-top: 10px; float: left;">
+						<div class="info">
+							<span> <span class="pl">去逛逛去</span>: <a
+								href="http://{$page.data.siteurl}" target="_blank">{$page.data.title}</a>
+							</span><br> <br>
+
+							<div class="obmo">
+								<span class="pl">谁的分享:</span>{$page.data.user_id|getUser}<br>
+								<br> <span class="pl">逛逛指数:</span> <span id="gonum">320</span><br>
+
+								<span class="pl">推荐指数:</span> <span id="goodnum">323</span> <br>
+
+								<br> <span class="pl">相关标签:</span> <a class="pl-5" href="">aaaaa</a><br>
+								<br> <a class="gotobutton"
+									onclick="clickaction('{$page.data.id}','{$page.data.siteurl}')"
+									href="{$page.data.siteurl}" target="_blank"
+									title="去{$page.data.title}">去{$page.data.title}</a>
+							</div>
+						</div>
+
+						<div class="interest_action">
+							<span id="result"></span>
+							<div class="rating_wrap clearbox">
+								<input class="btn-action" type="button"
+									onclick="usaction('gonum','{$page.data.id}')" value="我逛过"
+									title="我逛过了,标记一下吧"><br> <input class="btn-action"
+									type="button" onclick="usaction('goodnum','{$page.data.id}')"
+									value="我推荐" title="推荐{$page.data.title}吧!"><br>
+
+							</div>
+						</div>
+					</div>
+					
+
+
+
+			</div>
+<div class="goodsdesc">
+						<h2>创建者说：</h2>
+						<div class="topic-content clearfix">
+							<div class="user-face">
+								<a
+									href="{:U('people/space',array('enname'=>$page['data']['user'][$page['data']['user_id']]['account']))}"><img
+									class="pil"
+									src="{$page['data']['user'][$page['data']['user_id']]['image_id']|getNewImage=###,'m'}">
+								</a>
+							</div>
+							<div class="topic-doc">
+								<h3>
+									<span class="color-green">{$page.data.id|msubstr=###,0,10|date='Y-m-d
+										H:m',###}</span> <span class="pl20">来自: <a
+										href="{:U('people/space',array('enname'=>$page['data']['user'][$page['data']['user_id']]['account']))}">{$page['data']['user'][$page['data']['user_id']]['screenname']}</a>({$page['data']['user'][$page['data']['user_id']]['say']})</span>
+								</h3>
+								<p class="pcss">{$page['data']['comments'][0]['content']|nl2br}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		</div>
+	</div>
+
+	<div class="loverlist">
+		<h2 class="bold">
+			逛过{$page.data.title}的大家 ...(<a href="__URL__/gomore/type/gonum"
+				class="linkcss">全部</a>)
+		</h2>
+
+		<div id="gonumlist" style="float: left;"></div>
+		<div class="clear"></div>
+
+		<h2 class="bold">
+			推荐{$page.data.title}的大家 ...(<a href="__URL__/gomore/type/tjnum"
+				class="linkcss">全部</a>)
+		</h2>
+		<div id="goodnumlist" style="float: left;"></div>
+
+		<div class="clear"></div>
+		
+	</div>
+
+	<div class="goodsdesc">
+	<div>
+		<include file="Component:urlreply" />
+	</div>
+		<div>
+			<ul class="topic-reply">
+				<php> <?php unset($page['data']['comments'][0]); ?> </php>
+				<volist name="page['data']['comments']" id="vo">
+				<li class="clearfix">
+					<div class="user-face">
+						<a
+							href="{:U('people/space',array('account'=>$page['data']['user'][$vo['user_id']]['account']))}"><img
+							class="pil"
+							src="{$page['data']['user'][$vo['user_id']]['image_id']|getNewImage=###,'m'}">
+						</a>
+					</div>
+					<div class="reply-doc">
+						<div class="bg-img-green">
+							<h4>
+								{$vo.id|msubstr=###,0,10|date='Y-m-d H:m',###} <a
+									href="{:U('people/space',array('account'=>$page['data']['user'][$vo['user_id']]['account']))}">{$page['data']['user'][$vo['user_id']]['screenname']}</a>
+								（{$page['data']['user'][$vo['user_id']]['say']|msubstr=###,0,18}..）
+							</h4>
+						</div>
+						<p class="pcss">{$vo.content|nl2br}</p>
+
+						<div class="topic_banned">
+							<span class="commentfright"> <a rel="nofollow"
+								href="post/id/" class="commentfright" title="删除">&gt;删除</a> </span>
+						</div>
+
+
+					</div></li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+
+
+</div>
+<div class="aside">
+	<include file="Component:actionlink" /> 
+
+ 
+	<include file="Component:adblock" /> 
+ </div>
+<div class="extra"></div>
+ <include file="Public:foot" />

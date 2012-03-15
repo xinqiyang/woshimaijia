@@ -1,0 +1,42 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class StoreLogic extends BaseService
+{
+	
+	public static function webPageIndex($params)
+	{
+		
+	}
+	
+	
+	
+	public static function actSetRecommendProduct($ids)
+	{
+		$key = "l:product_recommend";
+		if(!empty($ids)){
+			return self::redisSetList($key, $ids);
+		}
+		return false;
+	}
+	
+	
+	public static function actSetRecommendBrand($ids)
+	{
+		$key = "l:brand_recommend";
+		if(!empty($ids)){
+			return self::redisSetList($key, $ids);
+		}
+		return false;
+	}
+	
+	
+}

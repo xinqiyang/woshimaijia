@@ -1,0 +1,3 @@
+<a href="{:U('people/space',array('enname'=>$page['data']['user'][$vo['user_id']]['account']))}">{$page['data']['user'][$vo['user_id']]['screenname']}</a>
+&nbsp;
+<a href="{:U('location/location',array('location'=>$page['data']['user'][$vo['user_id']]['city']))}" >({$page['data']['user'][$vo['user_id']]['location']|default='火星'})</a>

@@ -1,0 +1,55 @@
+<include file="Public:head" />
+<div class="amain">
+	<div class="leftsapce" style="margin-top: 30px;">
+		<form id="form1" action="{:U('post/deal')}" method="post"
+			enctype="multipart/form-data">
+			<table style="clear: both; width: 100%">
+				<tbody>
+					<tr>
+						<td>品牌名称</td>
+						<td><input size="40" name="title" value="{$page.data.title}"
+							type="text" datatype="require|ajax" require="true" url="{:U('check/checkBrandName')}" msg="品牌名称不能为空" />
+						</td>
+					</tr>
+					<tr>
+						<td>英文名称</td>
+						<td><input size="40" name="titleextend"
+							value="{$page.data.titleextend}" type="text" datatype="require|ajax" require="true" url="{:U('check/checkBrandEnName')}" msg="英文名称不能为空" />
+						</td>
+					</tr>
+
+					<tr>
+						<td>描述</td>
+						<td><textarea id="desc" rows="8" cols="50" datatype="require" require="true" msg="描述不能为空" name="desc">{$page.data.desc}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>网址</td>
+						<td><input size="40" name="siteurl"
+							value="{$page.data.siteurl}" type="text" datatype="url"	require="true" msg="网址请输入" />
+						</td>
+					</tr>
+
+					<tr>
+						<td><input type="hidden" name="form" value="brand" id="form" /><input
+							type="hidden" name="id" value="{$page.data.id}" id="id" /></td>
+						<td><input type="submit" name="submit" value="提交"
+							class="btn-submit">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+
+		<script>
+			$('#form1').checkForm();
+		</script>
+	</div>
+</div>
+<div class="aside">
+
+	<include file="Component:actionlink" />
+</div>
+<div class="extra"></div>
+
+<include file="Public:foot" />

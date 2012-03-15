@@ -1,0 +1,22 @@
+<include file="Public:head" />
+<div class="amain">
+	<div>
+		<div>
+		<notempty name="page['data']['count']">
+		<volist name="page['data']['result']" id="vo">
+			<include file="Component:blockgroups" />
+		</volist>
+		<div class="clear"></div>
+		</div>
+		<div class="paginator">{$page['data']['count']|page=###,$page['data']['size']}</div>
+		</notempty>
+	</div>
+</div>
+<div class="aside">
+	<h2>推荐加入的群组</h2>
+	
+	<br />
+
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

@@ -1,0 +1,72 @@
+<include file="Public:header" />
+<div>
+	<div class="handle-btns">
+		<div class="img-button">
+			<p>
+				<input type="button" id="addAdmin" name="addAdmin" value="添加"
+					onclick="addData()" class="addAdmin">
+			</p>
+		</div>
+		<div class="img-button ">
+			<p>
+				<input type="button" id="editAdmin" name="editAdmin" value="编辑"
+					onclick="editData(this,'checkList','uid')" class="editAdmin">
+			</p>
+		</div>
+		<div class="img-button ">
+			<p>
+				<input type="button" id="removeAdmin" name="removeAdmin" value="删除"
+					onclick="removeData(this,'checkList')" class="removeAdmin">
+			</p>
+		</div>
+		<include file="Components:search" />
+	</div>
+
+	<table id="checkList" class="table-list list" cellpadding="0"
+		cellspacing="0" border="0">
+		<thead>
+			<tr>
+				<th width="30" class="first"><input type="checkbox"
+					onclick="checkAll('checkList')">
+				</th>
+				<th width="120">ID</th>
+				<th width="410">title</th>
+				
+				<th width="120">fromID</th>
+				<th width="120">toID</th>
+				<th width="60">状态</th>
+				<th width="80">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<volist name="page['data']['mail']" id="vo">
+			<tr class="even" id="obj_{$vo.id}">
+				<td class="first"><input type="checkbox" name="key" value="{$vo.id}">
+				</td>
+				<td>{$vo.id}</td>
+				<td align="left">
+				{$vo.title}
+				</td>
+				
+				<td>{$vo.from_id}</td>
+				<td align="left">{$vo.to_id}</td>
+				<td>
+					<switch name="vo['status']" >
+					<case value="0">未读</case>
+					<case value="1">删除</case>
+					<case value="2">已读</case>
+					<default />
+					</switch>
+
+				</td>
+				<td><a href="">编辑</a>&nbsp;&nbsp;<a href="javascript:;" onclick="delobj('{$vo.id}')">删除</a>&nbsp;&nbsp;</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="clear"></div>
+	<div class="paginator">{$page['data']['count']|page=###,$page['data']['size']}</div>
+</div>
+
+<include file="Public:footer" />

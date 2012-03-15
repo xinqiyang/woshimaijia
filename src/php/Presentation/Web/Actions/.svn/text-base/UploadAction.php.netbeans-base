@@ -1,0 +1,72 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+/**
+ * Upload Action
+ * @author xinqiyang
+ *
+ */
+class UploadAction extends AppBaseAction {
+
+    public function index() {
+
+        //set upload type
+        $objects = array('product', 'brand', 'account', 'post', 'group', 'topic', 'url');
+        $data = '';
+        $info = 'Upload Error';
+        $status = 1;
+        $arr = explode('_', $_GET['type']);
+        if (!empty($arr) && in_array($arr[0], $objects)) {
+            $image_id = ImageService::saveImage();
+            if ($image_id) {
+                switch ($arr[0]) {
+                    case 'account':
+                        $array = array('id' => userID(), 'image_id' => $image_id);
+                        $r = AccountService::actSave($array);
+                        $code = !empty($r) ? Error::SUCCESS : Error::BUSY;
+                        $data = '/account/setting?code=' . $code;
+                        break;
+                    case 'group':
+                        $array = array('id' => $arr[1], 'user_id' => userID(), 'image_id' => $image_id);
+                        $r = GroupService::actSaveGroupImage($array);
+                        $data = U('group/group', array('enname' => $r['enname'])) . '?code=' . $r['code'];
+                        break;
+                    case 'brand':
+                        $array = array('id' => $arr[1], 'user_id' => userID(), 'image_id' => $image_id);
+                        $r = BrandService::actSaveBrandImage($array);
+                        $data = U('brand/brand', array('enname' => $r['enname'])) . '?code=' . $r['code'];
+                        break;
+                    case 'url':
+                        $array = array('id' => $arr[1], 'user_id' => userID(), 'image_id' => $image_id);
+                        $r = UrlService::actSaveUrlImage($array);
+                        $data = U('url/url', array('id' => $r['id'])) . '?code=' . $r['code'];
+                        break;
+                    case 'product':
+                        $array = array('id' => $arr[1], 'user_id' => userID(), 'image_id' => $image_id);
+                        $r = ProductService::actSaveProductImage($array);
+                        $data = U('product/product', array('id' => $r['id'])) . '?code=' . $r['code'];
+                        break;
+                }
+                $info = '';
+                $status = 0;
+            }
+        }
+        $this->ajaxReturn($data, $info, $status);
+    }
+
+    public function upload() {
+        if (!empty($_GET['id']) && !empty($_GET['type']) && !empty($_GET['width']) && !empty($_GET['height'])) {
+            $this->t();
+        }
+    }
+
+}

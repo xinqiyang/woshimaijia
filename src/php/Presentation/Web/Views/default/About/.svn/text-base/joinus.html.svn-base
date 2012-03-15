@@ -1,0 +1,29 @@
+<include file="Public:head" />
+<div class="amain">
+        <div class="leftspace">
+        <p class="pcss">
+			欢迎大家加入我是买家团队<br> <br> 我是买家团队成员有:<br> xinqiyang <br>
+			<br> <br> 联系方式:<br> QQ: 517577550<br>
+			E-mail:admin@woshimaijia.com<br> G-talk:xinqiyang@gmail.com<br>
+			<br> 欢迎加入,我是买家是个开放型的团队
+		</p>
+        </div>
+</div>
+<div class="aside">
+<br /> <br /> <br /> <br /> <a
+		href="{:U('about/about')}"
+		style="font-size: 14px; margin-bottom: 14em;">&gt; 关于我是买家</a><br>
+	<br> <a href="{:U('about/joinus')}"
+		style="font-size: 14px; margin-bottom: 14em;" title="">&gt; 加入团队</a><br>
+	<br> <a href="{:U('about/joinus')}"
+		style="font-size: 14px; margin-bottom: 14em;">&gt; 联系我们</a><br>
+	<br> <a href="{:U('about/agreement')}"
+		style="font-size: 14px; margin-bottom: 14em;">&gt; 使用协议</a><br>
+	<br> <a href="{:U('about/help')}"
+		style="font-size: 14px; margin-bottom: 14em;">&gt; 看看帮助</a><br>
+	
+
+
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

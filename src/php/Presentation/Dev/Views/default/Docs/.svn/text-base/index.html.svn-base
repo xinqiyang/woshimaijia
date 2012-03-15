@@ -1,0 +1,54 @@
+<include file='../Public/head' />
+<h1>What's Buddy?  Buddy框架介绍</h1>
+
+<h4>Buddy框架介绍</h4>
+<p>Buddy框架是一个智能的，具有较高商业价值的框架,采用开源产品为基础，完全覆盖项目的生命周期，从项目参与者的需求出发完成项目的技术实现。
+Buddy定义了一个项目模板和公共的业务流程，这样只需要修改少量的代码就能够实现您的需求。<br />
+</p>
+
+<h4>Buddy所选用的开源技术选型</h4>
+<p>
+Devops<br />
+nginx + php + mysql + redis + mongodb + httpsqs + memcached + coreseek + scws + phpunit(dev only)
+</p>
+
+<h4>Buddy和其他框架设计上区别</h4>
+<p>
+<b>执行速度</b>：
+buddy的一个请求生命周期中都做了什么？一个生命周期中加载了多少文件，执行了多少个步骤，耗了多少内存？点击查看<a href="{:U('docs/lifecycle')}">buddy的执行生命周期</a><br />
+buddy定义了3种运行模式  WEB：IO：CLI ，对于不同的场景需要的加载和执行的步骤不同，对于WEB站点需要加载Router路由类，需要解析和渲染模板需要加载Template，对于API则需要的是简单的这些都不需要加载。
+对于CLI模式下，他们接受参数的方式不同，需要加载的文件也不同。出于此buddy定义了3种运行模式<br />
+<b>开发速度</b>：平常敲的代码，是不是大多数是很熟悉的代码呢？你要做登录？写过Login的类，写方法？用了buddy之后无需如此了，Buddy提供了公共的Service来解决，只需要简单的修改即可完成登录的功能。<br />
+你是否还在写模板的表单？你是否还在判断很多输入？Buddy提供自动的代码上成工具省去这些烦恼了，<a href="{:U('docs/codegenerater')}">查看代码生产工具</a><br />
+你的项目中需要发邮件，需要发短信，需要做推广，需要监控服务器的状态等等？？,这些buddy都已经帮你完成了。<br />
+<b>数据分析</b>：在项目的过程中，各种角色需要看到不同的数据，需求不同，老板想知道当前的访问量数据及最近3个月的增长率，产品人员想知道某个功能的用户的使用数据，想知道活跃用户的行为数据！是否需要开发者在去开发这些？
+buddy已经预先把这些数据进行了存储，方法进行了封装可以方便的使用。<br />
+<b>商业智能</b>：你的项目是否需要数据挖掘和机器学习方面人的参与，是否需要引入检索/推荐系统/聚类/分类等技术手段？buddy已经将这些集成到了框架中
+</p>
+
+
+
+
+<h4>Buddy框架实现的站点结构</h4>
+<p>
+Buddy框架，不仅仅是一个框架，它是一个项目模板，覆盖当前产品的主要领域<br />
+WEB      Presentaion/Web        站点的Web主站点，支持WEB模式的桌面电脑/IPAD等平板设备的访问<br />
+WAP      Presentaion/Wap        站点的Wap主站点，支持WAP模式的手机端访问<br />
+CLIENT   Presentation/Api       站点的API主站点，支持Android/Iphone等智能手机客户端访问<br />
+MIS      Presentation/Mis       站点的MIS主站点，支持站点的资源管理功能<br />
+BackEnd  BackEnd                站点的后端，支持计划任务，及一些任务的异步处理<br />
+DEV      Presentation/Dev       站点的DEV主站点，支持站点的开发者与外界进行技术交流及一些技术的发布<br />
+Image    Presentation/Images    站点的图片主站点，支持站点的图片与主站点分离<br />
+Resource Presentation/Resource  站点的资源主站站点，支持资源的的独立部署 <br />
+</p>
+
+
+
+<h4>开始使用Buddy?</h4>
+<p>
+查看Buddy的案例：<br />
+官方案例: <a href="http://woshimaijia.com" target="_blank"  style="margin-right:20px">我是买家</a>  <br />
+<b>开始使用：</b>
+<a href="{:U('docs/guide')}" style="margin-right:20px">阅读开发者指导</a> <a href="{:U('download')}" style="margin-right:20px">下载代码模板</a>    
+</p>
+<include file='../Public/foot' />

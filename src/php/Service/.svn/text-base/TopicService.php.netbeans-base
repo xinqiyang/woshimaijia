@@ -1,0 +1,91 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class TopicService extends BaseService
+{
+	
+	public static function actAddTopic($array)
+	{
+		$code = Error::PARAM_ERROR;
+		if(!empty($array['group_id']) && !empty($array['title']) && !empty($array['content']) && !empty($array['user_id']))
+		{
+			extract($array);
+			$r = TopicLogic::addTopic($title, $content,$user_id, $group_id);
+			if($r){
+				//将user加入到组成员中
+				$redisReturn = self::redisSetKeyValues($group_id, KeysService::$ulist, KeysService::$keyGroupUsers,$user_id);
+				if(!$redisReturn){
+					logNotice("ADD TO GROUP USER KEY ERROR GROUP_ID:%s USER_ID:%s",$id,$user_id);
+				}
+				$code = Error::SUCCESS;
+			}else{
+				$code = Error::BUSY;
+			}
+		}
+		return array('code'=>$code,'id'=>$r);
+	}
+	
+	public static function dataTopic($array)
+	{
+		if(!empty($array['id']))
+		{
+			extract($array);
+			$r = TopicLogic::get('topic', '','*',"id=$id and status=0");
+			if(!empty($r['id']))
+			{
+				$p = isset($p) && $p>=1 ? $p : 1;
+				$pageSize = 10;
+				$content = PostLogic::get('post', '','content',"object_id=$id and istopic=1 and status=0");
+				$r['content'] = $content['content'];
+				//取得结果
+				$arrcount = PostLogic::get('post','','count(*) as count',"object_id=$id and istopic=0 and status=0");
+				$r['count'] = $arrcount['count'];
+				$r['size'] = $pageSize;
+				$r['post'] = PostLogic::getsByPage('post', "object_id=$id and istopic=0 and status=0 ORDER BY ID DESC", $p,$pageSize);
+				
+				$r['adminids'] = GroupService::isAdmin($id);
+				//获取所有的ID然后去取对象
+				$ids = array_merge(arrToOne($r['post'],'user_id'),array($r['user_id']));
+				$r['user'] = AccountLogic::getUsers($ids,'user_id');
+				//var_dump($r);die;
+				return $r;
+			}else{
+				//跳转到错误页面
+				jump('/public/404');
+			}
+		}
+		return false;
+	}
+	
+	public static function actAddTopicPost($array)
+	{
+		$code = Error::PARAM_ERROR;
+		$r = '';
+		if(!empty($array['user_id']) && !empty($array['content']) && !empty($array['object_id']))
+		{
+			extract($array);
+			$r = TopicLogic::addTopicPost($content, $user_id, $object_id);
+			if($r){
+				$redisReturn = self::redisSetKeyValues($object_id, KeysService::$count, KeysService::$keyTopic,1);
+				if(!$redisReturn){
+					logNotice("TOPIC ADD COUNT KEY ERROR:%s",$object_id);
+				}
+				$r = $object_id;
+				$code = Error::SUCCESS;
+			}else{
+				$code = Error::BUSY;
+			}
+		}
+		return array('code'=>$code,'id'=>$r);
+	}
+	
+	
+}

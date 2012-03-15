@@ -1,0 +1,35 @@
+<include file="Public:head" />
+<div class="amain">
+<div class="goodsdesc">
+<h2>创建者说：</h2>
+		<div class="topic-content clearfix">
+		<div class="user-face">
+			<a
+				href="{:U('people/space',array('enname'=>$page['data']['user'][$page['data']['user_id']]['account']))}"><img
+				class="pil" src="{$page['data']['user'][$page['data']['user_id']]['image_id']|getNewImage=###,'m'}">
+			</a>
+		</div>
+		<div class="topic-doc">
+			<h3>
+				<span class="color-green">{$page.data.id|msubstr=###,0,10|date='Y-m-d
+					H:m',###}</span> <span class="pl20">来自: <a
+					href="{:U('people/space',array('enname'=>$page['data']['user'][$page['data']['user_id']]['account']))}">{$page['data']['user'][$page['data']['user_id']]['screenname']}</a>({$page['data']['user'][$page['data']['user_id']]['say']})</span>
+			</h3>
+			<p class="pcss">{$page['data']['content']|nl2br}</p>
+		</div>
+	</div>
+	</div>	
+
+	<include file="Component:listcomments" />
+</div>
+<div class="aside">
+	<include file="Component:actionlink" />
+	<div>
+		<include file="Component:postreply" />
+	</div>
+	
+	<include file="Component:adblock" />
+</div>
+<div class="extra"></div>
+
+<include file="Public:foot" />

@@ -1,0 +1,124 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class GroupService extends BaseService
+{
+	
+	public static function addGroup($array)
+	{
+		$code = Error::PARAM_ERROR;
+		$r = 0;
+		if(!empty($array['title']) && !empty($array['desc']) && !empty($array['user_id']) && !empty($array['enname']))
+		{
+			extract($array);
+			//判断用户小组的个数
+			$count = self::redisGetKeyValues($user_id, KeysService::$count,KeysService::$keyGroup);
+			if($count <= C('groupcount'))
+			{
+				$r = GroupLogic::addGroup($user_id, $title, $desc, 0,$enname,'web');
+				if($r){
+					$redisReturn = self::redisSetKeyValues($user_id, KeysService::$count, KeysService::$keyGroup,1);
+					if (!$redisReturn){
+						logNotice("ADD USERID TO GROUP KEY ERROR:%s",$user_id);
+					}
+					$code = Error::SUCCESS;
+				}else{
+					$code = Error::BUSY;
+				}
+			}else {
+				$code = Error::GROUP_COUNT_LIMIT;
+				U('group/index',array('code'=>$code),true);
+			}
+		}
+		return array('code'=>$code,'id'=>$r);
+	}
+
+	public static function dataIndex($array)
+	{
+		$code = Error::PARAM_ERROR;
+		if(isset($array['id']))
+		{
+			$uid = $array['id'];
+			$data = array();
+			$limit = 10;
+			//获取推荐的群组名称
+			$groupids = self::redisGetKeyValues('', KeysService::$ulist,KeysService::$keyInterestGroup,0,8);
+			//var_dump($groupids);
+			$data['recommand'] = GroupLogic::getRecommandGroups($uid);
+			//my join group
+			$data['mygroup'] = GroupLogic::getMyJoinGroups($uid, 4);
+			
+			$data['likegroup'] = GroupLogic::wouldLikeGroups($uid);
+			
+			$data['owngroup'] = GroupLogic::getOwnGroups($uid);
+			//active groups
+			$data['active'] = GroupLogic::getActiveGroups($uid);
+			//my join groups
+			$data['group'] = GroupLogic::getGroups($uid,$limit);
+			$strin = strin($data['group']);
+			//my join group's topics
+			$data['topics'] = TopicLogic::getsMyJoinGroupTopics($strin);
+			//var_dump($data['topics']);
+			$data['user'] = AccountLogic::getUsers($data['topics'],'user_id');
+			$data['liketopic'] = TopicLogic::wouldLikeTopic($uid);
+			return $data;
+		}
+		return array('code'=>$code);
+	}
+	
+	public static function actSaveGroupImage($array)
+	{
+		$code = Error::PARAM_ERROR;
+		if(!empty($array['id']) && !empty($array['user_id']) && !empty($array['image_id']))
+		{
+			extract($array);
+			$r = GroupLogic::saveGroupImage($id, $user_id, $image_id);
+			if($r){
+				$code = Error::SUCCESS;
+				return array('code'=>$code,'enname'=>$r);
+			}
+		}
+		return array('code'=>$code,'enname'=>'');
+	}
+	
+	public static function dataGroup($array)
+	{
+		if(!empty($array['enname']))
+		{
+			extract($array);
+			$r = GroupLogic::getGroupByEnname($enname);
+			return $r;
+		}
+		return false;
+	}
+	
+	public static function isAdmin($id)
+	{
+		$object = self::queryField('object', "id=$id", 'object');
+		if(!empty($object)){
+			if($object == 'topic'){
+				$group_id = self::queryField('topic', "id=$id", 'group_id');
+				if(!empty($group_id)){
+					$adminids = self::queryField('group', "id=$group_id", 'adminids');
+					if(!empty($adminids)){
+						$arrAdminids = explode(',', $adminids);
+						if(!empty($arrAdminids)){
+							return $arrAdminids;
+						}
+					}
+				}
+			}
+		}
+		logNotice("ID NOT FIND IS GROUP AND TOPIC %s",$id);
+		return false;
+	}
+
+}

@@ -1,0 +1,22 @@
+<include file="Public:header" />
+<div class="mainarea">
+    <div class="maininner">
+        <div class="body_content">
+            <div class="top_action" style="text-align: left;"><a href="{:U('content/tag')}">返回</a> | <a href="{:U('content/addtags')}">添加</a></div>
+            <form id="form1" action="{:U('content/addtagsdeal')}" method="post">		   
+                <table cellspacing="0" cellpadding="0" id="maintable" class="formtable" width="100%">
+                    <tr><td>TAG</td> <td>    <textarea id="tag" rows="8" cols="70" name="tag">{$vo.tag}</textarea></td></tr>
+                    </tbody>
+                </table>
+
+                <input type="hidden" name="form" value="tag" />
+                <br /><br />
+                <input type="submit" name="submit" value="提交录入" class="submit">
+                <input type="reset" name="button" id="button" value="还原重填" class="submit"/>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<include file="Public:footer" />

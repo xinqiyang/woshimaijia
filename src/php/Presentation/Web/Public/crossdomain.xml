@@ -1,0 +1,7 @@
+<cross-domain-policy>
+	<site-control permitted-cross-domain-policies="all"/>
+	<allow-access-from domain="*.woshimaijia.com"/>
+	<allow-http-request-headers-from domain="*.woshimaijia.com" headers="*"/>
+	<allow-access-from domain="*.dev.woshimaijia.com"/>
+	<allow-http-request-headers-from domain="*.woshimaijia.com" headers="*"/>
+</cross-domain-policy>

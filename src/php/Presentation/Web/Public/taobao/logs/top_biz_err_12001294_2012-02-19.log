@@ -1,0 +1,1 @@
+2012-02-19 23:44:40	<?xml version="1.0" encoding="utf-8" ?><error_response><code>11</code><msg>Insufficient isv permissions</msg><sub_code>isv.permission-api-package-limit</sub_code><sub_msg>scope ids is 287 81</sub_msg></error_response><!--top016073.cm4-->

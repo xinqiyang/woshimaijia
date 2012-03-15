@@ -1,0 +1,27 @@
+<h2>大家说.....(<a href="">全部</a>)</h2>
+<ul class="mbt">
+<li id="showonecomment"></li>
+<volist id="vo" name="page.data.comments">
+	<li class="mbtl">
+	<a class="pl-5" href="{:U('people/space',array('enname'=>$vo['account']))}">
+	<img src="{:getImage($vo['image_id'],'s_')}" />
+	</a>
+	</li>
+	<li class="mbtrdot">
+	<a href="{:U('people/space',array('id'=>$vo['account']))}">{$vo.screenname}</a> <span class="pl">说：</span>
+		<div class="quote">
+			<span class="inq">{$vo.content|nl2br|htmlspecialchars}</span> 
+			<span><a
+			href="{:U('item/item',array('id'=>$vo['id']))}"
+			class="j a_saying_reply" name=""
+			rev="unfold" rel="">{$vo.reply}回应</a> 
+			</span>
+			<span style="margin-left:10px;"><a
+			href="{:U('item/item',array('id'=>$vo['id']))}"
+			class="j a_saying_reply" name=""
+			rev="unfold" rel="">{$vo.forward}转发</a> 
+			</span>
+		</div>
+   </li>
+</volist>
+</ul>

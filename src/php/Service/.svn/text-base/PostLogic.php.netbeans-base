@@ -1,0 +1,142 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+/**
+ * POST Logic 
+ * NEED TO ADD CACHE LAYER
+ * @author xinqiyang
+ *
+ */
+class PostLogic extends BaseService
+{
+	
+	public static  function addPost($id,$content,$object_id,$user_id,$source,$istopic=0,$istop=0,$ispost=0,$imageids=0,$action='say',$notdeal=false,$isusercopy=0)
+	{
+		if(!$notdeal){
+			if(!empty($object_id))
+			{
+				$dealid = $object_id;
+			}else{
+				$dealid = $id;
+			}
+			$postdeal = new PostDealService($content,$dealid,$user_id);
+			try{
+				$content = $postdeal->deal();
+			}catch (Exception $e){
+				logNotice("POST DEAL EXCEPTION:".$e->__toString());
+			}
+			$objid = $postdeal->getObject();
+			if(!empty($objid) && empty($object_id))
+			{
+				$object_id = $objid;
+			}
+			$objimageids = $postdeal->getImageids();
+			if(!empty($objimageids) && empty($imageids))
+			{
+				$imageids = $objimageids;
+			}
+		}
+		$array = array(
+			'id'=>$id,
+			'content'=>$content,
+			'istopic' =>$istopic,
+			'status'=>0,
+			'object_id'=>$object_id,
+			'user_id'=>$user_id,
+			'istop'=>$istop,
+			'replay'=>0,
+			'source'=>$source,
+			'imageids'=>$imageids,
+			'usercopy'=>0,
+			'ispost'=>$ispost,
+			'action'=>$action,
+			'isusercopy'=>$isusercopy,
+		);
+		if(self::add('post', $array)){
+			//处理关联操作
+			if(!$notdeal){
+				$tagids = $postdeal->tagids();
+			}
+			if (!empty($tagids)){
+				foreach ($tagids as $one)
+				{
+					$r = self::redisSetKeyValues($one, KeysService::$ulist, KeysService::$keyTags,$id);
+					if(!$r){
+						logNotice('SET REDIS ERROR %s',$one);
+					}
+				}	
+			}
+			return $id;
+		}
+		return false;
+	}
+	
+	
+	
+	public static function getByObject($object,$topic_id='',$offset=0,$number=40)
+	{
+		//DO CACHE LAYER
+		$where = $topic_id ? "object ='{$object}' and status=0 and topic_id={$topic_id} order by istopic desc,istop desc,id desc limit {$offset},{$number}" : "object ='{$object}' and status=0  order by id desc limit {$offset},{$number}";
+		return self::gets('post',$where);
+	}
+	
+	/**
+	 * get post by userid
+	 * 
+	 * @param bigint $user_id
+	 * @param int $limit
+	 */
+	public static function getPostByUserid($user_id,$limit)
+	{
+		$where = "user_id=$user_id and status=0 limit 10";
+		return self::gets('post', $where);
+	}
+	
+	
+	public static function getPostByIds($ids='')
+	{
+		return empty($ids) ? false : self::gets('post', "ID IN $ids AND status=0 ORDER BY ID DESC");
+	}
+	
+	/**
+	 * 删除发送的内容并清除cache
+	 * @param $id int 
+	 */
+	public static function destoryPost($id)
+	{
+		$array = array(
+			'id'=>$id,
+		);
+		return self::destory('post', $array);
+	}
+	
+	public static function getPostSearchByIds($ids)
+	{
+		$where = "id IN $ids and status=0 order by id desc";
+		return self::gets('post', $where);
+	}
+	
+	public static function updateReply($id,$field='reply'){
+		$reply = self::queryField('post', "id=$id and status=0", $field);
+		$reply = $reply + 1;
+		$array = array('id'=>$id,$field=>$reply);
+		return self::save('post', $array,"id=$id");
+	}
+	
+	public static function getUserCopy($id)
+	{
+		$post = self::get('post', $id);
+		if(isset($post['status']) && $post['status'] ==0){
+			return $post['content'];
+		}
+		return "";
+	}
+}

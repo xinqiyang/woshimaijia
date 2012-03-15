@@ -1,0 +1,31 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+class ReportLogic extends BaseService
+{
+
+	public static function addReport($user_id,$typename,$url='',$reason='',$uname='',$ip='')
+	{
+		$array = array();
+		$array['id']=objid();
+		$array['user_id']=$user_id;
+		$array['uname']=$uname;
+		$array['ip']=$ip;
+		$array['typename']=$typename;
+		$array['url']=$url;
+		$array['reason']=$reason;
+		$array['status']=0;
+		if(self::add('report', $array))
+		{
+			return true;
+		}
+		return false;
+	}
+}

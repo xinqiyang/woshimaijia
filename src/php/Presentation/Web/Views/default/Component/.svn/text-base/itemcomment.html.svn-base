@@ -1,0 +1,14 @@
+<notempty name="page['user']['uid']"> 
+<div class="txd">
+<h2>说说......</h2>
+<form name="form1" id="form1" method="post" action="{:U('post/deal')}">
+<input type="hidden" name="form" value="comment" id="form"/>
+<input type="hidden" name="__hash__" value="{__TOKEN__}" id="__hash__"/>
+<input type="hidden" name="topic_id" value="{.id}" id="topic_id"/>
+<textarea id="ccontent" name="content" rows="5" cols="65"></textarea><br>
+<input type="submit"  value="发 表" class="btn-submit" onclick="doPost()">
+</form>
+</div>
+<div class="clear"></div>
+
+</notempty>

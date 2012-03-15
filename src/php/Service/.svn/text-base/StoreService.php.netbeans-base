@@ -1,0 +1,30 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class StoreService extends BaseService {
+
+    public static function dataIndex($array) {
+        //get id list of some
+        $products = array();
+
+        $brandids = '';
+        $r['product'] = $products;
+        //流行的品牌
+        $r['brands'] = BrandLogic::getsBrand($brandids);
+        //最近流行的商品
+        $r['blockproducts'] = ProductLogic::getsBlocks();
+        //可能感兴趣的人
+        $r['blockuserlike'] = AccountLogic::getAccounts();
+        return $r;
+    }
+
+}

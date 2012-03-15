@@ -1,0 +1,86 @@
+<include file="Public:head" />
+<div class="amain">
+
+<div class="goodshowblock">
+<div class="displayauto clearfix">
+<div class="subject clearfix">
+<div class="mainpic">
+<img src="{:getImage($page['data']['image'],'l')}"
+	title="{$page.data.title}" alt="{$page.data.title}">
+<br>
+</div>
+<div style="display:block;float:right;width:268px;padding-bottom:10px;">
+<div style="display:block;padding-top:10px;float:left;">
+<div class="info"><span> <span class="pl">东西来源</span>: <a
+	onclick="clickaction('{$page.data.id}','{$page.data.fromurl}')" href="{$page.data.fromurl}" target="_blank">点击访问</a></span><br>
+
+<br>
+
+<div class="obmo">
+<span class="pl">喜欢指数:</span> <span id="likenum">11</span> <br>
+<span class="pl">想买指数:</span> <span id="wantnum">22</span><br>
+
+
+<span class="pl">东西标签:</span> <a class="pl-5" href="">{$page.data.tags}</a><br><br>
+ <a class="gotobutton" onclick="clickaction('{$page.data.id}','{$page.data.fromurl}')" target="_blank" href="{$page.data.fromurl}">去购买地看看</a><br /><br />
+ <a class="gotobutton"  target="_blank" href="{$page.data.fromurl}">推荐给我朋友</a>
+</div>
+</div>
+</div>
+<div style="display:block;padding-top:10px;float:left;">
+<div class="interest_action">
+<span id="result"></span>
+<div class="rating_wrap clearbox">
+
+<input class="btn-action" type="button" onclick="usaction('relation','like','{$page.data.id}','{__TOKEN__}')" value="我喜欢"><br>
+<input class="btn-action" type="button" onclick="usaction('relation','buy','{$page.data.id}','{__TOKEN__}')" value="我想买"><br>
+
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</div>
+</div>
+
+
+
+<div class="loverlist">
+
+<h2 class="bold">喜欢{$page.data.title|msubstr=0,30}的大家 ...(<a href="">全部</a>)</h2>
+<div id="likelist" style="float:left;">
+
+</div>
+
+<div class="clear"></div>
+<h2 class="bold">想买{$page.data.title|msubstr=0,30}的大家 ...(<a href="">全部</a>)</h2>
+<div id="buylist" style="float:left;">
+
+</div>
+<div class="clear"></div>
+
+</div>
+
+<div class="goodsdesc">
+<include file="Component:comments" /> 
+<br />
+<a class="gotobutton" onclick="clickaction('{$page.data.id}','{$page.data.fromurl}')"  href="{$page.data.fromurl}" target="_blank" style="float:right; margin-right:30px;">去购买地看看</a>
+</div>
+
+
+</div>
+<div class="aside">
+<include file="Component:actionlink" />
+<include file="Component:itemcomment" /> 
+<include	file="Component:adblock" /> 
+</div>
+<div class="extra"></div>
+
+<include file="Public:foot" />

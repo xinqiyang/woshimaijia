@@ -1,0 +1,20 @@
+<notempty name="page['data']['liketopic']">
+<h2>可能感兴趣的主题 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</h2>
+<table class="reply_notify">
+	<tbody>
+		<tr>
+			<th>主题</th>
+			<th class="dater">最新回复时间</th>
+		</tr>
+		<volist name="page['data']['liketopic']" id="vo">
+		<tr id="reply_notify_{$vo.id}">
+			<td style="padding-right: 5px"><a href="{:U('group/topic',array('id'=>$vo['id']))}">{$vo.title}</a></td>
+			<td class="dater">{$vo.lastreplytime|date="m-d g:i",###} <a class="reply_notify_delete"
+				title="删除" href="javascript:delete_reply_notify('{$vo.id}');void(0)">X</a>
+			</td>
+		</tr>
+		</volist>
+	</tbody>
+</table>
+</notempty>
+<div class="clear"></div>

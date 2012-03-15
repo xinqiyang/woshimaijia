@@ -1,0 +1,34 @@
+<notempty name="page['data']['topics']">
+<h2>热门话题</h2>
+<div id="grouptopic">
+<table width="100%">
+	<tbody>
+		<tr>
+			<td>话题</td>
+			<td>组名</td>
+			<td>作者</td>
+			<td align="right" nowrap="nowrap">    回复</td>
+			<td align="right">最后回复</td>
+		</tr>
+		<volist name="page['data']['topics']" id="vo">
+		<tr class="pl">
+			<td>
+			<if condition="$vo['istop'] eq 1">
+			<span class="pl">
+            <img alt="[置顶]" src="{$page.resurl}/images/group/stick.gif"></span>
+            </if>
+            <a title="{$vo.title}" href="{:U('group/topic',array('id'=>$vo['id']))}">{$vo.title}</a></td>
+			<td>
+			<notempty name="page['data']['mygroup'][$vo['group_id']]['title']">
+			<a href="{:U('group/group',array('enname'=>$page['data']['mygroup'][$vo['group_id']]['enname']))}">{$page['data']['mygroup'][$vo['group_id']]['title']}</a>
+			</notempty>
+			</td>
+			<td><a href="{:U('people/space',array('enname'=>$page['data']['user'][$vo['user_id']]['account']))}" >{$page['data']['user'][$vo['user_id']]['screenname']}</a></td>
+			<td align="right">{$vo.id|getTopicPostCount}</td>
+			<td align="right" nowrap="nowrap">{$vo.lastreplytime|date="m-d g:i",###}</td>
+		</tr>
+		</volist>
+	</tbody>
+</table>
+</div>
+</notempty>

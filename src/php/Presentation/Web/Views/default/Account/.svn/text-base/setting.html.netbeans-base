@@ -1,0 +1,66 @@
+<include file="Public:head" />
+<div class="amain">
+<div class="leftspace">
+<form id="form1" action="{:U('post/deal')}" method="post">
+<table style="clear:both" width="100%" align="center" cellpadding="5">
+    <tbody>
+    <tr>
+        <td class="m" valign="top" align="right">名　号: </td>
+        <td valign="top">
+<input name="screenname" type="text" size="15" maxlength="15" value="{$page.data.screenname}" datatype="limit|ajax" url="{:U('check/checkScreenname')}" min="1" max="30" require="true"  msg="显示名1到10个字符">
+<br>自己最常用的名字<br>
+        </td>
+    </tr>
+	<tr>
+        <td class="m" valign="top" align="right">签　名: </td>
+        <td valign="top">
+	<textarea name="say" datatype="limit|ajax" rows="3" cols="50" url="{:U('check/checkAccountSay')}" require="true" min="0" max="140"  msg="请下写下喜欢的签名">{$page.data.say}</textarea>
+<br>写下喜欢的签名<br>
+        </td>
+    </tr>
+    <tr>
+        <td class="m" valign="top" align="right">我的帐号:</td>
+        <td valign="top">
+                {$page.data.account}
+        </td>
+    </tr>
+
+    <tr><td class="m" valign="top" align="right">头　像:</td>
+    
+    <td valign="top"><img src="{$page.data.image_id|getNewImage=###,'a'}" style="margin:10px;float:left">
+        <div style="margin:10px;float:left"><img src="{$page.data.image_id|getNewImage=###,'m'}"><br>头像图标</div>
+         <a href="{:U('account/uploadicon')}" style="margin:10px;float:left">更新</a><p></p>
+     <br><br></td></tr>
+ 	
+    <tr>
+        <td class="m" align="right">登录邮箱: </td>
+        <td valign="top">
+            <span>{$page.data.email}</span>
+        </td>
+    </tr>
+   
+    <tr>
+        <td class="m" align="right">登录密码: </td>
+        <td valign="top">
+            <a href="{:U('account/changepassword')}">更改</a>
+        </td>
+    </tr>
+    
+    
+    <tr>
+        <td><input type="hidden" name="form" value="setting" /></td>
+        <td><span class="bn-flat"><input class="btn-submit" name="pf_submit" type="submit" value="更新设置" tabindex="8"></span></td>
+    </tr>
+
+    </tbody></table>
+
+</form>
+ <script>
+	$('#form1').checkForm();
+</script>
+</div>
+</div>
+<div class="aside"><include file="Component:useraction" /></div>
+<div class="extra"></div>
+
+<include file="Public:foot" />

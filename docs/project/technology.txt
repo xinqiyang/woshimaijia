@@ -1,0 +1,29 @@
+
+
+开源的中文分词系统
+
+SCWS 1.1.8 
+http://ftphp.com/scws/ 
+官方文档非常明了，如果想在PHP中使用它非常简单. http://ftphp.com/scws/download.php 
+
+http-scws 2.0 
+http://code.google.com/p/http-scws/ 
+http-scws软件基于scws 1.1.7版本二次开发，可以玩玩看. 
+http://blog.ddidd.com/http-scws/
+
+MMSEG 
+http://technology.chtsai.org/mmseg/ 
+
+
+-----------------------------------------------------
+
+nginx + php + apc + mysql + redis + mongodb + httpsqs + memcached + coreseek + scws + phpunit(dev only)
+
+
+对于POST如果达到需要分表的情况
+则需要对POST进行按月分表策略即可
+
+按月来分表的话，对ID 进行截取 0，10  然后算出所在的月份即可  201201 这样的即可
+
+/usr/local/coreseek/bin/searchd -c /home/wwwroot/woshimaijia2/woshimaijia/src/service/coreseek/csft_mysql.conf --console
+

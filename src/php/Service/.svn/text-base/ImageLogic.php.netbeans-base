@@ -1,0 +1,35 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class ImageLogic extends  BaseService
+{
+
+	public static function addImage($id,$model,$user_id,$filename='',$source='web',$desc='',$remoteurl='',$url='')
+	{
+		$array = array();
+		$array['id'] = $id;
+		$filename = empty($filename) ? $array['id'] : $filename;
+		$array['filename']=$filename; //上传为jpg 的格式
+		$array['desc']=$desc;
+		$array['status']=0;
+		$array['source']=$source;
+		$array['remoteurl']= $remoteurl;
+		$array['url']=$url;
+		$array['model']=$model;
+		$array['user_id']=$user_id;
+		if(self::add('image', $array)){
+			return $id;
+		}
+		return false;
+	}
+
+
+}

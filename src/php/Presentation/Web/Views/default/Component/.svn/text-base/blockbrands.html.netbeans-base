@@ -1,0 +1,13 @@
+
+<div class="mblock">
+	<a class="goods_photo"
+		href="{:U('brand/brand',array('enname'=>$vo['id']))}"> <img
+		class="artist_s" alt="{$vo.title}" src="{$vo['image_id']|getNewImage}"
+		height="45" width="90" title="{$vo.title}"></a>
+	<div style="width: 100%;" class="ll">
+		
+		<a href="{:U('brand/brand',array('enname'=>$vo['id']))}">{$vo.title|msubstr=0,18}</a>
+		
+	</div>
+	<div class="pl">({$vo['id']|getBrandNum} 喜欢)</div>
+</div>

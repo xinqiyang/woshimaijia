@@ -1,0 +1,10 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{&SITE.title} MIS系统</title>
+<script type="text/javascript" src="{$page.resurl}/js/jquery.min.js"></script>
+<link href="{$page.resurl}/images/misimages/main.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{$page.resurl}/images/misimages/common.js"></script>
+</head>
+
+<body>

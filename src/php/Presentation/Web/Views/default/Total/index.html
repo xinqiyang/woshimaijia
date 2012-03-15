@@ -1,0 +1,18 @@
+<include file="Public:head" />
+<div class="amain">
+<notempty name="page['data']['list']">
+		<div  class="mt5">
+			<volist name="page['data']['list']" id="vo">
+				<include file="Component:listusers" />
+			</volist>
+		</div>
+		
+		<div class="clear"></div>
+		<div class="paginator">{$page['data']['count']|page=###,$page['data']['size']}</div>
+</notempty>
+</div>
+<div class="aside">
+
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

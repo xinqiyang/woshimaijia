@@ -1,0 +1,48 @@
+<include file="Public:header" />
+<div class="leftspace">
+    	<div class="handle-btns">
+		<div class="img-button">
+                    <a href="{:U('content/addtags')}" >添加</a>
+		</div>
+		
+		<include file="Components:search" />
+	</div>
+	<div>
+		
+			<table id="checkList" class="table-list list" cellpadding="0"
+				cellspacing="0" border="0">
+				<thead>
+					<tr>
+						<th width="30" class="first"><input type="checkbox"
+							onclick="checkAll('checkList')">
+						</th>
+						<th width="120">ID</th>
+						<th width="330">TAG</th>
+                                                <th width="330">状态</th>
+						<th width="80">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<volist name="page['data']['tag']" id="vo">
+					<tr class="even" id="obj_{$vo.id}">
+						<td class="first"><input type="checkbox" name="key"
+							value="{$vo.id}"></td>
+						<td>{$vo.id}</td>
+                                               
+						<td><span class="pointer" module="tags" href="javascript:;"
+							onclick="textEdit(this,'{$vo.id}','tag')">{$vo.tag}</span></td>
+                                                         <td>{$vo.status}</td>
+						<td><a href="javascript:;" onclick="passobjtag('{$vo.id}')">通过</a>&nbsp;&nbsp;<a href="javascript:;"
+							onclick="delobjtag('{$vo.id}')">删除</a>&nbsp;&nbsp;</td>
+					</tr>
+					</volist>
+				</tbody>
+			</table>
+		<div class="clear"></div>
+		<div class="paginator">{$page['data']['count']|page=###,$page['data']['size']}</div>
+
+	</div>
+
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,32 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class CompaignLogic extends  BaseService
+{
+
+	public static function addCompaign($title,$content,$user_id,$starttime,$endtime,$expiration,$source = 'web')
+	{
+		$array = array();
+		$array['id']=objid();
+		$array['title']=$title;
+		$array['starttime']=$starttime;
+		$array['endtime']=$endtime;
+		$array['expiration']=$expiration;
+		$array['status']=0;
+		$array['user_id']=$user_id;
+		if(self::add('compaign', $array))
+		{
+			$postResult = PostLogic::addPost(objid(), $content, $array['id'], $user_id, $source);
+			return true;
+		}
+		return false;
+	}
+}

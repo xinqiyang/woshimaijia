@@ -1,0 +1,107 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+class PostService extends BaseService {
+
+    public static function actAddPost($array) {
+        $code = Error::PARAM_ERROR;
+        $r = '';
+        $id = '';
+        if (!empty($array['user_id']) && !empty($array['content'])) {
+            extract($array);
+            $id = objid();
+            $from = !empty($source) ? $source : "web";
+            $imageids = !empty($imageids) ? $imageids : '';
+            $action = !empty($action) ? $action : 'say';
+            $object_id = !empty($object_id) ? $object_id : '';
+            $ispost = isset($ispost) ? $ispost : 1;
+            $isusercopy = !empty($isusercopy) ? $isusercopy : 0;
+            $notdeal = !empty($notdeal) ? $notdeal : false;
+            if ($isusercopy) {
+                $notdeal = true;
+            }
+            $r = PostLogic::addPost($id, $content, $object_id, $user_id, $from, 0, 0, $ispost, $imageids, $action, $notdeal, $isusercopy);
+            $notdeal = !empty($notdeal) ? $notdeal : false;
+            if ($r) {
+                if ($action !== 'reply') {
+                    //将ID写入到outbox
+                    self::redisSetKeyValues(KeysService::$list, KeysService::$keyOutbox, $id, $user_id);
+                    //将ID写入inbox
+                    self::redisSetKeyValues(KeysService::$list, KeysService::$keyInbox, $id, $user_id);
+                    //将user_id写入到广场的pub
+                    self::redisSetKeyValues(KeysService::$ulist, KeysService::$keyPub, $user_id);
+                    //将ID写入lastpost
+                    self::redisSetKeyValues(KeysService::$string, KeysService::$keyLastPost, $id, $user_id);
+                    //写入到推送的列表中
+                    self::addToEventQueue(array('user_id' => $user_id, 'id' => $id), __CLASS__ . __FUNCTION__);
+
+                    if ($isusercopy) {
+                        PostLogic::updateReply($object_id, 'usercopy');
+                    }
+                } else {
+                    //update reply
+                    PostLogic::updateReply($object_id);
+                    $id = $object_id;
+                }
+                $code = Error::SUCCESS;
+            } else {
+                $code = Error::BUSY;
+            }
+        }
+        return array('code' => $code, 'id' => $id);
+    }
+
+    public static function actGetPostList($param) {
+        $code = Error::PARAM_ERROR;
+        $r = 0;
+        if (!empty($param['id']) && !empty($param['user_id'])) {
+            extract($param);
+            $r = self::gets('post', "object_id=$id and status=0 and action='reply' order by id desc limit 5", '*');
+
+            if (!empty($r)) {
+                foreach ($r as &$one) {
+                    $one['time'] = Time::timeAgo(substr($one['id'], 0, 10));
+                    $one['screenname'] = AccountLogic::getscreenname($one['user_id']);
+                }
+                $code = Error::SUCCESS;
+            }
+        }
+        return array('code' => $code, 'data' => $r);
+    }
+
+    public static function dataPost($param) {
+        $code = Error::PARAM_ERROR;
+        if (!empty($param['id'])) {
+            extract($param);
+            $r = PostLogic::get('post', '', '*', "id=$id and status=0 and ispost=1");
+            if (!empty($r['id'])) {
+                $p = isset($p) && $p >= 1 ? $p : 1;
+                $pageSize = 10;
+                $content = PostLogic::get('post', '', 'content', "object_id=$id and status=0");
+                //取得结果
+                $arrcount = PostLogic::get('post', '', 'count(*) as count', "object_id=$id and action='reply' and status=0");
+                $r['count'] = $arrcount['count'];
+                $r['size'] = $pageSize;
+                $r['post'] = PostLogic::getsByPage('post', "object_id=$id and status=0 and action='reply' ORDER BY ID DESC", $p, $pageSize);
+                $r['title'] = $r['content'];
+                //获取所有的ID然后去取对象
+                $ids = array_merge(arrToOne($r['post'], 'user_id'), array($r['user_id']));
+                $r['user'] = AccountLogic::getUsers($ids, 'user_id');
+                //var_dump($r);die;
+                return $r;
+            } else {
+                //@TODO:跳转到错误页面,这里移出全部的跳转
+                //jump('/public/404');
+            }
+        }
+    }
+
+}

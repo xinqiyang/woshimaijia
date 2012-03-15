@@ -1,0 +1,11 @@
+
+<h2>{$user.cnname}说· · · · · ·<span class="pl">(<a class="linkcss" href="__URL__/gomore/what/say/uid/{$user.id}">更多</a>)</span></h2>
+<ul class="mbt">
+<volist name="says" id="vo">
+	<li class="mbtl"><a href="{:U('people/space',array('id'=>$vo['uid']))}"><img
+		src="{$vo.url}/User/spic/m_{$vo.filename}" alt="{$vo.cnname}" alt="{$vo.cnname}"></a></li>
+	<li class="mbtrdot"><a
+		href="{:U('people/space',array('id'=>$vo['uid']))}">{$vo.cnname}</a>: 
+{$vo.content|nl2br} &nbsp; &nbsp; <span class="pl">{$vo.createtime|date='y-m-d H:m:s',###}</span></li>
+	</volist>
+</ul>

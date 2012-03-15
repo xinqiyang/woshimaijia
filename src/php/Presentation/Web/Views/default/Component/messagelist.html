@@ -1,0 +1,22 @@
+
+<li class="mbtl">
+		<a href="{:U('people/space',array('enname'=>$page['data']['user'][$vo['user_id']]['account']))}">
+		<img src="{$page['data']['user'][$vo['user_id']]['image_id']|getImage=###,'s'}" alt="{$page['data']['user'][$vo['user_id']]['account']}"
+		title="{$page['data']['user'][$vo['user_id']]['screenname']}"></a>
+</li>
+<li class="mbtr">
+		<a href="{:U('people/space',array('id'=>$page['data']['user'][$vo['user_id']]['account']))}">{$page['data']['user'][$vo['user_id']]['screenname']}</a> &nbsp;&nbsp;{$vo.createtime|aliasTime} <span class="pl">说：</span>
+		<div class="quote">
+			<span class="inq">{$vo.content|nl2br|htmlspecialchars}</span> 
+			<span><a
+			href="{:U('item/item',array('id'=>$vo['id']))}"
+			class="j a_saying_reply" name=""
+			rev="unfold" rel="">{$vo.reply}回应</a> 
+			</span>
+			<span style="margin-left:10px;"><a
+			href="{:U('item/item',array('id'=>$vo['id']))}"
+			class="j a_saying_reply" name=""
+			rev="unfold" rel="">{$vo.forward}转发</a> 
+			</span>
+		</div>
+</li>

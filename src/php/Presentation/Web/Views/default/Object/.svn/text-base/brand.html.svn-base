@@ -1,0 +1,141 @@
+<include file="Public:head" />
+<div class="amain">
+
+	<div class="goodshowblock">
+		<div class="displayauto clearfix">
+			<div class="subject clearfix">
+				<div class="brandpic">
+					
+					<div class="buyblock">
+						<h2 style="float: left;">{$page.data.title} &nbsp;
+							·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+						<div class="clear"></div>
+						<p>
+						<if condition="$page['data']['titleextend'] neq ''">
+							<a href="{:U('brand/brand',array('enname'=>$page['data']['titleextend']))}" title=""><img
+								src="{$page['data']['image_id']|getNewImage}" title="{$page.data.title}"
+								alt="{$page.data.title}">
+							</a>
+						<else />
+							<a href="{:U('brand/brand',array('enname'=>$page['data']['id']))}" title=""><img
+								src="{$page['data']['image_id']|getNewImage}" title="{$page.data.title}"
+								alt="{$page.data.title}">
+							</a>
+						</if>
+					</div>
+						
+				</div>
+				<div
+					style="display: block; float: right; width: 268px; padding-bottom: 10px;">
+					<div style="display: block; padding-top: 10px; float: left;">
+						<div class="info">
+							<span class="result"></span> <br>
+
+							<div class="obmo">
+								<span class="pl">喜欢指数:</span> <span class="exponent" id="likenum">{$page.data.likenum}</span> <br>
+								<span class="pl">想买指数:</span> <span class="exponent" id="willbuynum">{$page.data.willbuynum}</span><br>
+								<span class="pl">拥有指数:</span> <span class="exponent" id="ownnum">{$page.data.ownnum}</span><br>
+								<br> 
+								
+							</div>
+						</div>
+					</div>
+					<div style="display: block; padding-top: 10px; float: left;">
+						<div class="interest_action">
+							<span id="result"></span>
+							<div class="rating_wrap clearbox">
+								<a id="like_{$page.data.id}" class="gotobutton" style="width:50px;text-align:center;margin-top:10px"
+									onclick="clickaction('{$page.data.id}','like')" 
+									href="javascript:void(0)">喜欢</a> <br />
+								<a id="willbuy_{$page.data.id}" class="gotobutton" style="width:50px;text-align:center;margin-top:10px"
+									onclick="clickaction('{$page.data.id}','willbuy')" 
+									href="javascript:void(0)">想买</a> <br />
+								<a id="own_{$page.data.id}" class="gotobutton" style="width:50px;text-align:center;margin-top:10px"
+									onclick="clickaction('{$page.data.id}','own')" 
+									href="javascript:void(0)">拥有</a> <br />
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+<div class="goodsdesc">
+<h2>创建者说：</h2>
+		<div class="topic-content clearfix">
+		<div class="user-face">
+			<a
+				href="{:U('people/space',array('enname'=>$page['data']['user'][$page['data']['user_id']]['account']))}"><img
+				class="pil" src="{$page['data']['user'][$page['data']['user_id']]['image_id']|getNewImage=###,'m'}">
+			</a>
+		</div>
+		<div class="topic-doc">
+			<h3>
+				<span class="color-green">{$page.data.id|msubstr=###,0,10|date='Y-m-d
+					H:m',###}</span> <span class="pl20">来自: <a
+					href="{:U('people/space',array('enname'=>$page['data']['user'][$page['data']['user_id']]['account']))}">{$page['data']['user'][$page['data']['user_id']]['screenname']}</a>({$page['data']['user'][$page['data']['user_id']]['say']})</span>
+			</h3>
+			<p class="pcss">{$page['data']['topcomments'][0]['content']|nl2br}</p>
+		</div>
+	</div>
+	</div>	
+
+	<div class="loverlist">
+		
+		<notempty name="page['data']['ownids']">
+		<h2 class="bold">
+			拥有 {$page.data.title} 的大家 ...(<a href="{:U('total/index',array('type'=>'own','id'=>$page['data']['id']))}" class="linkcss cboxElement">全部</a>)
+		</h2>
+		<div id="ownlist" class="mt5">
+		<volist name="page['data']['ownids']" id="vo">
+				<include file="Component:listusers" />
+			</volist>
+		</div>
+		<div class="clear"></div>
+		</notempty>
+	</div>
+	<include file="Component:listcomments" />
+</div>
+<div class="aside">
+	<include file="Component:actionlink" />
+	<div>
+		<include file="Component:brandreply" />
+	</div>
+	<notempty name="page['data']['willbuyids']">
+		<h2 class="bold">
+			想买的大家 ...(<a href="{:U('total/index',array('type'=>'willbuy','id'=>$page['data']['id']))}" class="linkcss cboxElement">全部</a>)
+		</h2>
+		<div id="ownlist" class="mt5">
+		<volist name="page['data']['willbuyids']" id="vo">
+				<include file="Component:listusers" />
+			</volist>
+		</div>
+		<div class="clear"></div>
+	</notempty>
+	
+	<notempty name="page['data']['likeids']">
+		<h2 class="bold">
+			喜欢的大家 ...(<a href="{:U('total/index',array('type'=>'like','id'=>$page['data']['id']))}" class="linkcss cboxElement">全部</a>)
+		</h2>
+		<div id="ownlist" class="mt5">
+		<volist name="page['data']['likeids']" id="vo">
+				<include file="Component:listusers" />
+			</volist>
+		</div>
+		<div class="clear"></div>
+	</notempty>
+	
+	<include file="Component:adblock" />
+</div>
+<div class="extra"></div>
+
+<include file="Public:foot" />
+					

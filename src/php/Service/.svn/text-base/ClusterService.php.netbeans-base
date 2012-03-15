@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * Clustering
+ * 
+ * @author xinqiyang
+ *
+ */
+class ClusteringService 
+{
+	
+	public function kmeansResult($array,$count)
+	{
+		
+	}
+	
+	
+	public function kmeans($data,$k)
+	{
+		$cPositions = $this->assignInitalPositions($data, $k);
+		$clusters = array();
+		
+		while(true)
+		{
+			$changes = $this->kmeansClustering($data, $cPositions, $clusters);
+			if(!$changes)
+			{
+				return $this->kmeansGetClusterValues($clusters, $data);
+			}
+			$cPositions = '';
+		}
+	}
+	
+	public function assignInitalPositions($data,$k)
+	{
+		
+	}
+	
+	public function kmeansClustering($data,$cPositions,$clusters)
+	{
+		
+	}
+	
+	public function kmeansRecalculateCPositions($cPositions,$data,$clusters)
+	{
+		
+	}
+	
+	public function kmeansGetClusterValues($clusters,$data)
+	{
+		
+	}
+	
+	public function kmeansAvg($values)
+	{
+		
+	}
+	
+	public function distance($v1,$v2)
+	{
+		return abs($v1-$v2);
+	}
+	
+	
+	
+	
+}

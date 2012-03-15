@@ -1,0 +1,38 @@
+<include file="Public:head" />
+<div class="amain">
+	<div class="leftspace">
+	   <p class="pcss">
+                <div><br>
+          <h2>关于项目</h2><br>
+          我是买家<a href="http://woshimaijia.com">http://woshimaijia.com</a> 创建于2009年5月，由xinqiyang个人维护。<br><br>
+           我是买家，买家分享社区。作为一个UGC网站，使用了现在热门的简洁的交互方式，通过用户分享和站方主动发布的媒介来建立起用户和用户，用户和站点之间的联系。<br><br>
+           我是买家，是一个开源项目，访问地址：<a href="http://code.google.com/p/woshimaijia/">http://code.google.com/p/woshimaijia/</a> 提供了1.0.0版本的代码 <br><br>
+           <br><br>
+           <h2>关于xinqiyang</h2><br>
+           xinqiyang,混迹与北京，现就职于某中文搜索引擎公司，担任后端开发工程师，主要在LAMP上捣鼓代码，对于产品/开发/运营/运维方面均有所涉猎。我是买家，作为一个完全的例子，验证了从产品到最终实现的整个过程，虽然现在没有运营，但是会将这个项目继续下去。<br><br>
+           <h2>技术分享</h2><br>
+           我是买家项目所涉及到的技术信息都发布在 我是买家博客 <a href="http://blog.woshimaijia.com">http://blog.woshimaijia.com</a> 中，喜欢技术的各位订阅博文，欢迎技术交流。<br>
+      </div>
+         </p>
+		
+	</div>
+</div>
+<div class="aside">
+	<br /> <br /> <br /> <br /> <a
+		href="{:U('about/about')}"
+		style="font-size: 14px; margin-bottom: 14em;">&gt; 关于我是买家</a><br>
+	<br> <a href="{:U('about/joinus')}"
+		style="font-size: 14px; margin-bottom: 14em;" title="">&gt; 加入团队</a><br>
+	<br> <a href="{:U('about/joinus')}"
+		style="font-size: 14px; margin-bottom: 14em;">&gt; 联系我们</a><br>
+	<br> <a href="{:U('about/agreement')}"
+		style="font-size: 14px; margin-bottom: 14em;">&gt; 使用协议</a><br>
+	<br> <a href="{:U('about/help')}"
+		style="font-size: 14px; margin-bottom: 14em;">&gt; 看看帮助</a><br>
+	
+
+
+
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

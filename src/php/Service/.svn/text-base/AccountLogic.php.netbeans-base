@@ -1,0 +1,304 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class AccountLogic extends BaseService {
+
+    public static function addAccount($account, $password, $screenname, $email, $image_id = 0, $city, $mobile = '', $fromsite = 'wsmj', $ip = '', $source = 'web', $type = 0, $say = '', $location = '', $outerid = '') {
+        $array = array();
+        $array['id'] = objid();
+        $array['account'] = $account;
+        $array['password'] = $password;
+        $array['email'] = $email;
+        $array['mobile'] = $mobile;
+        $array['type'] = $type;
+        $array['status'] = 0;
+        $array['ip'] = $ip;
+        $array['image_id'] = $image_id;
+        $array['screenname'] = $screenname;
+        $array['city'] = $city;
+        $array['source'] = $source;
+        $array['fromsite'] = $fromsite;
+        $array['say'] = $say;
+        $array['location'] = $location;
+        $array['outerid'] = $outerid;
+        
+        if (!empty($email) && self::isExist('email', $email)) {
+            return false;
+        }
+        
+        if (!empty($account) && self::isExist('account', $account)) {
+            return false;
+        }
+        
+        if (!empty($mobile) && self::isExist('mobile', $mobile)) {
+            return false;
+        }
+        
+        if (self::add('account', $array)) {
+            //创建用户成功后，初始化用户信息
+            
+            return $array['id'];
+        }
+        
+        return false;
+    }
+    
+    /**
+     * set user session info
+     *
+     * @param array $array
+     */
+    public static function setSession($id = 0) {
+        $uinfo = $id > 0 ? self::get('account', $id, 'id,account,screenname,city,image_id,say,location,`from`') : array('id' => 0, 'screenName' => '', 'icon' => C('site.defaultIcon'), 'image_id' => 0);
+        //var_dump($uinfo);die;
+        $uinfo['sessionid'] = session_id();
+        Session::set('uinfo', json_encode($uinfo));
+        if ($id) {
+            Session::set('uid', $id);
+        }
+        return;
+    }
+    
+    public static function getUinfo($id,$source='web')
+    {
+        $arr = array();
+        if($id>0){
+            $uinfo = self::get('account',$id,'id,screenname,image_id');
+            if($uinfo){
+                $arr['uid'] = $uinfo['id'];
+                $arr['screenname'] = $uinfo['screenname'];
+                $type = $source == 'web' ? 'm' : 's';
+                $arr['userimage'] = getNewImage($uinfo['image_id'],$type);
+            }
+        }
+        return $arr;
+    }
+    
+    public static function getNewAccounts($count) {
+        $accounts = self::gets('account', "status=0 limit $count", 'id,account,email,type,image_id,screenname,city,source,`from`,say,group_id,location');
+        return $accounts;
+    }
+    
+    
+    
+    /**
+     * set default user info
+     * @TODO:需要移出的部分
+     */
+    public static function defaultUser() {
+        $uinfo = array('uid' => 0, 'screenname' => '', 'icon' => C('site.defaultIcon'), 'image_id' => 0);
+        $uinfo['ip'] = getip();
+        $uinfo['sessionid'] = session_id();
+        return $uinfo;
+    }
+
+    /**
+     * set user cookie
+     * account,password
+     * @param unknown_type $array
+     */
+    public static function setCookie($array, $key = 'uinfo') {
+        Cookie::enset($key, $array);
+    }
+
+    /**
+     * get all cookie from user
+     * @param unknown_type $array
+     */
+    public static function getCookie($key = 'uinfo') {
+        return Cookie::enget($key);
+    }
+
+    /**
+     * end Session
+     * end session and then set cookie null
+     */
+    public static function endSession($id) {
+        //@TODO:set cookie set null
+        $array['id'] = $id;
+        $array['logoutTime'] = time();
+        self::addToEventQueue($array, __CLASS__ . ':' . __METHOD__);
+        //Session::
+        Session::destroy();
+        Cookie::setnull('autologin');
+        Cookie::setnull('uinfo');
+        return true;
+    }
+
+    /**
+     * 设置登录后的操作
+     * @param array $array
+     */
+    public static function setLogin($array) {
+        if (isset($array['status']) && isset($array['autologin']) && $array['status'] === 0) {
+            if ($array['autologin'] == 'on') {
+                self::setCookie($array['account']);
+            }
+            self::setSession($array['account']['id']);
+            return true;
+        }
+        return false;
+    }
+
+    public static function autoLogin($array) {
+        $account = AccountLogic::getAccount($array['id']);
+        if ($account['status'] == 0 && $account['email'] == $array['email'] && $account['password'] == $array['password']) {
+            self::setSession($account['id']);
+        }
+        return;
+    }
+
+    public static function forbidAccount($array) {
+        $r = false;
+        $array['status'] = 1;
+        $r = self::save('account', $array);
+        return $r;
+    }
+
+    /**
+     * get Account data
+     * @param string $id
+     */
+    public static function accountAll($id) {
+        return self::account(array('id' => $id), true);
+    }
+
+    public static function userinfo($array) {
+        return self::get('userinfo', $array['id']);
+    }
+
+    public static function accountList($where) {
+        return self::gets('account', $where . ' and status=0', 'id,account,screenname,image_id');
+    }
+
+    /**
+     * get new account
+     * @param unknown_type $n
+     */
+    public static function newaccount($n = 10) {
+        return self::gets('account', "status =0 order by id DESC limit {$n}", 'id,account,screenname,image_id');
+    }
+
+    /**
+     * get account in the list
+     * @param $array
+     */
+    public static function accountin($array, $key = 'id') {
+        $str = strin($array, $key);
+        return self::gets('account', "id in $str", 'id,account,screenname,image_id');
+    }
+
+    public static function saveAvatar($array) {
+        //do save avtar
+        if (!empty($array['id']) && !empty($array['image_id']) && $array['id'] > 0) {
+
+            return self::save('account', $array);
+        }
+        return false;
+    }
+
+    /**
+     * 获取用户的信息的数据N
+     * @param bigint $id
+     * @param string $type
+     */
+    public static function funcUser($id, $type = 'a') {
+        //@TODO 默认获取所有的返回
+        $user = self::redisGetKeyValues($id, KeysService::$object, KeysService::$keyAccount);
+    }
+    
+    
+    public static function isExist($field, $value) {
+        return self::get('account', '', $field, "$field='$value'");
+    }
+
+    public static function getAccount($id) {
+        return self::get('account', $id);
+    }
+
+    public static function getUsers($array, $field = 'id', $selectfield = 'id,account,image_id,city,say,screenname,location,`from`', $select = 'id') {
+        if (!empty($array)) {
+            $where = "$select IN " . strin($array, $field);
+            return self::getsKeyID('account', $where, $selectfield);
+        }
+        return false;
+    }
+
+    public static function getAccounts($ids = '', $field = 'id', $selectfield = '*', $select = 'id') {
+        $where = !empty($ids) ? "ID IN $ids AND status=0 ORDER BY id DESC" : 'status=0 ORDER BY id DESC';
+        return self::gets('account', $where, $selectfield);
+    }
+
+    public static function checkLogin($email, $password) {
+        //user not in the system
+        $status = array();
+        $account = self::get('account', '', 'id,account,email,password,status', "email='$email'");
+        if ($account) {
+            if ($account['password'] == $password) {
+                if ($account['status'] == 1) {
+                    //account is forbidden
+                    $status['status'] = 3;
+                } elseif ($account['status'] == 0) {
+                    //set session
+                    $status['status'] = 0;
+                    $status['id'] = $account['id'];
+                    $status['account'] = $account;
+                }
+            } else {
+                //user or password error
+                $status['status'] = 2;
+            }
+        } else {
+            $status['status'] = 2;
+        }
+        self::addToEventQueue($array,__CLASS__.':'.__METHOD__);
+        return $status;
+    }
+
+    public static function blockAccount($params) {
+        if (isset($params['id'])) {
+            return self::redisGetHashes($params);
+        }
+        return false;
+    }
+
+    public static function saveAccount($params) {
+        return self::saveClean('account', $params);
+    }
+
+    public static function actSaveUserinfo($params) {
+        if (is_array($params) && isset($params['id'])) {
+            $r = self::save('userinfo', $params);
+            if ($r) {
+                $key = 'h:userinfo:' . $params['id'];
+                self::redisDeleteKeys(array($key));
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public static function getscreenname($user_id) {
+        if (!empty($user_id)) {
+            $user = self::get('account', '', "account,screenname", "id=$user_id and status=0");
+            return "<a target='_blank' href='" . U('people/space', array('account' => $user['account'])) . "'>" . $user['screenname'] . "</a>";
+        }
+    }
+
+    public static function misTopMenuIndex($params) {
+        if (is_array($params) && isset($params['id'])) {
+            $r = self::get('services', $params);
+            return $r;
+        }
+    }
+
+}

@@ -1,0 +1,35 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class CttaskDealService {
+
+    /**
+     * 处理POST后的消息的推送的问题
+     * @param string $array  user_id,id = postid
+     */
+    public static function PostServiceactAddPost($array) {
+        extract($array);
+        //获取关注此用户的ID列表
+        //@TODO，修改成这里可以只推送在线的用户即可
+        $befollowIds = BaseLogic::redisGetKeyValues(KeysService::$ulist, KeysService::$keyBeFollow, $user_id);
+
+        if (!empty($befollowIds)) {
+            //这里需要针对用户ID进行排序，最好是进行是否在线的排序，在推送
+            foreach ($befollowIds as $oneid) {
+                //将用户的id压入用户的inbox中
+                BaseLogic::redisSetKeyValues(KeysService::$list, KeysService::$keyInbox, $id, $oneid);
+            }
+        }
+        return '';
+    }
+
+}

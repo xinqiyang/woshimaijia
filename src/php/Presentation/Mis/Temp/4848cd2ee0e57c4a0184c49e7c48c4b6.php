@@ -1,0 +1,1 @@
+<?php if (!defined('BUDDY_PATH')) exit();?>RESOURCE

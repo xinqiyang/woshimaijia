@@ -1,0 +1,68 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class MailLogic extends  BaseService
+{
+	public static function addMail($from_id,$to_id,$title,$content,$source='web'){
+		$array = array();
+		$array['id']= objid();
+		$array['from_id']=$from_id;
+		$array['to_id']=$to_id;
+		$array['title']=$title;
+		$array['status']=2;
+		
+		if(self::add('mail', $array))
+		{
+			$postReturn = PostLogic::addPost(objid(), $content, $array['id'], $from_id, $source);
+			if($postReturn)
+			{
+				$type = 'mail';
+				//添加关联关系
+				$modelReturn = ModelandmodelLogic::addModelandmodel($from_id, $to_id, $from_id,$type);
+				//TODO：删除缓存
+				return $array['id'];
+			}
+		}
+		return false;
+	}
+
+	//TODO:获取我的消息列表
+	public static function getMail($user_id)
+	{
+		$sql = "";
+		return self::gets('mail', "to_id=$user_id or from_id = $user_id ORDER BY ID DESC");
+	}
+	
+	public static function getMailBody($id)
+	{
+		$content = self::queryField('post', "object_id=$id and status=0", 'content');
+		$mail = self::get('mail', $id,'*','status <> 6');
+		if(!empty($mail))
+		{
+			$mail['content'] = $content;
+			return $mail;
+		}
+		return false;
+	}
+	
+	public static function setRead($id)
+	{
+		$array = array(
+			'id'=>$id,
+			'status'=>0,
+		);
+		return self::saveClean('mail', $array);
+	}
+	
+	
+
+
+}

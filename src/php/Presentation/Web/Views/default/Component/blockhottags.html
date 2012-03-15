@@ -1,0 +1,11 @@
+<notempty name="page['data']['hottags']">
+<div class="hottags">
+<h2>热门标签· · · · <span class="pl">(<a href="{:U('tag/total')}">所有热门标签</a>)</span></h2>
+
+<ul class="content clearfix">
+	<volist name="page['data']['hottags']" id="vo">
+	<li><a href="{:U('tag/tag',array('id'=>$vo['id']))}">{$vo['tag']}</a></li>
+	</volist>
+</ul>
+</div>
+</notempty>

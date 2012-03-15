@@ -1,0 +1,28 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+/**
+ * 添加消息处理
+ * @author xinqiyang
+ *
+ */
+class MessagingService extends BaseService
+{
+	/**
+	 * 添加消息到mail表
+	 * Enter description here ...
+	 * @param unknown_type $array
+	 */
+	public function addMessage($array)
+	{
+		return self::add('mail', $array);
+	}
+}

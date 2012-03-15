@@ -1,0 +1,14 @@
+<include file='Public:head' />
+<div class="amain">
+
+<include file="Component:blockposts" />
+</div>
+
+<div class="aside">
+<include file="Component:actionlink" />
+
+</div>
+
+<div class="extra">           
+</div>
+<include file='Public:foot' />

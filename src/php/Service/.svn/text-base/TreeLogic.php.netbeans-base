@@ -1,0 +1,36 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class TreeLogic extends BaseService
+{
+
+	public static function addTree($title,$tags,$desc,$parentid,$level,$module='',$action='',$parameters='',$value='')
+	{
+		$array = array();
+		$array['id']=objid();
+		$array['title']=$title;
+		$array['tags']=$tags;
+		$array['desc']=$desc;
+		$array['parentid']=$parentid;
+		$array['module']=$module;
+		$array['action']=$action;
+		$array['parameters']=$parameters;
+		$array['value']=$value;
+		$array['status']=0;
+		$array['level']=$level;
+		if(self::add('tree', $array))
+		{
+			return true;
+		}
+		return false;
+	}
+
+}

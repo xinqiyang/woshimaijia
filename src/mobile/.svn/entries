@@ -1,0 +1,44 @@
+10
+
+dir
+250
+svn://106.187.36.112/woshimaijia/src/mobile
+svn://106.187.36.112
+
+
+
+2012-02-27T14:54:40.774664Z
+250
+xinqiyang
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+1684252f-8d57-4ed4-8424-e7dd6cd804ca
+
+
+
+
+
+
+0
+
+android
+dir
+
+wp
+dir
+
+wsmjandroid
+dir
+

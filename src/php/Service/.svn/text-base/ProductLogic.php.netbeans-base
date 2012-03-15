@@ -1,0 +1,105 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class ProductLogic extends BaseService
+{
+	public static function addProduct($title,$content='',$user_id,$image_id=0,$brand_id='',$url_id='',$source='web',$notdeal=false,$titleextend='',$status=0,$rebate=0,$price=0,$newprice=0,$showtype=0,$starttime='',$endtime='')
+	{
+		$array = array();
+		$array['id']= objid();
+		$array['title']=$title;
+		$array['titleextend']=$titleextend;
+		$array['status']=$status;
+		$array['user_id']=$user_id;
+		$array['brand_id']=$brand_id;
+		$array['price']=$price;
+		$array['newprice']=$newprice;
+		$array['showtype']=$showtype;
+		$array['url_id']=$url_id;
+		$array['starttime']=$starttime;
+		$array['endtime']=$endtime;
+		$array['rebate']=$rebate;
+		$array['image_id']=$image_id;
+		if(self::add('product', $array))
+		{
+			$postResult = PostLogic::addPost(objid(), $content, $array['id'], $user_id, $source,0,1,$image_id,'product',$notdeal);
+			if($postResult){
+				return $array['id'];
+			}
+		}
+		return false;
+	}
+	
+	
+	public static function saveProductImage($id,$user_id,$image_id)
+	{
+		$account = self::get('Product', $id);
+		if(!empty($account['user_id']) && $account['user_id'] == $user_id)
+		{
+			$array = array('id'=>$id,'image_id'=>$image_id);
+			$r = self::saveClean('Product', $array);
+			if($r){
+				return $id;
+			}
+		}
+		return false;
+	}
+	
+	public static function addProductPost($content,$user_id,$object_id,$source='web')
+	{
+		$id = objid();
+		$r = PostLogic::addPost($id, $content, $object_id, $user_id, $source);
+		if($r){
+			return $id;
+		}
+		return false;
+	}
+	
+	public static function getTopComments($id)
+	{
+		$r = PostLogic::gets('post', "object_id=$id and status=0 and istop=1 ORDER BY id DESC");
+		return $r;
+	}
+	
+	public static function getComments($id)
+	{
+		$r = PostLogic::gets('post', "object_id=$id and status=0 and istop=0 ORDER BY id DESC");
+		return $r;
+	}
+	
+	public static function getsProduct($ids='',$limit=8)
+	{
+		$ids = !empty($ids) ? 'ID IN '.$ids.' AND ' : '';
+		$where = $ids.' status = 0  LIMIT '.$limit;
+		$recommand = self::gets('Product', $where);
+		return $recommand;
+	}
+	
+	
+	public static function getsBlocks($ids='',$limit=8)
+	{
+		$ids = !empty($ids) ? 'ID IN '.$ids.' AND ' : '';
+		$where = $ids.' status = 0 ORDER BY ID DESC LIMIT '.$limit;
+		$array = self::gets('Product', $where);
+		return $array;
+	}
+	
+	public static function getLikeNum($id)
+	{
+		return self::redisGetKeyValues('',KeysService::$size,KeysService::getKey(KeysService::$ulist, KeysService::$keyLike,$id));
+	}
+	
+	public static function checkExist($name)
+	{
+		return self::get('product', '','id,url_id',"title='$name'");
+	}
+
+}

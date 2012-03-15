@@ -1,0 +1,8 @@
+android的客户端的框架
+
+基于NiceDay框架开发
+http://code.google.com/p/niceday/
+
+大致框架完成
+测试了在activity中终止 请求的方法 
+测试了大并发的情况下，请求的抛弃情况

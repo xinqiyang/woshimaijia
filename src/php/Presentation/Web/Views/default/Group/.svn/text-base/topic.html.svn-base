@@ -1,0 +1,79 @@
+<include file="Public:head" />
+<div class="amain">
+	<div class="topic-content clearfix">
+		<div class="user-face">
+			<a
+				href="{:U('people/space',array('enname'=>$page['data']['user'][$page['data']['user_id']]['account']))}"><img
+				class="pil" src="{$page['data']['user'][$page['data']['user_id']]['image_id']|getNewImage=###,'m'}">
+			</a>
+		</div>
+		<div class="topic-doc">
+			<h3>
+				<span class="color-green">{$page.data.id|msubstr=###,0,10|date='Y-m-d
+					H:m',###}</span> <span class="pl20">来自: <a
+					href="{:U('people/space',array('enname'=>$page['data']['user'][$page['data']['user_id']]['account']))}">{$page['data']['user'][$page['data']['user_id']]['screenname']}</a>({$page['data']['user'][$page['data']['user_id']]['say']})</span>
+			</h3>
+			<p class="pcss">{$page['data']['content']|htmlspecialchars|nl2br}</p>
+
+			<div class="topic-opt clearfix">
+				<span><a href="{:U('group/group',array('id'=>$page['data']['group_id']))}">返回小组</a></span>
+				<php>
+				<?php
+					if(!empty($page['user']['id']) && (($page['data']['user_id'] == $page['user']['id']) || in_array($page['user']['id'],$page['data']['adminids'])))
+					{
+				?>
+				</php>
+				
+				<span class="fleft"><a
+					href="javascript:void(0)"
+						class="commentfright" onclick="clickaction('{$page.data.id}','tdel')" title="删除">删除</a>
+				</span>
+				
+				<span class="fleft" id="acttop">
+				<if condition="$page['data']['islock']==1">
+				<a href="javascript:void(0)"
+					rel="manage" title="clickaction('{$page.data.id}','unlock')" onclick="" class="">&gt;&nbsp;解锁</a>
+				<else />
+					<a href="javascript:void(0)"
+					rel="manage" title="clickaction('{$page.data.id}','lock')" onclick="" class="">&gt;&nbsp;锁定</a>
+				</if>
+				</span>
+				
+				<span class="fleft" id="actlock">
+				<if condition="$page['data']['istop'] eq 0"> <a
+					rel="manage" href="javascript:void(0)" onclick="clickaction('{$page.data.id}','top')">&gt;&nbsp;置顶</a>
+				
+				<else />
+				<a rel="manage"
+					href="javascript:void(0)" onclick="clickaction('{$page.data.id}','untop')">&gt;&nbsp;取消置顶</a>
+				
+				</if>
+				</span>
+				<php>
+				<?php
+				}
+				?>
+				</php>
+				
+			</div>
+
+		</div>
+	</div>
+
+	<if condition="$page['data']['islock'] eq 0"> 
+		<include file="Component:grouppost" /> 
+	</if>
+	
+
+		<php>
+			<?php unset($page['data']['post'][0]); ?>
+		</php>
+		<include file="Component:listcommentsgroup" />
+
+
+</div>
+<div class="aside">
+	<include file="Component:actionlink" />
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

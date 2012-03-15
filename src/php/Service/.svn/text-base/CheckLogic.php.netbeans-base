@@ -1,0 +1,87 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class CheckLogic extends  BaseService
+{
+	
+	public static function check($func,$value)
+	{
+		$strError = '';
+		switch ($func)
+		{
+			case 'signUpCheckAccount':
+				$strError = '这个帐号已被使用';
+				$object = 'account';
+				$where = "account = '$value'";
+				break;
+			case 'signUpCheckEmail':
+				$strError = '这个邮箱已被使用';
+				$object = 'account';
+				$where = "email = '$value'";
+				break;
+			case 'checkSpam':
+				$strError = '输入中包含非法关键字';
+				$r = SpamService::wordFilter($value);
+				if(!$r)
+				{
+					return 'success';
+				}
+				return $strError;
+				break;
+			case 'checkGroupName':
+				$strError = '这个组名已被使用';
+				$object = 'group';
+				$where = "title = '$value'";
+				break;
+			case 'checkGroupEnname':
+				$strError = '这个组名已被使用';
+				$object = 'group';
+				$where = "enname = '$value'";
+				break;
+			case 'checkBrandName':
+				$strError = '这个组名已被使用';
+				$object = 'brand';
+				$where = "title = '$value'";
+				break;
+			case 'checkBrandEnname':
+				$strError = '这个组名已被使用';
+				$object = 'brand';
+				$where = "titleextend = '$value'";
+				break;
+			case 'checkTopicName':
+				$strError = '这个主题已被使用';
+				$object = 'topic';
+				$where = "title = '$value'";
+				break;
+			case 'checkProductName':
+				$strError = '这个组名已被使用';
+				$object = 'product';
+				$where = "title = '$value'";
+				break;
+			default:
+				return 'undefine error';
+		}
+		$result = self::get($object, '','',$where);
+		if($result){
+			return $strError;
+		}elseif($func !== 'checkSpam'){
+			$strError = '输入中包含非法关键字';
+			$r = SpamService::wordFilter($value);
+			if(!$r)
+			{
+				return 'success';
+			}
+			return $strError;
+		}
+		return 'success';
+	}
+	
+}

@@ -1,0 +1,38 @@
+<notempty name="page['data']['post']">
+	<div>
+		<h2>大家说...</h2>
+	    <ul class="topic-reply">
+	    
+		<volist name="page['data']['post']" id="vo">
+		<li class="clearfix" id="reply_{$vo.id}">
+			<div class="user-face">
+				<a href="{:U('people/space',array('account'=>$page['data']['user'][$vo['user_id']]['account']))}"><img
+					class="pil" src="{$page['data']['user'][$vo['user_id']]['image_id']|getNewImage=###,'m'}">
+				</a>
+			</div>
+			<div class="reply-doc">
+				<div class="bg-img-green">
+					<h4>
+						{$vo.id|msubstr=###,0,10|date='Y-m-d H:m',###} <a
+							href="{:U('people/space',array('account'=>$page['data']['user'][$vo['user_id']]['account']))}">{$page['data']['user'][$vo['user_id']]['screenname']}</a>
+						（{$page['data']['user'][$vo['user_id']]['say']|msubstr=###,0,18}..）
+					</h4>
+				</div>
+				<p class="pcss">{$vo.content|nl2br}</p>
+				<notempty name="page['user']['id']">
+				<if condition="$vo['user_id'] == $page['user']['id'] || in_array($page['user']['id'],$page['data']['adminids'])" >
+				<div class="reply_banned">
+					<span class="commentfright"> <a rel="nofollow"
+						href="javascript:void(0)"
+						class="commentfright" onclick="clickaction('{$vo.id}','tcdel')" title="删除">&gt;删除</a> </span>
+				</div>
+				</if>
+				</notempty>
+			</div>
+			</li>
+		</volist>
+		</ul>
+		<div class="clear"></div>
+		<div class="paginator">{$page['data']['count']|page=###,$page['data']['size']}</div>
+	</div>
+</notempty>

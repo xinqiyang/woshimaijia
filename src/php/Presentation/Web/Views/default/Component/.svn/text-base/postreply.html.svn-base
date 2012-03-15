@@ -1,0 +1,14 @@
+<notempty name="page['user']['id']">
+<div class="txd" id="reply">
+	<h2>我的Reply......</h2>
+	<form name="form1" id="form1" method="post" action="{:U('post/deal')}">
+		<input type="hidden" name="object_id" value="{$page.data.id}" /> <input
+			type="hidden" name="form" value="postreplypage" />
+		<textarea id="last" name="content" rows="4" cols="50" datatype="require|ajax" require="true" url="{:U('check/checkSpam')}" msg='不能为空'></textarea>
+		<br> <input type="submit" value="加上去" class="btn-submit"> <br /><br />
+	</form>
+	<script>
+			$('#form1').checkForm();
+	</script>
+</div>
+</notempty>

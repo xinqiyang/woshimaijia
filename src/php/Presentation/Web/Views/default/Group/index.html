@@ -1,0 +1,44 @@
+<include file='Public:head' />
+<div class="amain">
+	<h2>值得加入群组</h2>
+	<div id="wellgroup">
+		<volist name="page.data.recommand" id="vo"> <include
+			file="Component:blockgroups" /> </volist>
+	</div>
+	<div class="clear"></div>
+	
+	<include file="Component:topiclist" />
+	<br />
+	<div class="clear"></div>
+
+
+</div>
+
+<div class="aside">
+	<include file="Component:actionlink" />
+	<notempty name="page['user']['id']">
+	<notempty name="page['data']['owngroup']">
+	<h2>我管理的群组 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+	<volist name="page.data.owngroup" id="vo"> 
+	<include  file="Component:groupindex" /> </volist>
+	<div class="clear"></div>
+	</notempty>
+	</notempty>
+	
+	<div class="clear"></div>
+
+	<include file="Component:topicblock" />
+	<notempty name="page['data']['likegroup']">
+	<h2>可能喜欢去的小组 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;</h2>
+	<volist name="page['data']['likegroup']" id="vo"> 
+	<include file="Component:groupindex" /> 
+	</volist>
+	<div class="clear"></div>
+	</notempty>
+
+
+	<include file="Component:adblock" />
+</div>
+
+<div class="extra"></div>
+<include file='Public:foot' />

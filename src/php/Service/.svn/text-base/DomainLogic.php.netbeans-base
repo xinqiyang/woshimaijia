@@ -1,0 +1,47 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class DomainLogic extends BaseService
+{
+	public static function domainId($url,$user_id,$title='')
+	{
+		$domain = rootUrl($url);
+		$domainid = self::isExist($domain);
+		if($domainid)
+		{
+			return $domainid;
+		}else{
+			return self::addDomain($domain, $user_id,$title);
+		}
+	}
+	
+	public static function addDomain($domain,$user_id,$title='',$image_id=0)
+	{
+		$array = array();
+		$array['id']=objid();
+		$array['title']=$title;
+		$array['image_id']=$image_id;
+		$array['status']=0;
+		$array['domain']=$domain;
+		$array['user_id']=$user_id;
+		if(self::add('domain', $array)){
+			return $array['id'];
+		}
+		return false;
+	}
+	
+	public static function isExist($domain)
+	{
+		$r = self::queryField('domain', "domain='{$domain}'", 'id');
+		return $r == false ? false : $r;
+	}
+	
+}

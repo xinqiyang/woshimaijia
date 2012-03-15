@@ -1,0 +1,10 @@
+<div class="grayback">
+<h2>今天想买神马呢......</h2>
+<div id="actions">
+    <a href="{:U('object/object',array('id'=>''))}" class="size1" >手机</a>
+    <a href="{:U('object/object',array('id'=>''))}" class="size2">THINKPAD</a>
+    <a href="{:U('object/object',array('id'=>''))}" class="size3">电脑</a>
+    <a href="{:U('object/object',array('id'=>''))}" class="size4">Ipad3</a>
+    <a href="{:U('object/object',array('id'=>''))}" class="size5">Iphone 4s</a>
+</div>
+</div>

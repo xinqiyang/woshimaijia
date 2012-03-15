@@ -1,0 +1,40 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+class HomeLogic extends BaseService
+{
+	
+	public static function getIndexData($uid)
+	{
+		//get user event from db
+		$returnArray = false;
+		$limit = 3;
+		$where = "id>0 and object='say' order by id desc limit 10";
+		$postData = PostLogic::gets('post', $where);
+		
+		if(is_array($postData)){
+			$postData = mergeUserinfoToArray($postData);
+		}
+		return $postData;
+	}
+	
+	
+	
+	public static function createSay($id)
+	{
+		//create say of the list
+		
+		
+	}
+	
+	
+	
+}

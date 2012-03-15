@@ -1,0 +1,125 @@
+<include file="Public:head" />
+
+<div class="amain" style="position: relative; min-height: 899px;">
+	<div id="userprofile">
+		<div class="pic">
+			<a
+	href="{:U('people/space',array('enname'=>$page['data']['account']['account']))}">
+	<img
+	src="{$page['data']['account']['image_id']|getNewImage=###,'m'}"
+	title="{$page['data']['account']['screenname']}"> </a> 
+		</div>
+		<div class="uinfo">
+			<h1>
+				{$page.data.account.screenname}
+				<div id="edit_signature" style="display: inline;"
+					class="j a_edit_signature edtext pl">
+					<span style="display: inline; margin-left: 5px;"></span>
+				</div>
+			</h1>
+
+			<ul class="uul">
+				<li>{$page.data.account.say|msubstr=0,45}...
+				</li>
+				
+			</ul>
+
+		</div>
+	</div>
+	<div class="clear"></div>
+
+
+	<div class="sort" id="acctlove">
+		
+		<notempty name="page['data']['like']">
+		<h2>
+			{$page.data.account.screenname} 的足迹 &nbsp;
+			·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;
+			<span class="pl">( <a class="linkcss"
+				href="{:U('total/userproduct',array('id'=>$page['data']['account']['id'],'type'=>'like'))}">{$page.data.likenum}个喜欢</a>
+				·&nbsp; <a class="linkcss"
+				href="{:U('total/userproduct',array('id'=>$page['data']['account']['id'],'type'=>'willbuy'))}">{$page.data.willbuynum}个想买</a>
+				·&nbsp; <a class="linkcss"
+				href="{:U('total/userproduct',array('id'=>$page['data']['account']['id'],'type'=>'own'))}">{$page.data.ownnum}个拥有</a> )</span>
+		</h2>
+		<div class="obline">
+			<div class="substatus">喜欢</div>
+			<ul>
+				<volist name="page['data']['like']" id="vo">
+					<include file="Component:blockproductsspace" />
+				</volist>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		</notempty>
+		<notempty name="page['data']['willbuy']">
+		<div class="obline">
+			<div class="substatus">想买</div>
+			<ul>
+				<volist name="page['data']['willbuy']" id="vo">
+					<include file="Component:blockproductsspace" />
+				</volist>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		</notempty>
+	<notempty name="page['data']['own']">
+		<div class="obline">
+			<div class="substatus">拥有</div>
+			<ul>
+				<volist name="page['data']['own']" id="vo">
+					<include file="Component:blockproductsspace" />
+				</volist>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		</notempty>
+
+	</div>
+	<div class="clear"></div>
+	<present name="page['data']['topic']">
+	<div id="spacetopic">
+		<h2>
+			{$page.data.account.screenname}参与的话题· · · · · ·<span class="pl">(<a
+				class="linkcss" href="__URL__/gomore/what/topic/uid/">更多</a>)</span>
+		</h2>
+		<div id="grouptopic">
+			<table width="100%">
+				<tbody>
+					<tr>
+						<td>话题</td>
+						<td>侃侃组</td>
+						<td>作者</td>
+						<td align="right" nowrap="nowrap">    回复</td>
+						<td align="right">最后回复</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	<div class="clear"></div>
+	</present>
+	<div id="mysay">
+	<h2>
+			{$page.data.account.screenname} 说：· · · · · ·
+		</h2>
+	<include file="Component:blockposts" />
+	</div>
+	<div class="clear"></div>
+
+</div>
+
+<div class="aside" style="position: relative; min-height: 5px;">	
+
+	<include file="Component:profile" />
+		<include file="Component:actionlink" />
+	<div class="clear"></div>
+
+
+
+</div>
+
+<div class="extra"></div>
+<include file="Public:foot" />

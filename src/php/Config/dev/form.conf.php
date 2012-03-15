@@ -1,0 +1,572 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet 
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+
+/**
+ * return all of the sys forms 
+ */
+return array(
+    'webForms' => array(
+        'signup' => array(
+            'object' => 'account',
+            //用户post过来的内容
+            'fields' => array('account' => 'account', 'password' => 'password', 'email' => 'email', 'ip' => 'ip'),
+            'method' => 'post', // define method post/get
+            'api' => 'AccountService::actSignUp', //get the api logic do deal the request
+            'ajax' => '0', // set 1/0 
+            //POST data check
+            'check' => array(
+                //checktype 1=>must_validate,2=>value_validate,3=>exist_validate
+                'email' => array(2, 'email', '邮箱格式错误'),
+                'account' => array(2, 'require', '显示名错误'),
+                'password' => array(2, 'require', '请填写密码'),
+            ),
+            'auto' => array(
+                'password' => 'md5',
+                'ip' => 'getip',
+            ),
+            //返回的数据的变量
+            'callback' => 'setSession',
+            //跳转到的页面
+            'next' => 'account/setting', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'login' => array(
+            'object' => 'account',
+            //用户post过来的内容
+            'fields' => array('email' => 'email', 'password' => 'password', 'ip' => 'ip', 'autologin' => 'autologin'),
+            'method' => 'post', // define method post/get
+            'api' => 'AccountService::actLogin', //get the api logic do deal the request
+            'ajax' => '0', // set 1/0 
+            //POST data check
+            'check' => array(
+                //checktype 1=>must_validate,2=>value_validate,3=>exist_validate
+                'email' => array(2, 'email', '邮箱格式错误'),
+                'password' => array(2, 'require', '请填写密码'),
+            ),
+            'auto' => array(
+                'password' => 'md5',
+                'ip' => 'getip',
+            ),
+            //返回的数据的变量
+            'callback' => 'setSession',
+            //跳转到的页面
+            'next' => 'index/index', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'stream' => array(
+            'object' => 'post',
+            'fields' => array('content' => 'content', 'account_id' => 'account_id', 'source' => 'source'),
+            'method' => 'post', // define method post/get
+            'api' => 'StreamService::actAddStream', //get the api logic do deal the request
+            'ajax' => '1', // set 1/0 
+            //POST data check
+            'check' => array(
+                //check conent
+                'content' => array(2, 'require', '不能为空'), //use the func return result
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+            //set the default value of the form
+            'value' => array(
+                'source' => 'web',
+            ),
+            'next' => 'index/home', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'postreply' => array(
+            'object' => 'post',
+            'fields' => array('content' => 'content', 'account_id' => 'account_id', 'source' => 'source', 'module' => 'module', 'action' => 'action', 'object_id' => 'object_id', 'ispost' => 'ispost'),
+            'method' => 'post', // define method post/get
+            'api' => 'PostService::actAddPost', //get the api logic do deal the request
+            'ajax' => '1', // set 1/0 
+            //POST data check
+            'check' => array(
+                //check conent
+                'object_id' => array(2, 'require', '不能为空'), //use the func return result
+                'content' => array(2, 'require', '不能为空'), //use the func return result
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+                'module' => 'module',
+            //'action'=>'action',
+            ),
+            //set the default value of the form
+            'value' => array(
+                'source' => 'web',
+                'action' => 'reply',
+                'ispost' => '0',
+            ),
+            'next' => '', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'postreplypage' => array(
+            'object' => 'post',
+            'fields' => array('content' => 'content', 'account_id' => 'account_id', 'source' => 'source', 'module' => 'module', 'action' => 'action', 'object_id' => 'object_id', 'ispost' => 'ispost'),
+            'method' => 'post', // define method post/get
+            'api' => 'PostService::actAddPost', //get the api logic do deal the request
+            'ajax' => '0', // set 1/0 
+            //POST data check
+            'check' => array(
+                //check conent
+                'object_id' => array(2, 'require', '不能为空'), //use the func return result
+                'content' => array(2, 'require', '不能为空'), //use the func return result
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+                'module' => 'module',
+            //'action'=>'action',
+            ),
+            //set the default value of the form
+            'value' => array(
+                'source' => 'web',
+                'action' => 'reply',
+                'ispost' => '0',
+            ),
+            'next' => 'post/post/id/:id', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'postreplylist' => array(
+            'object' => 'post',
+            'fields' => array('id' => 'id', 'account_id' => 'account_id'),
+            'method' => 'post', // define method post/get
+            'api' => 'PostService::actGetPostList', //get the api logic do deal the request
+            'ajax' => '1', // set 1/0 
+            //POST data check
+            'check' => array(
+                //check conent
+                'id' => array(2, 'require', '不能为空'), //use the func return result
+                'account_id' => array(2, 'require', '不能为空'), //use the func return result
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+            //set the default value of the form
+            'value' => array(
+            ),
+            'next' => '', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'usercopy' => array(
+            'object' => 'post',
+            'fields' => array('content' => 'content', 'account_id' => 'account_id', 'source' => 'source', 'module' => 'module', 'action' => 'action', 'object_id' => 'object_id', 'isusercopy' => 'isusercopy', 'ispost' => 'ispost'),
+            'method' => 'post', // define method post/get
+            'api' => 'PostService::actAddPost', //get the api logic do deal the request
+            'ajax' => '1', // set 1/0 
+            //POST data check
+            'check' => array(
+                //check conent
+                'object_id' => array(2, 'require', '不能为空'), //use the func return result
+                'content' => array(2, 'require', '不能为空'), //use the func return result
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+                'module' => 'module',
+            //'action'=>'action',
+            ),
+            //set the default value of the form
+            'value' => array(
+                'source' => 'web',
+                'action' => 'copy',
+                'ispost' => '0',
+                'isusercopy' => '1',
+            ),
+            'next' => '', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'comment' => array(
+            'object' => 'post',
+            'fields' => array('id' => 'id', 'content' => 'content', 'topic_id' => 'topic_id', 'object' => 'object', 'account_id' => 'account_id', 'createtime' => 'createtime'),
+            'method' => 'post', // define method post/get
+            'api' => 'PostLogic::addPost', //get the api logic do deal the request
+            'ajax' => '0', // set 1/0 
+            //POST data check
+            'check' => array(
+                //check conent
+                //@TODO 这里的TOPIC_id 
+                'topic_id' => array(2, 'require', 'ID不能为空'), //use the func return result
+                'content' => array(2, 'require', '不能为空'), //use the func return result
+            ),
+            'auto' => array(
+                'id' => 'objid',
+                'account_id' => 'userid',
+                'createtime' => 'time',
+            ),
+            //set the default value of the form
+            'value' => array(
+                'object' => 'comment',
+            ),
+            'next' => 'index/home', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'url' => array(
+            'object' => 'url',
+            'fields' => array('id' => 'id', 'title' => 'title', 'desc' => 'desc', 'siteurl' => 'siteurl', 'account_id' => 'account_id', 'openapi' => 'openapi', 'source' => 'source'),
+            'method' => 'post', // define method post/get
+            'api' => 'UrlService::actAddUrl', //get the api logic do deal the request
+            'ajax' => '0', // set 1/0 
+            //POST data check
+            'check' => array(
+                'title' => array('1', 'require', '名称不能为空'),
+                'desc' => array('1', 'require', '描述不能为空'),
+                'domain' => array('1', 'require', '域名不能为空'),
+            //'openapi'=>array ('1','require','API地址不能为空'),
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+            //set the default value of the form
+            'value' => array(
+                'source' => 'web',
+            ),
+            'next' => 'upload/upload?id=:id&type=url&width=180&height=90', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'product' => array(
+            'object' => 'product',
+            'fields' => array('id' => 'id', 'title' => 'title', 'desc' => 'desc', 'image' => 'image', 'url' => 'url', 'account_id' => 'account_id', 'source' => 'source'),
+            'method' => 'post',
+            'api' => 'ProductService::actAddProduct',
+            'ajax' => '0',
+            'return' => 'json',
+            'check' => array(
+                'title' => array('1', 'require', '名称不能为空'),
+                'desc' => array('1', 'require', '描述不能为空'),
+            ),
+            'next' => 'upload/upload?id=:id&type=product&width=300&height=300',
+            'value' => array(
+                'source' => 'web',
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+        ),
+        'brand' => array(
+            'object' => 'brand',
+            'fields' => array('id' => 'id', 'title' => 'title', 'titleextend' => 'titleextend', 'desc' => 'desc', 'siteurl' => 'siteurl', 'account_id' => 'account_id'),
+            'method' => 'post',
+            'api' => 'BrandService::actAddBrand',
+            'ajax' => '0',
+            'return' => 'json',
+            'check' => array(
+                'title' => array('1', 'require', '品牌名称不能为空'),
+                'titleextend' => array('1', 'require', '英文名称不能为空'),
+                'siteurl' => array('1', 'url', '网址输入不正确'),
+            ),
+            'next' => 'upload/upload?id=:id&type=brand&width=90&height=45', //add form to deal
+            'value' => array(
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+        ),
+        'image' => array(
+            'object' => 'image',
+            'fields' => array('id' => 'id', 'filename' => 'filename', 'desc' => 'desc', 'createtime' => 'createtime', 'status' => 'status', 'remoteurl' => 'remoteurl', 'url' => 'url', 'model' => 'model', 'account_id' => 'account_id',),
+            'method' => 'post',
+            'api' => 'ImageLogic::addImage',
+            'ajax' => '1',
+            'return' => 'json',
+            'check' => array(
+                'filename' => array('1', 'require', '图片名不能为空'),
+                'remoteurl' => array('1', 'require', '远程地址不能为空'),
+                'url' => array('1', 'require', 'URL不能为空'),
+                'model' => array('1', 'require', '模块不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'id' => 'objid',
+                'createtime' => 'time',
+                'status' => 'getstatus',
+                'account_id' => 'userid',
+            ),
+        ),
+        'mail' => array(
+            'object' => 'mail',
+            'fields' => array('from_id' => 'from_id', 'to_id' => 'to_id', 'title' => 'title', 'content' => 'content'),
+            'method' => 'post',
+            'api' => 'MailService::actAddMail',
+            'ajax' => '0',
+            'return' => 'json',
+            'next' => 'mail/index',
+            'check' => array(
+                'to_id' => array('1', 'require', '收信人ID不能为空'),
+                'title' => array('1', 'require', '标题不能为空'),
+                'content' => array('1', 'require', '消息内容不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'from_id' => 'userid',
+            ),
+        ),
+       
+       
+        'brandpost' => array(
+            'object' => 'post',
+            'fields' => array('content' => 'content', 'object_id' => 'object_id', 'account_id' => 'account_id'),
+            'method' => 'post',
+            'api' => 'BrandService::actAddBrandPost',
+            'ajax' => '0',
+            'return' => 'json',
+            'next' => 'brand/brand/id/:id',
+            'check' => array(
+                'content' => array('1', 'require', '内容不能为空'),
+                'object_id' => array('1', 'require', '所属主题ID不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+        ),
+        'productpost' => array(
+            'object' => 'post',
+            'fields' => array('content' => 'content', 'object_id' => 'object_id', 'account_id' => 'account_id'),
+            'method' => 'post',
+            'api' => 'ProductService::actAddProductPost',
+            'ajax' => '0',
+            'return' => 'json',
+            'next' => 'product/product/id/:id',
+            'check' => array(
+                'content' => array('1', 'require', '内容不能为空'),
+                'object_id' => array('1', 'require', '所属主题ID不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+        ),
+        'urlpost' => array(
+            'object' => 'post',
+            'fields' => array('content' => 'content', 'object_id' => 'object_id', 'account_id' => 'account_id'),
+            'method' => 'post',
+            'api' => 'UrlService::actAddUrlPost',
+            'ajax' => '0',
+            'return' => 'json',
+            'next' => 'url/url/id/:id',
+            'check' => array(
+                'content' => array('1', 'require', '内容不能为空'),
+                'object_id' => array('1', 'require', '所属主题ID不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+        ),
+        'content' => array(
+            'object' => 'content',
+            'fields' => array('id' => 'id', 'module' => 'module', 'action' => 'action', 'title' => 'title', 'tags' => 'tags', 'desc' => 'desc', 'status' => 'status', 'content' => 'content', 'services_id' => 'services_id',),
+            'method' => 'post',
+            'api' => 'contentLogic::addContent',
+            'ajax' => '0',
+            'return' => 'json',
+            'next' => 'index/home',
+            'check' => array(
+                'title' => array('1', 'require', '标题不能为空'),
+                'tags' => array('1', 'require', '关键字不能为空'),
+            ),
+            'value' => array(
+                'module' => 'module',
+                'action' => 'action',
+            ),
+            'auto' => array(
+                'id' => 'objid',
+                'status' => 'getstatus',
+                'services_id' => 'ServicesID',
+            ),
+        ),
+        'userandmodel' => array(
+            'object' => 'userandmodel',
+            'fields' => array('id' => 'id', 'linktype' => 'linktype', 'status' => 'status', 'createtime' => 'createtime', 'account_id' => 'account_id', 'model' => 'model', 'model_id' => 'model_id', 'locationid' => 'locationid', 'updatetime' => 'updatetime', 'extension' => 'extension',),
+            'method' => 'post',
+            'api' => 'userandmodelLogic::addUserandmodel',
+            'ajax' => '0',
+            'return' => 'json',
+            'next' => 'index/home',
+            'check' => array(
+                'linktype' => array('1', 'require', '类型不能为空'),
+                'model' => array('1', 'require', '模型不能为空'),
+                'model_id' => array('1', 'require', '模型ID不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'id' => 'objid',
+                'status' => 'getstatus',
+                'createtime' => 'time',
+                'account_id' => 'userid',
+            ),
+        ),
+        'setting' => array(
+            'object' => 'account',
+            'fields' => array('id' => 'id', 'screenname' => 'screenname', 'say' => 'say'),
+            'method' => 'post', // define method post/get
+            'api' => 'AccountService::actSave', //get the api logic do deal the request
+            'ajax' => '0', // set 1/0 
+            //POST data check
+            'check' => array(
+                //checktype 1=>must_validate,2=>value_validate,3=>exist_validate
+                //'account'=>array(1,'require','标题必须填写'),//validate preg check, error report
+                'screenname' => array(2, 'require', '显示名不能为空'),
+            ),
+            'auto' => array(
+                'id' => 'userid',
+            ),
+            'callback' => '',
+            'next' => 'account/setting?code=:code', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        
+        'saveemail' => array(
+            'object' => 'account',
+            'fields' => array('id' => 'id', 'email' => 'email', 'password' => 'password'),
+            'method' => 'post', // define method post/get
+            'api' => 'AccountService::actEmailSave', //get the api logic do deal the request
+            'ajax' => '0', // set 1/0 
+            //POST data check
+            'check' => array(
+                //checktype 1=>must_validate,2=>value_validate,3=>exist_validate
+                //'account'=>array(1,'require','标题必须填写'),//validate preg check, error report
+                'email' => array(2, 'require', 'email不能为空'),
+                'password' => array(2, 'require', '密码不能为空'),
+            ),
+            'auto' => array(
+                'id' => 'userid',
+            ),
+            'callback' => '',
+            'next' => 'home/index?code=:code', //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        
+        'savepassword' => array(
+            'object' => 'account',
+            'fields' => array('id' => 'id', 'password' => 'password', 'newpassword' => 'newpassword'),
+            'method' => 'post', // define method post/get
+            'api' => 'AccountService::actPassword', //get the api logic do deal the request
+            'ajax' => '0', // set 1/0 
+            //POST data check
+            'check' => array(
+                //checktype 1=>must_validate,2=>value_validate,3=>exist_validate
+                'password' => array(1, 'require', '密码不能为空'),
+                'newpassword' => array(1, 'require', '新密码不能为空'),
+            ),
+            'auto' => array(
+                'id' => 'userid',
+                'password' => 'md5',
+                'newpassword' => 'md5',
+            ),
+            'callback' => '',
+            'next' => "account/changepassword?code=:code", //add form to deal
+            'return' => 'json', //return json/xml
+        ),
+        'useraction' => array(
+            'object' => 'modelandmodel',
+            'fields' => array('uid' => 'uid', 'id' => 'id', 'type' => 'atype'),
+            'method' => 'post',
+            'api' => 'RelationService::setUserRelation',
+            'ajax' => '1',
+            'return' => 'json',
+            'next' => '',
+            'check' => array(
+            //'type'=>array ('1','require','类型不能为空'),
+            //'id'=>array ('1','require','ID不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'uid' => 'userid',
+            ),
+        ),
+        //
+        'userfollow' => array(
+            'object' => 'modelandmodel',
+            'fields' => array('uid' => 'uid', 'id' => 'id', 'type' => 'type'),
+            'method' => 'post',
+            'api' => 'FollowService::actFollow',
+            'ajax' => '1',
+            'return' => 'json',
+            'next' => '',
+            'check' => array(
+                'type' => array('1', 'require', '类型不能为空'),
+                'id' => array('1', 'require', 'ID不能为空'),
+            ),
+            'value' => array(
+                'type' => '1',
+            ),
+            'auto' => array(
+                'uid' => 'userid',
+            ),
+        ),
+        'usercheckfollow' => array(
+            'object' => 'modelandmodel',
+            'fields' => array('account_id' => 'account_id', 'id' => 'id'),
+            'method' => 'post',
+            'api' => 'FollowService::dataUser2Follow',
+            'ajax' => '1',
+            'return' => 'json',
+            'next' => '',
+            'check' => array(
+                'id' => array('1', 'require', 'ID不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+        ),
+        //用户对商品的操作
+        'userdoaction' => array(
+            'object' => 'modelandmodel',
+            'fields' => array('account_id' => 'account_id', 'id' => 'id', 'type' => 'type'),
+            'method' => 'post',
+            'api' => 'RelationService::actUserDoAction',
+            'ajax' => '1',
+            'return' => 'json',
+            'next' => '',
+            'check' => array(
+                'id' => array('1', 'require', 'ID不能为空'),
+                'type' => array('1', 'require', 'type不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'account_id' => 'userid',
+            ),
+        ),
+    ),
+    //Mis Forms of the web
+    'misForms' => array(
+        'login' => array(
+            'object' => 'services',
+            'fields' => array('account' => 'account', 'password' => 'password'),
+            'method' => 'post',
+            'api' => 'MisService::actCheckLogin',
+            'ajax' => '0',
+            'return' => 'json',
+            'next' => 'index/index',
+            //'callback'=>'r',
+            'check' => array(
+                'account' => array('1', 'require', '帐号不能为空'),
+                'password' => array('1', 'require', '密码不能为空'),
+            ),
+            'value' => array(
+            ),
+            'auto' => array(
+                'password' => 'md5',
+            ),
+        ),
+    ),
+   
+);

@@ -1,0 +1,61 @@
+<include file='../Public/head' />
+
+			<div id="content-inner">
+				<div id="content-main">
+					<div id="panel-top">
+						<div class="section">
+							<h2>
+								Your Buddy.<br>Together with you.
+							</h2>
+
+							<div>
+								<a href="{:U('download')}"
+									class="button" target="_blank">Download Buddy Framework 1.0.0 Stable</a>
+							</div>
+
+						</div>
+					</div>
+					<div id="panel-first">
+						<div id="blog-posts" class="section">
+							<h2>Recent posts from woshimaijia Developer Blog</h2>
+
+							<div class="view">
+								<div class="content">
+									<volist id='vo' name ='page.data'>
+									<div class="row odd first">
+										<div class="posted-date date-box">
+											<span class="month">{$vo.post_date|strtotime|date='M',###}</span> <span class="day">{$vo.post_date|strtotime|date='d',###}</span>
+										</div>
+										<a
+											href="{$vo.guid}">{$vo.post_title|urldecode}</a>
+									</div>
+									</volist>
+									
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div id="panel-last">
+						<div id="icon-links" class="section">
+							<h2>Buddy Framework documents</h2>
+
+							<div>
+								<a href="/docs">What's Buddy?</a> Let's know detail of  buddy
+							</div>
+
+							<div>
+								<a href="/docs/new">Create an Example</a>
+								Create an application to start using the Buddy Framework
+							</div>
+
+							<div>
+								<a href="{&SITE.url}/group/woshimaijia">Discuss</a> Get in
+								touch with the buddy dev team and the community of users
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+<include file='../Public/foot' />

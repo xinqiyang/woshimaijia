@@ -1,0 +1,53 @@
+All cache keys of system
+
+index/home  首页
+l:inbox:13132274644527071  post  用户的inbox  用户关注的信息进入inbox           
+l:outbox:13132274644527071  post  用户的outbox  用户发送的消息进入outbox
+转发和回应都作为一条新消息
+l:likeuser:13132274644527071  account  用户可能感兴趣的人  系统推荐的用户可能感兴趣的人
+l:follow:13132274644527071   account  我关注的人  
+l:befollow:13132274644527071   account  关注我的人  
+
+pub/index  广场
+l:pub  account/post  用户消息列表  广场体现当前系统有多少活跃的人在这里说话  
+
+
+store/index 卖场   商品/品牌/主题 交集的地方
+l:store:focus    product 用户15分钟内关注的对象 商品
+l:store:newproduct:13132274644527071  product 每天的新品你可能会喜欢
+l:store:newbrand  brand  品牌最近新添加的品牌
+l:store:brandnew:13132274644527071  brand  我喜欢的品牌添加的新品
+l:store:focustopic:13132274644527071  topic  我可能喜欢的主题
+l:store:willgo:13132274644527071  url  我可能感兴趣的地方
+l:store:focusgroup:13132274644527071  group  我可能兴趣的小组
+
+group/index 小组   用户交流的地方
+l:group:recommend  group 推荐加入的小组
+l:group:active     group  最近活动过的小组
+l:group:topics     topic  我加入小组中最近讨论的主题
+l:group:recommendtopic topic 推荐去看的热点小组   计算小组view的概率来定
+l:group:topic      topic  小组关联的主题 最近的小组关联的主题
+l:group:activeuser:13132274644527072  account  这个小组最近活动的人
+
+品牌关联公司网站关联淘宝店铺，关联淘宝商城  我们是以品牌为主的一个关系链
+
+item/topic
+h:topic:13132274644527072 topic/post 主题名称  小组主题名称
+l:topic:groupnew:13132274644527072 topic 小组最新的主题名称 id>现在的ID的主题
+
+
+item/product 
+h:product:13132274644527073  product 商品内容
+
+
+定义类型关联管理关系
+'view','post','like','buy','collect','go','focus','send','chat','own','scoring'
+c:like:13132274644527073  ID为13132274644527073的商品的计数
+l:like:13132274644527073  ID为13132274644527073的商品的用户列表list
+
+
+
+
+
+
+

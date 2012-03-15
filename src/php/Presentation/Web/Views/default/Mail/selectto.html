@@ -1,0 +1,18 @@
+<include file="Public:head" />
+<div class="amain">
+<volist name="page.data.users" id="vo">
+<dl class="oblock">
+	<dt><a href="{:U('mail/write',array('id'=>$vo['id']))}" class="nbg"><img
+		src="{$vo.image_id|getNewImage=###,'m'}" class="m_sub_img"
+		alt="{$vo.screenname}"></a></dt>
+	<dd><a href="{:U('mail/write',array('id'=>$vo['id']))}">{$vo.screenname|msubstr=0,6}</a>
+	</dd>
+</dl>
+</volist>
+<div class="clear" ></div> 
+</div>
+<div class="aside">
+<p>>> <a class="ulinkcss" href="{:U('mail/index')}">回到我的收件箱</a></p>
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />

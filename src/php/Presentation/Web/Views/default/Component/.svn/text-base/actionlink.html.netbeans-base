@@ -1,0 +1,22 @@
+<empty name="page['user']['id']"> 
+	<a href="{:U('signup/index')}" class="ulinkcss">&gt; 加入我是买家</a><br><br>
+<a href="{:U('login/index')}" class="ulinkcss">&gt; 登陆我是买家</a><br><br>
+<else />
+<!--
+<div class="noticeblock">
+<a href="" class="ulinkcss" >问题报告,意见反馈</a> <br />
+</div>
+-->
+<div class="cat-col5">
+<a href="{:U('input/brand')}" class="linkcss" title="提交一个新品牌">&gt; 提交新品牌</a><br><br>
+
+<a href="{:U('input/product')}" class="linkcss" title="晒晒新的产品">&gt; 晒晒新产品</a><br><br>
+
+<a href="{:U('input/group')}" class="linkcss" title="新建一个小组">&gt; 新建一小组</a><br><br>
+</div>
+<div class="clear"></div>
+</empty>
+
+
+
+

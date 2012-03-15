@@ -1,0 +1,71 @@
+<?php
+// +----------------------------------------------------------------------
+// | WoShiMaiJia Projcet
+// +----------------------------------------------------------------------
+// | Copyright (c) 2010-2011 http://woshimaijia.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: xinqiyang <xinqiyang@gmail.com>
+// +----------------------------------------------------------------------
+class DistrictLogic extends BaseService
+{
+	public static function addDistrict($name,$level,$upid,$enname='',$sequence=0)
+	{
+		$array = array();
+		$array['id']=objid();
+		$array['name']=$name;
+		$array['level']=$level;
+		$array['upid']=$upid;
+		$array['enname']=$enname;
+		$array['sequence']=$sequence;
+		if(self::add('district', $array))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public static function getDistrict($ip)
+	{
+		$r = '';
+		$district = Base::instance('Iplocation')->getlocation($ip);
+		if(is_int(strpos($district['country'], '市')))
+		{
+			if(is_int(strpos($district['country'], '省')))
+			{
+				$citygroup = explode('省', $district['country']);
+				$districtFind = $citygroup[1];
+			}else{
+				$districtFind = $district['country'];
+			}
+		}elseif(is_int(strpos($district['area'], '市'))){
+			$districtFind = $district['area'];
+		}else{
+			$districtFind = '';
+		}
+		
+		if($districtFind)
+		{
+			$r = self::get('district', '','enname',"name like '%$districtFind%'");
+		}
+		return isset($r['enname']) ? $r['enname'] : '';
+	}
+	
+	public static function getCity($enname)
+	{
+		$r = self::queryField('district', "enname='$enname'", 'name');
+		if($r)
+		{
+			$arr =array('省','市','区');
+			foreach ($arr as $one)
+			{
+				$r = str_replace($one, '', $r);
+			}
+			return $r;
+		}
+		return '火星';
+	}
+
+}

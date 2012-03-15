@@ -1,0 +1,73 @@
+<include file="Public:head" />
+<div class="amain">
+	<div>
+		
+		<notempty name="page['data']['count']">
+			<ul class="mbt">
+			<volist name="page['data']['search']" id="vo">
+				<notempty name="vo">
+				<div id="reply_{$vo.id}">
+					<li class="mbtl"><include file="Component:blockavataruser" /></li>
+					<li class="mbtr"><include file="Component:blocklinkuser" /> <span
+						class="pl">发布了：<if condition="$vo['object'] == 'topic'"><a href="{:U('group/topic',array('id'=>$vo['id']))}">{$vo.title}</a></if></span>
+						<div class="postimg">
+						<if condition="!empty($vo['object_id']) && !empty($vo['imageids']) ">
+							<a href="{:U('product/product',array('id'=>$vo['object_id']))}" ><img src="{$vo.imageids|getNewImage=###,'l'}" /></a>
+						</if>
+						<switch name="vo['object']">
+							
+							<case value='group'>
+								<a href="{:U('group/group',array('id'=>$vo['id']))}" ><img src="{$vo.image_id|getNewImage=###,'l'}" /></a>
+							</case>
+							
+							<case value='product'>
+								<a href="{:U('product/product',array('id'=>$vo['id']))}" ><img src="{$vo.image_id|getNewImage=###,'l'}" /></a>
+							</case>
+							<case value='brand'>
+								<a href="{:U('brand/brand',array('id'=>$vo['id']))}" ><img src="{$vo.image_id|getNewImage=###,'b'}" /></a>
+							</case>
+						</switch>
+						</div>
+						<div class="quote">
+							<if condition="$vo['object'] == 'post'">
+							<span class="inq">{$vo.content|nl2br}</span> <br />
+							<span>{$vo.source}&nbsp;</span> <span><a
+								href="{:U('post/reply',array('id'=>$vo['id']))}"
+								class="reply_{$vo.id}" name="" rev="unfold" rel="">{$vo.reply}回应</a>
+							</span> <span style="margin-left: 10px;"><a
+								href="{:U('post/usercopy',array('id'=>$vo['id']))}"
+								class="usercopy_{$vo.id}" name="" rev="unfold" rel="">{$vo.usercopy}转发</a>
+							</span> <span style="margin-left: 10px;">{$vo.id|msubstr=###,0,10|aliasTime}</span>
+							<notempty name="page['user']['id']">
+							<if condition="$vo['user_id'] eq $page['user']['id']">
+							<span class="reply_banned">
+								<span class="commentfright"> <a rel="nofollow"
+									href="javascript:void(0)"
+									class="commentfright" onclick="clickaction('{$vo.id}','del')" title="删除">&gt;删除</a> </span>
+							</span>
+							</if>
+							</notempty>
+							<br />
+							<else />
+							<span class="inq">{$vo.title}</span>
+							</if>
+							
+						</div>
+						
+						</li>
+						</div>
+						</notempty>
+						
+				
+			</volist>
+			</ul>
+		</notempty>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="aside">
+	<include file="Component:actionlink" />
+
+</div>
+<div class="extra"></div>
+<include file="Public:foot" />
