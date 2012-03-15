@@ -1,8 +1,0 @@
-<div class="gblock">
-<a class="goods_photo"
-	href="{:U('show/showgoods',array('id'=>$vo['gid']))}"> <img class="artist_s"
-	alt="{$vo.title}" src="{:getImage($vo['image_id'])}" title="{$vo.title}"></a>
-<div style="width: 100%;" class="ll"><a
-	href="{:U('show/showgoods',array('id'=>$vo['gid']))}">{$vo.title|msubstr=0,24}</a></div>
-<div class="pl">({$vo.likenum}人喜欢,{$vo.wantnum}想买)</div>
-</div>
